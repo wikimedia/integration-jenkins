@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MediaWiki" default="build" basedir=".">
+	<!-- Config -->
+	<property file="build.properties"/>
+
+	<!-- Default target -->
+	<target name="build" depends="init,phpunit" />
+
+	<!-- Prepares the temporary build environment. -->
+	<target name="prepare" depends="clean,init" />
+
+	<!-- Create the required build directories -->
+	<target name="clean">
+		<delete file="${builddir}/data/my_wiki.sqlite"/>
+		<delete file="${sourcedir}/LocalSettings.php"/>
+	</target>
+
+	<!-- Init a fresh build -->
+	<target name="init" depends="clean">
+		<mkdir dir="${builddir}" />
+		<mkdir dir="${builddir}/api" />
+		<mkdir dir="${builddir}/data" />
+		<mkdir dir="${builddir}/charts" />
+		<mkdir dir="${builddir}/coverage" />
+		<mkdir dir="${builddir}/dist" />
+		<mkdir dir="${builddir}/logs" />
+		<mkdir dir="${builddir}/php-code-browser" />
+		<exec executable="php" dir="${sourcedir}/" failonerror="true">
+			<arg line="maintenance/install.php --dbtype=sqlite --dbpath=${builddir}/data --pass=testpass --showexceptions=true test test"/>
+		</exec>
+		<exec executable="sh" dir="${sourcedir}/" failonerror="true">
+			<arg line="-c &quot;echo require_once\( dirname\( dirname\( dirname\( __FILE__ \) \) \) \) . \'/ExtraSettings.php\'\;>>LocalSettings.php&quot;"/>
+		</exec>
+		<exec executable="php" dir="${sourcedir}/" failonerror="true">
+			<arg line="maintenance/update.php --quick" />
+		</exec>
+	</target>
+
+	<!-- main phpunit build stuff - use our phpunit.php wrapper! -->
+	<target name="phpunit" depends="prepare">
+		<exec executable="./phpunit.php" dir="${sourcedir}/tests/phpunit" failonerror="true">
+			<arg line="--configuration suite.xml --exclude-group Broken,Stub --log-junit ${builddir}/logs/junit.xml" />
+		</exec>
+	</target>
+</project>
