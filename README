@@ -1,0 +1,4 @@
+The files in this directory are for configuration of our Jenkins build jobs. Our
+Jenkins installation is at <http://integration.mediawiki.org/ci/>.
+
+Please feel free to use them if you find them helpful.
