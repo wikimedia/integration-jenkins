@@ -18,13 +18,7 @@
 	<!-- Init a fresh build -->
 	<target name="init" depends="clean">
 		<mkdir dir="${builddir}" />
-		<mkdir dir="${builddir}/api" />
-		<mkdir dir="${builddir}/data" />
-		<mkdir dir="${builddir}/charts" />
-		<mkdir dir="${builddir}/coverage" />
-		<mkdir dir="${builddir}/dist" />
 		<mkdir dir="${builddir}/logs" />
-		<mkdir dir="${builddir}/php-code-browser" />
 		<exec executable="php" dir="${sourcedir}/" failonerror="true">
 			<arg line="maintenance/install.php --dbtype=sqlite --dbpath=${builddir}/data --pass=testpass --showexceptions=true test test"/>
 		</exec>
