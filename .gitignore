@@ -1,0 +1,13 @@
+# Ignore anything in the root project directory:
+/*
+# .. except:
+!.gitignore
+!jobs/
+
+# In jobs:
+# ignore subdirectories
+/jobs/*/*
+!/jobs/*/config.xml
+!/jobs/*/build.xml
+!/jobs/*/build.properties
+!/jobs/*/*.php
