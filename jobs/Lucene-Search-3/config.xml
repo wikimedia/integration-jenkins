@@ -32,7 +32,7 @@
     <groupId>bazzar</groupId>
     <artifactId>bazzar</artifactId>
   </rootModule>
-  <goals>test javadoc:javadoc site:site</goals>
+  <goals>site</goals>
   <defaultGoals>package</defaultGoals>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
   <incrementalBuild>false</incrementalBuild>
@@ -46,63 +46,32 @@
   <settingConfigId></settingConfigId>
   <globalSettingConfigId></globalSettingConfigId>
   <reporters>
-    <hudson.plugins.checkstyle.CheckStyleReporter>
-      <healthy></healthy>
-      <unHealthy></unHealthy>
-      <pluginName>[CHECKSTYLE] </pluginName>
-      <thresholdLimit>low</thresholdLimit>
-      <canRunOnFailed>false</canRunOnFailed>
-      <useDeltaValues>false</useDeltaValues>
-      <thresholds>
-        <unstableTotalAll></unstableTotalAll>
-        <unstableTotalHigh></unstableTotalHigh>
-        <unstableTotalNormal></unstableTotalNormal>
-        <unstableTotalLow></unstableTotalLow>
-        <failedTotalAll></failedTotalAll>
-        <failedTotalHigh></failedTotalHigh>
-        <failedTotalNormal></failedTotalNormal>
-        <failedTotalLow></failedTotalLow>
-      </thresholds>
-      <dontComputeNew>true</dontComputeNew>
-    </hudson.plugins.checkstyle.CheckStyleReporter>
-    <hudson.plugins.findbugs.FindBugsReporter>
-      <healthy></healthy>
-      <unHealthy></unHealthy>
-      <pluginName>[FINDBUGS] </pluginName>
-      <thresholdLimit>low</thresholdLimit>
-      <canRunOnFailed>false</canRunOnFailed>
-      <useDeltaValues>false</useDeltaValues>
-      <thresholds>
-        <unstableTotalAll></unstableTotalAll>
-        <unstableTotalHigh></unstableTotalHigh>
-        <unstableTotalNormal></unstableTotalNormal>
-        <unstableTotalLow></unstableTotalLow>
-        <failedTotalAll></failedTotalAll>
-        <failedTotalHigh></failedTotalHigh>
-        <failedTotalNormal></failedTotalNormal>
-        <failedTotalLow></failedTotalLow>
-      </thresholds>
-      <dontComputeNew>true</dontComputeNew>
-      <isRankActivated>false</isRankActivated>
-    </hudson.plugins.findbugs.FindBugsReporter>
     <hudson.plugins.pmd.PmdReporter>
       <healthy></healthy>
       <unHealthy></unHealthy>
       <pluginName>[PMD] </pluginName>
       <thresholdLimit>low</thresholdLimit>
-      <canRunOnFailed>false</canRunOnFailed>
-      <useDeltaValues>false</useDeltaValues>
+      <canRunOnFailed>true</canRunOnFailed>
+      <useDeltaValues>true</useDeltaValues>
       <thresholds>
         <unstableTotalAll></unstableTotalAll>
         <unstableTotalHigh></unstableTotalHigh>
         <unstableTotalNormal></unstableTotalNormal>
         <unstableTotalLow></unstableTotalLow>
+        <unstableNewAll></unstableNewAll>
+        <unstableNewHigh></unstableNewHigh>
+        <unstableNewNormal></unstableNewNormal>
+        <unstableNewLow></unstableNewLow>
         <failedTotalAll></failedTotalAll>
         <failedTotalHigh></failedTotalHigh>
         <failedTotalNormal></failedTotalNormal>
         <failedTotalLow></failedTotalLow>
+        <failedNewAll></failedNewAll>
+        <failedNewHigh></failedNewHigh>
+        <failedNewNormal></failedNewNormal>
+        <failedNewLow></failedNewLow>
       </thresholds>
-      <dontComputeNew>true</dontComputeNew>
+      <dontComputeNew>false</dontComputeNew>
     </hudson.plugins.pmd.PmdReporter>
     <hudson.plugins.dry.DryReporter>
       <healthy></healthy>
@@ -127,30 +96,59 @@
     </hudson.plugins.dry.DryReporter>
   </reporters>
   <publishers>
-    <xunit>
-      <types>
-        <JUnitType>
-          <pattern>target/surefire-reports/*.xml</pattern>
-          <faildedIfNotNew>false</faildedIfNotNew>
-          <deleteOutputFiles>true</deleteOutputFiles>
-          <stopProcessingIfError>true</stopProcessingIfError>
-        </JUnitType>
-      </types>
-      <thresholds>
-        <org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
-          <unstableThreshold></unstableThreshold>
-          <unstableNewThreshold></unstableNewThreshold>
-          <failureThreshold></failureThreshold>
-          <failureNewThreshold></failureNewThreshold>
-        </org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
-        <org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
-          <unstableThreshold></unstableThreshold>
-          <unstableNewThreshold></unstableNewThreshold>
-          <failureThreshold></failureThreshold>
-          <failureNewThreshold></failureNewThreshold>
-        </org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
-      </thresholds>
-    </xunit>
+    <hudson.plugins.cobertura.CoberturaPublisher>
+      <coberturaReportFile>**/target/site/cobertura/coverage.xm</coberturaReportFile>
+      <onlyStable>true</onlyStable>
+      <healthyTarget>
+        <targets class="enum-map" enum-type="hudson.plugins.cobertura.targets.CoverageMetric">
+          <entry>
+            <hudson.plugins.cobertura.targets.CoverageMetric>CONDITIONAL</hudson.plugins.cobertura.targets.CoverageMetric>
+            <int>70</int>
+          </entry>
+          <entry>
+            <hudson.plugins.cobertura.targets.CoverageMetric>LINE</hudson.plugins.cobertura.targets.CoverageMetric>
+            <int>80</int>
+          </entry>
+          <entry>
+            <hudson.plugins.cobertura.targets.CoverageMetric>METHOD</hudson.plugins.cobertura.targets.CoverageMetric>
+            <int>80</int>
+          </entry>
+        </targets>
+      </healthyTarget>
+      <unhealthyTarget>
+        <targets class="enum-map" enum-type="hudson.plugins.cobertura.targets.CoverageMetric">
+          <entry>
+            <hudson.plugins.cobertura.targets.CoverageMetric>CONDITIONAL</hudson.plugins.cobertura.targets.CoverageMetric>
+            <int>0</int>
+          </entry>
+          <entry>
+            <hudson.plugins.cobertura.targets.CoverageMetric>LINE</hudson.plugins.cobertura.targets.CoverageMetric>
+            <int>0</int>
+          </entry>
+          <entry>
+            <hudson.plugins.cobertura.targets.CoverageMetric>METHOD</hudson.plugins.cobertura.targets.CoverageMetric>
+            <int>0</int>
+          </entry>
+        </targets>
+      </unhealthyTarget>
+      <failingTarget>
+        <targets class="enum-map" enum-type="hudson.plugins.cobertura.targets.CoverageMetric">
+          <entry>
+            <hudson.plugins.cobertura.targets.CoverageMetric>CONDITIONAL</hudson.plugins.cobertura.targets.CoverageMetric>
+            <int>0</int>
+          </entry>
+          <entry>
+            <hudson.plugins.cobertura.targets.CoverageMetric>LINE</hudson.plugins.cobertura.targets.CoverageMetric>
+            <int>0</int>
+          </entry>
+          <entry>
+            <hudson.plugins.cobertura.targets.CoverageMetric>METHOD</hudson.plugins.cobertura.targets.CoverageMetric>
+            <int>0</int>
+          </entry>
+        </targets>
+      </failingTarget>
+      <sourceEncoding>ASCII</sourceEncoding>
+    </hudson.plugins.cobertura.CoberturaPublisher>
   </publishers>
   <buildWrappers/>
 </maven2-moduleset>
