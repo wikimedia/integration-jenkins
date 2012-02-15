@@ -3,12 +3,3 @@
 # .. except:
 !.gitignore
 !jobs/
-
-# In jobs:
-# ignore subdirectories
-/jobs/*/*
-!/jobs/_shared/*
-!/jobs/*/config.xml
-!/jobs/*/build.xml
-!/jobs/*/build.properties
-!/jobs/*/*.php
