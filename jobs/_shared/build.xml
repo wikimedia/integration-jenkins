@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+	ant build file for MediaWiki Core continuous integration
+-->
+<project name="testingant" default="build">
+
+	<!-- Import environnement: -->
+	<property environment="env" />
+	<!-- Import generic settings and validate existance -->
+	<property file="build.properties" />
+	<fail unless="sourcedir">You must define sourcedir</fail>
+	<fail unless="builddir" >You must define builddir</fail>
+
+	<!-- ant -Dmw.database=sqlite -->
+	<target name="select-database" unless="mw.database">
+		<input
+			message      = "Select a database backend"
+			validargs    = "sqlite, postgre, mysql"
+			defaultvalue = "sqlite"
+			addproperty  = "mw.database"
+		/>
+	</target>
+	<target name="select-branch" unless="mw.branch">
+		<input
+			message      = "Specify a branch"
+			defaultvalue = "trunk"
+			addproperty  = "mw.branch"
+		/>
+	</target>
+
+
+	<target name="build" depends="install" description="Main entry point" />
+
+	<target name="install" depends="clean,create-dirs,installdb">
+		<!-- Append a call to extrasettings -->
+		<echo level="info">Making MediaWiki to load ExtraSettings.php</echo>
+		<echo append="true" file="${builddir}/LocalSettings.php">
+<![CDATA[
+# START: PHP code inserted automatically by build job
+
+# Include ExtraSettings.php
+require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
+
+# END: PHP code inserted automatically by build job
+]]>
+		</echo>
+		<echo level="info">Running MediaWiki update</echo>
+		<exec executable="php" dir="${builddir}/" failonerror="true">
+			<arg line="${sourcedir}/maintenance/update.php --quick --conf ${builddir}/LocalSettings.php" />
+		</exec>
+	</target>
+
+	<target name="create-dirs">
+		<echo level="info">Creating basic build directory tree</echo>
+		<mkdir dir="${builddir}" />
+		<mkdir dir="${builddir}/api" />
+		<mkdir dir="${builddir}/data" />
+		<mkdir dir="${builddir}/charts" />
+		<mkdir dir="${builddir}/coverage" />
+		<mkdir dir="${builddir}/dist" />
+		<mkdir dir="${builddir}/logs" />
+		<mkdir dir="${builddir}/php-code-browser" />
+	</target>
+
+	<!-- Database installation targets -->
+	<target name="installdb" depends="select-database">
+		<echo>Running MediaWiki installer for database ${mw.database}</echo>
+		<antcall target="installdb-${mw.database}" />
+	</target>
+	<target name="installdb-mysql">
+		<fail>Install not implemented for MySQL</fail>
+	</target>
+	<target name="installdb-postgre">
+		<exec executable="php" dir="${builddir}/" failonerror="true">
+			<arg line="${sourcedir}/maintenance/install.php
+				--confpath ${builddir}
+				--dbtype=postgres
+				--dbname=${pgdb}
+				--dbuser=wikiuser
+				--dbpass='${pgpass}'
+				--installdbuser=jenkins
+				--installdbpass=jenkins
+				--showexceptions=true
+				--pass testpass
+				postgrestest
+				WikiAdmin
+			"/>
+		</exec>
+	</target>
+	<target name="installdb-sqlite">
+		<exec executable="php" dir="${builddir}/" failonerror="true">
+			<arg line="${sourcedir}/maintenance/install.php
+				--confpath ${builddir}
+				--dbtype=sqlite
+				--dbpath=${builddir}/data
+				--showexceptions=true
+				--pass testpass
+				sqlitetest
+				WikiAdmin
+			"/>
+		</exec>
+	</target>
+
+	<target name="clean" depends="cleandb">
+		<echo level="info">Deleting LocalSettings.php</echo>
+		<delete file="${builddir}/LocalSettings.php" />
+	</target>
+	<!-- Database cleaning targets -->
+	<target name="cleandb"
+		depends="select-database"
+		description="Clean database (set mw.database)">
+		<echo>Cleaning database!</echo>
+		<antcall target="cleandb-${mw.database}" />
+	</target>
+	<target name="cleandb-mysql">
+		<echo>Cleaning MySQL!</echo>
+		<fail>Database cleaning not implemented for MySQL</fail>
+	</target>
+	<target name="cleandb-postgre">
+		<echo>Cleaning PostgreSQL!</echo>
+		<exec executable="dropdb">
+			<arg line="-e ${pgdb}" />
+		</exec>
+	</target>
+	<target name="cleandb-sqlite">
+		<echo>Cleaning SQLite!</echo>
+		<delete file="${builddir}/data/my_wiki.sqlite" />
+	</target>
+</project>
