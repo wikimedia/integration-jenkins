@@ -9,3 +9,4 @@
 # Some jobs subdirectories (TODO: ignore all?)
 */builds/
 */workspace/
+*/config-history/
