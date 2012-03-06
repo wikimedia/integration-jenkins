@@ -29,11 +29,11 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <rootModule>
-    <groupId>bazzar</groupId>
+    <groupId>org.wikimedia</groupId>
     <artifactId>bazzar</artifactId>
   </rootModule>
   <goals>site</goals>
-  <defaultGoals>package</defaultGoals>
+  <defaultGoals>install</defaultGoals>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
   <incrementalBuild>false</incrementalBuild>
   <usePrivateRepository>false</usePrivateRepository>
