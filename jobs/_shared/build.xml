@@ -2,7 +2,7 @@
 <!--
 	ant build file for MediaWiki Core continuous integration
 -->
-<project name="testingant" default="build">
+<project name="MediaWiki" default="build">
 
 	<!-- Import environnement: -->
 	<property environment="env" />
