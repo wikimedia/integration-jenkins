@@ -31,7 +31,7 @@
     </buildChooser>
     <gitTool>Default</gitTool>
     <submoduleCfg class="list"/>
-    <relativeTargetDir>mw-core</relativeTargetDir>
+    <relativeTargetDir></relativeTargetDir>
     <reference></reference>
     <excludedRegions></excludedRegions>
     <excludedUsers></excludedUsers>
