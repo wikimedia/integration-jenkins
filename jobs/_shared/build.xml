@@ -6,6 +6,9 @@
 
 	<!-- Import environnement: -->
 	<property environment="env" />
+
+	<property name="phpunitexcludes" value="Broken,ParserFuzz,Destructive,Stub" />
+
 	<!-- Import generic settings and validate existance -->
 	<property file="build.properties" />
 	<fail unless="sourcedir">You must define sourcedir</fail>
@@ -101,6 +104,10 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 		</exec>
 	</target>
 
+	<target name="fake-localsettings">
+		<touch file="${builddir}/LocalSettings.php" />
+	</target>
+
 	<target name="clean" depends="cleandb">
 		<echo level="info">Deleting LocalSettings.php</echo>
 		<delete file="${builddir}/LocalSettings.php" />
@@ -126,4 +133,30 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 		<echo>Cleaning SQLite!</echo>
 		<delete file="${builddir}/data/my_wiki.sqlite" />
 	</target>
+
+	<!-- PHPUnit related targets -->
+	<target name="phpunit-databaseless" depends="fake-localsettings">
+		<run-phpunit options="--exclude-group Database,${phpunitexcludes}" />
+	</target>
+	<target name="phpunit-databased" depends="phpunit-parser, phpunit-api" />
+	<target name="phpunit-parser">
+		<run-phpunit group="parser"/>
+	</target>
+	<target name="phpunit-api">
+		<run-phpunit group="api"/>
+	</target>
+
+	<!-- Macro to run some phpunit tests
+	     @param Options Additional parameters to pass to PHPUnit
+	-->
+	<macrodef name="run-phpunit">
+		<attribute name="options" default="" />
+
+		<sequential>
+		<exec executable="php" dir="${sourcedir}/tests/phpunit" failonerror="true">
+			<arg line="phpunit.php --conf ${builddir}/LocalSettings.php @{options} --log-junit ${builddir}/logs/junit.xml" />
+		</exec>
+		</sequential>
+	</macrodef>
+
 </project>
