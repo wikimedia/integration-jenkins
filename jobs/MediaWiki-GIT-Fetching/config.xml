@@ -50,7 +50,7 @@
       <gerritProjects>
         <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
           <compareType>ANT</compareType>
-          <pattern>test/mediawiki/core2</pattern>
+          <pattern>test/mediawiki/core</pattern>
           <branches>
             <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
               <compareType>ANT</compareType>
