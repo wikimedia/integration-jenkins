@@ -1,0 +1,5 @@
+# Ignore anything in the root project directory:
+/*
+# .. except:
+!.gitignore
+!jobs/

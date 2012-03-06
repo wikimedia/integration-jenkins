@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>This is the build for MediaWiki REL1_18 branch that only does unit tests.&#xd;
-It is designed to be triggered after every commit.</description>
+  <description>This is the build for MediaWiki that only does unit tests. It is designed to be triggered after every commit.&#xd;
+&#xd;
+This particular jobs use a PostgreSQL backend.</description>
   <logRotator>
     <daysToKeep>-1</daysToKeep>
     <numToKeep>50</numToKeep>
@@ -14,11 +15,11 @@ It is designed to be triggered after every commit.</description>
   <scm class="hudson.scm.SubversionSCM">
     <locations>
       <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>http://svn.wikimedia.org/svnroot/mediawiki/branches/REL1_18/phase3</remote>
+        <remote>http://svn.wikimedia.org/svnroot/mediawiki/trunk/phase3</remote>
         <local>mw-core</local>
       </hudson.scm.SubversionSCM_-ModuleLocation>
       <hudson.scm.SubversionSCM_-ModuleLocation>
-        <remote>http://svn.wikimedia.org/svnroot/mediawiki/branches/REL1_18/extensions</remote>
+        <remote>http://svn.wikimedia.org/svnroot/mediawiki/trunk/extensions</remote>
         <local>mw-extensions</local>
       </hudson.scm.SubversionSCM_-ModuleLocation>
     </locations>
@@ -42,7 +43,7 @@ It is designed to be triggered after every commit.</description>
   <builders>
     <hudson.tasks.Ant>
       <targets>build</targets>
-      <buildFile>/var/lib/jenkins/jobs/MediaWiki-REL1_18-phpunit/build.xml</buildFile>
+      <buildFile>/var/lib/jenkins/jobs/MediaWiki-postgres-phpunit/build.xml</buildFile>
     </hudson.tasks.Ant>
   </builders>
   <publishers>
@@ -74,7 +75,7 @@ It is designed to be triggered after every commit.</description>
       <targets>
         <hudson.plugins.im.GroupChatIMMessageTarget>
           <name>#mediawiki</name>
-          <notificationOnly>false</notificationOnly>
+          <notificationOnly>true</notificationOnly>
         </hudson.plugins.im.GroupChatIMMessageTarget>
       </targets>
       <strategy>FAILURE_AND_FIXED</strategy>

@@ -5,6 +5,7 @@ $ext = dirname( __FILE__ ) . '/workspace/mw-extensions';
 require_once( "$ext/Cite/Cite.php" );
 require_once( "$ext/CodeReview/CodeReview.php" );
 require_once( "$ext/Gadgets/Gadgets.php" );
+require_once( "$ext/Translate/Translate.php" ); # hashar 20120118
 #require_once( "$ext/FlaggedRevs/FlaggedRevs.php" );
 require_once( "$ext/LabeledSectionTransclusion/lst.php" );
 require_once( "$ext/ParserFunctions/ParserFunctions.php" );
@@ -16,3 +17,4 @@ $wgShowExceptionDetails = true;
 $wgShowSQLErrors = true;
 #$wgDebugLogFile = dirname( __FILE__ ) . '/build/debug.log';
 $wgDebugDumpSql = true;
+

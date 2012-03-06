@@ -44,19 +44,6 @@
       <buildFile>/var/lib/jenkins/jobs/MediaWiki-lint/build.xml</buildFile>
     </hudson.tasks.Ant>
   </builders>
-  <publishers>
-    <hudson.plugins.ircbot.IrcPublisher>
-      <targets class="java.util.Collections$EmptyList"/>
-      <strategy>FAILURE_AND_FIXED</strategy>
-      <notifyOnBuildStart>false</notifyOnBuildStart>
-      <notifySuspects>false</notifySuspects>
-      <notifyCulprits>false</notifyCulprits>
-      <notifyFixers>false</notifyFixers>
-      <notifyUpstreamCommitters>false</notifyUpstreamCommitters>
-      <buildToChatNotifier class="hudson.plugins.im.build_notify.SummaryOnlyBuildToChatNotifier"/>
-      <matrixMultiplier>ONLY_CONFIGURATIONS</matrixMultiplier>
-      <channels/>
-    </hudson.plugins.ircbot.IrcPublisher>
-  </publishers>
+  <publishers/>
   <buildWrappers/>
 </project>

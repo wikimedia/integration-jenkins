@@ -1,0 +1,15 @@
+# Jenkins generated files:
+*/github-polling.log
+*/scm-polling.log
+*/nextBuildNumber
+*/lastSuccessful
+*/lastStable
+*/svnexternals.txt
+
+# Some jobs subdirectories (TODO: ignore all?)
+*/builds/
+*/javadoc/
+*/modules/
+*/site/
+*/workspace/
+*/config-history/

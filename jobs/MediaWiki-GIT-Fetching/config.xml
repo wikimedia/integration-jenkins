@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Fetching MediaWiki code from the git repo</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name></name>
+        <refspec>$GERRIT_REFSPEC</refspec>
+        <url>https://gerrit.wikimedia.org/r/p/test/mediawiki/core</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>origin/$GERRIT_BRANCH</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <disableSubmodules>false</disableSubmodules>
+    <recursiveSubmodules>false</recursiveSubmodules>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <authorOrCommitter>false</authorOrCommitter>
+    <clean>false</clean>
+    <wipeOutWorkspace>false</wipeOutWorkspace>
+    <pruneBranches>false</pruneBranches>
+    <remotePoll>false</remotePoll>
+    <buildChooser class="com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTriggerBuildChooser">
+      <separator>#</separator>
+    </buildChooser>
+    <gitTool>Default</gitTool>
+    <submoduleCfg class="list"/>
+    <relativeTargetDir></relativeTargetDir>
+    <reference></reference>
+    <excludedRegions></excludedRegions>
+    <excludedUsers></excludedUsers>
+    <gitConfigName></gitConfigName>
+    <gitConfigEmail></gitConfigEmail>
+    <skipTag>false</skipTag>
+    <scmName></scmName>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>true</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector">
+    <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger>
+      <spec></spec>
+      <gerritProjects>
+        <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
+          <compareType>ANT</compareType>
+          <pattern>test/mediawiki/core</pattern>
+          <branches>
+            <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+              <compareType>ANT</compareType>
+              <pattern>**</pattern>
+            </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+          </branches>
+        </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
+      </gerritProjects>
+      <silentMode>false</silentMode>
+      <escapeQuotes>true</escapeQuotes>
+      <buildStartMessage></buildStartMessage>
+      <buildFailureMessage></buildFailureMessage>
+      <buildSuccessfulMessage></buildSuccessfulMessage>
+      <buildUnstableMessage></buildUnstableMessage>
+    </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>/var/lib/jenkins/bin/fetch_gerrit_head.sh</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.test.AggregatedTestResultPublisher>
+      <includeFailedBuilds>true</includeFailedBuilds>
+    </hudson.tasks.test.AggregatedTestResultPublisher>
+    <hudson.tasks.BuildTrigger>
+      <childProjects>MediaWiki-Tests-Databaseless</childProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
+    <hudson.tasks.Fingerprinter>
+      <targets></targets>
+      <recordBuildArtifacts>false</recordBuildArtifacts>
+    </hudson.tasks.Fingerprinter>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper/>
+  </buildWrappers>
+</project>
