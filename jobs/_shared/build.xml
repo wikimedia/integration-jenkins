@@ -10,7 +10,18 @@
 	<property name="phpunitexcludes" value="Broken,ParserFuzz,Destructive,Stub" />
 
 	<!-- Import generic settings and validate existance -->
-	<property file="build.properties" />
+
+	<!-- private.properties for password. it is in .gitignore -->
+	<property file="private.properties" />
+
+	<!-- job.properties file is at the job level. Useful to override generic
+		 properties -->
+	<property file="job.properties" />
+
+	<!-- then load the default.properties, setting any values which have not been
+	     set previously -->
+	<property file="default.properties" />
+
 	<fail unless="sourcedir">You must define sourcedir</fail>
 	<fail unless="builddir" >You must define builddir</fail>
 

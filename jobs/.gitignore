@@ -13,3 +13,6 @@
 */site/
 */workspace/
 */config-history/
+
+# Ignore jobs private properties
+*/private.properties
