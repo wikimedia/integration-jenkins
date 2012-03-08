@@ -77,18 +77,18 @@
     <hudson.tasks.test.AggregatedTestResultPublisher>
       <includeFailedBuilds>true</includeFailedBuilds>
     </hudson.tasks.test.AggregatedTestResultPublisher>
+    <hudson.tasks.Fingerprinter>
+      <targets></targets>
+      <recordBuildArtifacts>false</recordBuildArtifacts>
+    </hudson.tasks.Fingerprinter>
     <hudson.tasks.BuildTrigger>
-      <childProjects>MediaWiki-Tests-Databaseless</childProjects>
+      <childProjects>MediaWiki-Tests-Databaseless, MediaWiki-Tests-Parser</childProjects>
       <threshold>
         <name>SUCCESS</name>
         <ordinal>0</ordinal>
         <color>BLUE</color>
       </threshold>
     </hudson.tasks.BuildTrigger>
-    <hudson.tasks.Fingerprinter>
-      <targets></targets>
-      <recordBuildArtifacts>false</recordBuildArtifacts>
-    </hudson.tasks.Fingerprinter>
   </publishers>
   <buildWrappers>
     <hudson.plugins.timestamper.TimestamperBuildWrapper/>

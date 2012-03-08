@@ -104,7 +104,7 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 		</exec>
 	</target>
 
-	<target name="fake-localsettings">
+	<target name="fake-localsettings" depends="create-dirs">
 		<touch file="${builddir}/LocalSettings.php" />
 	</target>
 
@@ -138,12 +138,14 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 	<target name="phpunit-databaseless" depends="fake-localsettings">
 		<run-phpunit options="--exclude-group Database,${phpunitexcludes}" />
 	</target>
+
 	<target name="phpunit-databased" depends="phpunit-parser, phpunit-api" />
-	<target name="phpunit-parser">
-		<run-phpunit group="parser"/>
+
+	<target name="phpunit-parser" depends="installdb">
+		<run-phpunit options="--group Parser --exclude-group ${phpunitexcludes}"/>
 	</target>
 	<target name="phpunit-api">
-		<run-phpunit group="api"/>
+		<run-phpunit options="--group Api --exclude-group ${phpunitexcludes}"/>
 	</target>
 
 	<!-- Macro to run some phpunit tests
