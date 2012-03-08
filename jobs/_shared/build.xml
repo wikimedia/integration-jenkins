@@ -17,7 +17,7 @@
 	<!-- ant -Dmw.database=sqlite -->
 	<target name="select-database" unless="mw.database">
 		<input
-			message      = "Select a database backend"
+			message      = "Select a database backend or set mw.database in local.properties"
 			validargs    = "sqlite, postgre, mysql"
 			defaultvalue = "sqlite"
 			addproperty  = "mw.database"
@@ -25,7 +25,7 @@
 	</target>
 	<target name="select-branch" unless="mw.branch">
 		<input
-			message      = "Specify a branch"
+			message      = "Specify a branch or set mw.branch in local.properties"
 			defaultvalue = "trunk"
 			addproperty  = "mw.branch"
 		/>
