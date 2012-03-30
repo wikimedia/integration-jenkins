@@ -68,6 +68,7 @@
         <failedNewLow></failedNewLow>
       </thresholds>
       <shouldDetectModules>false</shouldDetectModules>
+      <dontComputeNew>false</dontComputeNew>
       <pattern>logs/phpmd.xml</pattern>
     </hudson.plugins.pmd.PmdPublisher>
     <hudson.plugins.jdepend.JDependRecorder>
