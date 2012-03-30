@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>This is the build for MediaWiki REL1_18 branch that only does unit tests.&#xd;
-It is designed to be triggered after every commit.</description>
+  <description>Run PHPUnit. Triggers on commits to [mediawiki]/branches/REL1_18</description>
   <logRotator>
     <daysToKeep>-1</daysToKeep>
     <numToKeep>50</numToKeep>

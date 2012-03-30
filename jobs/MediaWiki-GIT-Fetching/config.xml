@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Fetching MediaWiki code from the git repo</description>
+  <description>Collector-job for jobs running when changesets are pushed to Gerrit for review in `mediawiki/core`</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.plugins.git.GitSCM">
