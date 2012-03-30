@@ -90,7 +90,7 @@
       </threshold>
     </hudson.tasks.BuildTrigger>
     <hudson.tasks.Fingerprinter>
-      <targets></targets>
+      <targets>.git/HEAD</targets>
       <recordBuildArtifacts>false</recordBuildArtifacts>
     </hudson.tasks.Fingerprinter>
   </publishers>
