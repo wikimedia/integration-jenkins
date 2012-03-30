@@ -38,6 +38,7 @@
     <gitConfigName></gitConfigName>
     <gitConfigEmail></gitConfigEmail>
     <skipTag>false</skipTag>
+    <includedRegions></includedRegions>
     <scmName></scmName>
   </scm>
   <canRoam>true</canRoam>
@@ -65,6 +66,8 @@
       <buildFailureMessage></buildFailureMessage>
       <buildSuccessfulMessage></buildSuccessfulMessage>
       <buildUnstableMessage></buildUnstableMessage>
+      <buildUnsuccessfulFilepath></buildUnsuccessfulFilepath>
+      <customUrl></customUrl>
     </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>

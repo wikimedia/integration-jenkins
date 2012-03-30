@@ -84,6 +84,7 @@
       <notifyUpstreamCommitters>false</notifyUpstreamCommitters>
       <buildToChatNotifier class="hudson.plugins.im.build_notify.SummaryOnlyBuildToChatNotifier"/>
       <matrixMultiplier>ONLY_CONFIGURATIONS</matrixMultiplier>
+      <channels/>
     </hudson.plugins.ircbot.IrcPublisher>
   </publishers>
   <buildWrappers/>
