@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Runs PHPUnit/API tests. Runs when changesets are pushed to Gerrit for review in `mediawiki/core`</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Ant>
+      <targets>phpunit-api</targets>
+      <buildFile>../build.xml</buildFile>
+    </hudson.tasks.Ant>
+  </builders>
+  <publishers>
+    <xunit>
+      <types>
+        <PHPUnitJunitHudsonTestType>
+          <pattern>logs/junit.xml</pattern>
+          <faildedIfNotNew>true</faildedIfNotNew>
+          <deleteOutputFiles>true</deleteOutputFiles>
+          <stopProcessingIfError>true</stopProcessingIfError>
+        </PHPUnitJunitHudsonTestType>
+      </types>
+      <thresholds>
+        <org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
+          <unstableThreshold></unstableThreshold>
+          <unstableNewThreshold></unstableNewThreshold>
+          <failureThreshold></failureThreshold>
+          <failureNewThreshold></failureNewThreshold>
+        </org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
+        <org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
+          <unstableThreshold></unstableThreshold>
+          <unstableNewThreshold></unstableNewThreshold>
+          <failureThreshold></failureThreshold>
+          <failureNewThreshold></failureNewThreshold>
+        </org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
+      </thresholds>
+    </xunit>
+    <hudson.tasks.Fingerprinter>
+      <targets>HEAD</targets>
+      <recordBuildArtifacts>false</recordBuildArtifacts>
+    </hudson.tasks.Fingerprinter>
+  </publishers>
+  <buildWrappers/>
+</project>

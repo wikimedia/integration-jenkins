@@ -7,7 +7,7 @@
 	<!-- Import environnement: -->
 	<property environment="env" />
 
-	<property name="phpunitexcludes" value="Broken,ParserFuzz,Destructive,Stub" />
+	<property name="phpunitexcludes" value="Broken,ParserFuzz,Stub" />
 
 	<!-- Import generic settings and validate existance -->
 
@@ -101,7 +101,7 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 			"/>
 		</exec>
 	</target>
-	<target name="installdb-sqlite">
+	<target name="installdb-sqlite" depends="create-dirs">
 		<exec executable="php" dir="${builddir}/" failonerror="true">
 			<arg line="${sourcedir}/maintenance/install.php
 				--confpath ${builddir}
@@ -155,8 +155,8 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 	<target name="phpunit-parser" depends="installdb">
 		<run-phpunit options="--group Parser --exclude-group ${phpunitexcludes}"/>
 	</target>
-	<target name="phpunit-api">
-		<run-phpunit options="--group Api --exclude-group ${phpunitexcludes}"/>
+	<target name="phpunit-api" depends="installdb">
+		<run-phpunit options="--group API --exclude-group ${phpunitexcludes}"/>
 	</target>
 
 	<!-- Macro to run some phpunit tests
