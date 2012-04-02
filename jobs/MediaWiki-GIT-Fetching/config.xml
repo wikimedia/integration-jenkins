@@ -76,6 +76,9 @@
       <command># Commented by hashar 2012-03-30 probably unneeded
 #/var/lib/jenkins/bin/fetch_gerrit_head.sh</command>
     </hudson.tasks.Shell>
+    <hudson.plugins.createfingerprint.CreateFingerprint>
+      <targets>.git/HEAD</targets>
+    </hudson.plugins.createfingerprint.CreateFingerprint>
     <hudson.plugins.parameterizedtrigger.TriggerBuilder>
       <configs>
         <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
@@ -181,10 +184,6 @@
     <hudson.tasks.test.AggregatedTestResultPublisher>
       <includeFailedBuilds>true</includeFailedBuilds>
     </hudson.tasks.test.AggregatedTestResultPublisher>
-    <hudson.tasks.Fingerprinter>
-      <targets>.git/HEAD</targets>
-      <recordBuildArtifacts>false</recordBuildArtifacts>
-    </hudson.tasks.Fingerprinter>
   </publishers>
   <buildWrappers>
     <hudson.plugins.timestamper.TimestamperBuildWrapper/>
