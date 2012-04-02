@@ -158,6 +158,9 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 	<target name="phpunit-api" depends="installdb">
 		<run-phpunit options="--group API --exclude-group ${phpunitexcludes}"/>
 	</target>
+	<target name="phpunit-misc">
+		<run-phpunit options="--group Database --exclude-group API,Parser,${phpunitexcludes}"/>
+	</target>
 
 	<!-- Macro to run some phpunit tests
 	     @param Options Additional parameters to pass to PHPUnit
