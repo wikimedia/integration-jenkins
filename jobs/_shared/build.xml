@@ -150,16 +150,23 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 		<run-phpunit options="--exclude-group Database,${phpunitexcludes}" />
 	</target>
 
-	<target name="phpunit-databased" depends="phpunit-parser, phpunit-api" />
+	<target name="phpunit-databased" depends="phpunit-parser, phpunit-api, phpunit-dump" />
 
+	<!-- Sub targets, whenever you add a new group, make sure to also have
+	     it excluded from the phpunit-misc job
+	     -->
+	<target name="phpunit-dump" depends="installdb">
+		<run-phpunit options="--group Dump --exclude-group ${phpunitexcludes}"/>
+	</target>
 	<target name="phpunit-parser" depends="installdb">
 		<run-phpunit options="--group Parser --exclude-group ${phpunitexcludes}"/>
 	</target>
 	<target name="phpunit-api" depends="installdb">
 		<run-phpunit options="--group API --exclude-group ${phpunitexcludes}"/>
 	</target>
+	<!-- Exclude any group defined above:-->
 	<target name="phpunit-misc">
-		<run-phpunit options="--group Database --exclude-group API,Parser,${phpunitexcludes}"/>
+		<run-phpunit options="--group Database --exclude-group API,Dump,Parser,${phpunitexcludes}"/>
 	</target>
 
 	<!-- Macro to run some phpunit tests
