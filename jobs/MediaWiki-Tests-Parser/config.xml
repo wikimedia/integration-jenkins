@@ -43,7 +43,7 @@
       </thresholds>
     </xunit>
     <hudson.tasks.Fingerprinter>
-      <targets>HEAD</targets>
+      <targets>FETCH_HEAD</targets>
       <recordBuildArtifacts>false</recordBuildArtifacts>
     </hudson.tasks.Fingerprinter>
   </publishers>

@@ -12,9 +12,9 @@
 */modules/
 */site/
 */workspace/*
-# hack to track the symbolic link which points to .git/HEAD
+# hack to track the symbolic link which points to .git/FETCH_HEAD
 # in the GIT fetching job. This is used by jenkins fingerprints
-!*/workspace/HEAD
+!*/workspace/FETCH_HEAD
 */config-history/
 
 # Ignore jobs private properties

@@ -41,7 +41,7 @@
       <pattern>logs/checkstyle.xml</pattern>
     </hudson.plugins.checkstyle.CheckStylePublisher>
     <hudson.tasks.Fingerprinter>
-      <targets>HEAD</targets>
+      <targets>FETCH_HEAD</targets>
       <recordBuildArtifacts>false</recordBuildArtifacts>
     </hudson.tasks.Fingerprinter>
   </publishers>

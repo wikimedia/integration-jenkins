@@ -2,4 +2,5 @@
 /*
 # .. except:
 !.gitignore
+!bin/
 !jobs/

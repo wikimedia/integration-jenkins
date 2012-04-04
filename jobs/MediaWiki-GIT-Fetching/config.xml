@@ -4,43 +4,7 @@
   <description>Collector-job for jobs running when changesets are pushed to Gerrit for review in `mediawiki/core`</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.plugins.git.GitSCM">
-    <configVersion>2</configVersion>
-    <userRemoteConfigs>
-      <hudson.plugins.git.UserRemoteConfig>
-        <name></name>
-        <refspec>$GERRIT_REFSPEC</refspec>
-        <url>https://gerrit.wikimedia.org/r/p/mediawiki/core</url>
-      </hudson.plugins.git.UserRemoteConfig>
-    </userRemoteConfigs>
-    <branches>
-      <hudson.plugins.git.BranchSpec>
-        <name>origin/$GERRIT_BRANCH</name>
-      </hudson.plugins.git.BranchSpec>
-    </branches>
-    <disableSubmodules>false</disableSubmodules>
-    <recursiveSubmodules>false</recursiveSubmodules>
-    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-    <authorOrCommitter>false</authorOrCommitter>
-    <clean>false</clean>
-    <wipeOutWorkspace>false</wipeOutWorkspace>
-    <pruneBranches>false</pruneBranches>
-    <remotePoll>false</remotePoll>
-    <buildChooser class="com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTriggerBuildChooser">
-      <separator>#</separator>
-    </buildChooser>
-    <gitTool>Default</gitTool>
-    <submoduleCfg class="list"/>
-    <relativeTargetDir></relativeTargetDir>
-    <reference></reference>
-    <excludedRegions></excludedRegions>
-    <excludedUsers></excludedUsers>
-    <gitConfigName></gitConfigName>
-    <gitConfigEmail></gitConfigEmail>
-    <skipTag>false</skipTag>
-    <includedRegions></includedRegions>
-    <scmName></scmName>
-  </scm>
+  <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>true</blockBuildWhenDownstreamBuilding>
@@ -73,11 +37,12 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command># Commented by hashar 2012-03-30 probably unneeded
-#/var/lib/jenkins/bin/fetch_gerrit_head.sh</command>
+      <command># Shell script replacing Jenkins git plugin
+# Borrowed from OpenStack
+/var/lib/jenkins/bin/fetch_gerrit_head.sh</command>
     </hudson.tasks.Shell>
     <hudson.plugins.createfingerprint.CreateFingerprint>
-      <targets>.git/HEAD</targets>
+      <targets>.git/FETCH_HEAD</targets>
     </hudson.plugins.createfingerprint.CreateFingerprint>
     <hudson.plugins.parameterizedtrigger.TriggerBuilder>
       <configs>
