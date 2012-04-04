@@ -199,7 +199,7 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 	</target>
 
 	<!-- check code style on files changed by HEAD -->
-	<target name="checkstyle" depends="git-files-changed">
+	<target name="checkstyle" depends="create-dirs,git-files-changed">
 		<echo>Running PHP CodeSniffer in ${sourcedir}</echo>
 		<!--
 				Must have git-files-changed target executed before.
