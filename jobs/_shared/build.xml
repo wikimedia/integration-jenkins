@@ -81,10 +81,10 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 		<echo>Running MediaWiki installer for database ${mw.database}</echo>
 		<antcall target="installdb-${mw.database}" />
 	</target>
-	<target name="installdb-mysql">
+	<target name="installdb-mysql" depends="create-dirs,cleandb-mysql">
 		<fail>Install not implemented for MySQL</fail>
 	</target>
-	<target name="installdb-postgre">
+	<target name="installdb-postgre" depends="create-dirs,cleandb-postgre">
 		<exec executable="php" dir="${builddir}/" failonerror="true">
 			<arg line="${sourcedir}/maintenance/install.php
 				--confpath ${builddir}
@@ -101,7 +101,7 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 			"/>
 		</exec>
 	</target>
-	<target name="installdb-sqlite" depends="create-dirs">
+	<target name="installdb-sqlite" depends="create-dirs,cleandb-sqlite">
 		<exec executable="php" dir="${builddir}/" failonerror="true">
 			<arg line="${sourcedir}/maintenance/install.php
 				--confpath ${builddir}
@@ -165,7 +165,7 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 		<run-phpunit options="--group API --exclude-group ${phpunitexcludes}"/>
 	</target>
 	<!-- Exclude any group defined above:-->
-	<target name="phpunit-misc">
+	<target name="phpunit-misc" depends="installdb">
 		<run-phpunit options="--group Database --exclude-group API,Dump,Parser,${phpunitexcludes}"/>
 	</target>
 
