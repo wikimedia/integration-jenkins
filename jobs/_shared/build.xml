@@ -182,4 +182,33 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 		</sequential>
 	</macrodef>
 
+	<target name="git-files-changed">
+		<exec executable="git" dir="${sourcedir}" failonerror="true"
+			outputproperty="gitfileschanged">
+			<arg line="diff --name-only HEAD^" />
+		</exec>
+		<echo>Files changed according to git:</echo>
+		<echo>${gitfileschanged}</echo>
+		<!-- Create a new property without newlines: -->
+		<exec executable="tr"
+			inputstring="${gitfileschanged}"
+			outputproperty="gitfileschangedinline">
+			<arg value="\n" />
+			<arg value=" " />
+			</exec>
+	</target>
+
+	<!-- check code style on files changed by HEAD -->
+	<target name="checkstyle" depends="git-files-changed">
+		<echo>Running PHP CodeSniffer in ${sourcedir}</echo>
+		<!--
+				Must have git-files-changed target executed before.
+				The target will generate gitfileschangedinline property
+				which list all modified files on a single line
+		-->
+		<exec executable="phpcs" dir="${sourcedir}" output="${builddir}/logs/checkstyle.xml">
+			<arg line="--report=checkstyle --standard=PEAR --ignore='Messages*.php,*.css,*.js' ${gitfileschangedinline}"/>
+		</exec>
+		<echo>PHP CodeSniffer apparently finished analysis.</echo>
+	</target>
 </project>
