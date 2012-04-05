@@ -1,0 +1,3 @@
+[submodule "tools/testswarm"]
+	path = tools/testswarm
+	url = https://gerrit.wikimedia.org/r/p/integration/testswarm
