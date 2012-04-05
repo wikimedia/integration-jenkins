@@ -365,7 +365,7 @@ set the following environnement variables:
 				which list all modified files on a single line
 		-->
 		<exec executable="phpcs" dir="${sourcedir}" output="${builddir}/logs/checkstyle.xml">
-			<arg line="--report=checkstyle --standard=PEAR --ignore='Messages*.php,*.css,*.js' ${gitfileschangedinline}"/>
+			<arg line="--report=checkstyle --standard=../../../tools/MediaWiki-CodeSniffer/MediaWiki --ignore='Messages*.php,*.css,*.js' ${gitfileschangedinline}"/>
 		</exec>
 		<echo>PHP CodeSniffer apparently finished analysis.</echo>
 	</target>
