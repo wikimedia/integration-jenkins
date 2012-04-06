@@ -189,6 +189,14 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 		</exec>
 		<echo>Files changed according to git:</echo>
 		<echo>${gitfileschanged}</echo>
+		<!-- Create a new property with only php files: -->
+		<exec executable="grep"
+			inputstring="${gitfileschanged}"
+			outputproperty="gitphpfileschanged">
+			<arg value="-E" />
+			<arg value="'\.(php|php5|inc|phtml)$'" />
+			</exec>
+
 		<!-- Create a new property without newlines: -->
 		<exec executable="tr"
 			inputstring="${gitfileschanged}"
