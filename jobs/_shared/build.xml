@@ -198,6 +198,22 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 			</exec>
 	</target>
 
+	<!-- A very very basic linter using `php -l` -->
+	<!-- FIXME: find a way to limit list of files to *.php *.inc *.phtml *.php5 -->
+	<target name="php-lint" depends="git-files-changed">
+		<echo>Blindly running `php -l` on all modified files</echo>
+		<apply
+			executable="php"
+			relative="true"
+			dir="${sourcedir}"
+			failonerror="true"
+			verbose="true"
+		>
+			<arg value="-l" />
+				<filelist dir="${sourcedir}" files="${gitfileschangedinline}" />
+		</apply>
+	</target>
+
 	<!-- check code style on files changed by HEAD -->
 	<target name="checkstyle" depends="create-dirs,git-files-changed">
 		<echo>Running PHP CodeSniffer in ${sourcedir}</echo>
