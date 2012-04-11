@@ -189,6 +189,14 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 		</exec>
 		<echo>Files changed according to git:</echo>
 		<echo>${gitfileschanged}</echo>
+		<!-- Create a new property with only php files: -->
+		<exec executable="grep"
+			inputstring="${gitfileschanged}"
+			outputproperty="gitphpfileschanged">
+			<arg value="-E" />
+			<arg value="'\.(php|php5|inc|phtml)$'" />
+			</exec>
+
 		<!-- Create a new property without newlines: -->
 		<exec executable="tr"
 			inputstring="${gitfileschanged}"
@@ -196,6 +204,22 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 			<arg value="\n" />
 			<arg value=" " />
 			</exec>
+	</target>
+
+	<!-- A very very basic linter using `php -l` -->
+	<!-- FIXME: find a way to limit list of files to *.php *.inc *.phtml *.php5 -->
+	<target name="php-lint" depends="git-files-changed">
+		<echo>Blindly running `php -l` on all modified files</echo>
+		<apply
+			executable="php"
+			relative="true"
+			dir="${sourcedir}"
+			failonerror="true"
+			verbose="true"
+		>
+			<arg value="-l" />
+			<filelist dir="${sourcedir}" files="${gitphpfileschanged}" />
+		</apply>
 	</target>
 
 	<!-- check code style on files changed by HEAD -->

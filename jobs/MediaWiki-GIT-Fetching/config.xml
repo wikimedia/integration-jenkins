@@ -48,6 +48,34 @@
       <configs>
         <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
           <configs class="java.util.Collections$EmptyList"/>
+          <projects>MediaWiki-Universal-Linter</projects>
+          <condition>ALWAYS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+          <block>
+            <buildStepFailureThreshold>
+              <name>FAILURE</name>
+              <ordinal>2</ordinal>
+              <color>RED</color>
+            </buildStepFailureThreshold>
+            <unstableThreshold>
+              <name>UNSTABLE</name>
+              <ordinal>1</ordinal>
+              <color>YELLOW</color>
+            </unstableThreshold>
+            <failureThreshold>
+              <name>FAILURE</name>
+              <ordinal>2</ordinal>
+              <color>RED</color>
+            </failureThreshold>
+          </block>
+          <buildAllNodesWithLabel>false</buildAllNodesWithLabel>
+        </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.TriggerBuilder>
+    <hudson.plugins.parameterizedtrigger.TriggerBuilder>
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
+          <configs class="java.util.Collections$EmptyList" reference="../../../../hudson.plugins.parameterizedtrigger.TriggerBuilder/configs/hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig/configs"/>
           <projects>MediaWiki-Tests-Databaseless</projects>
           <condition>ALWAYS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
@@ -71,7 +99,7 @@
           <buildAllNodesWithLabel>false</buildAllNodesWithLabel>
         </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
         <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
-          <configs class="java.util.Collections$EmptyList" reference="../../hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig/configs"/>
+          <configs class="java.util.Collections$EmptyList" reference="../../../../hudson.plugins.parameterizedtrigger.TriggerBuilder/configs/hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig/configs"/>
           <projects>MediaWiki-Tests-Misc</projects>
           <condition>ALWAYS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
@@ -95,7 +123,7 @@
           <buildAllNodesWithLabel>false</buildAllNodesWithLabel>
         </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
         <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
-          <configs class="java.util.Collections$EmptyList" reference="../../hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig/configs"/>
+          <configs class="java.util.Collections$EmptyList" reference="../../../../hudson.plugins.parameterizedtrigger.TriggerBuilder/configs/hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig/configs"/>
           <projects>MediaWiki-Tests-API</projects>
           <condition>ALWAYS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
@@ -119,7 +147,7 @@
           <buildAllNodesWithLabel>false</buildAllNodesWithLabel>
         </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
         <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
-          <configs class="java.util.Collections$EmptyList" reference="../../hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig/configs"/>
+          <configs class="java.util.Collections$EmptyList" reference="../../../../hudson.plugins.parameterizedtrigger.TriggerBuilder/configs/hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig/configs"/>
           <projects>MediaWiki-Tests-Parser</projects>
           <condition>ALWAYS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
@@ -143,7 +171,7 @@
           <buildAllNodesWithLabel>false</buildAllNodesWithLabel>
         </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
         <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
-          <configs class="java.util.Collections$EmptyList" reference="../../hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig/configs"/>
+          <configs class="java.util.Collections$EmptyList" reference="../../../../hudson.plugins.parameterizedtrigger.TriggerBuilder/configs/hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig/configs"/>
           <projects>MediaWiki-Tests-Dumps</projects>
           <condition>ALWAYS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Runs various linter all together. Does not do anything for now.</description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers class="vector"/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>echo &quot;This is the very dumb MediaWiki linter!!&quot;
+/bin/true</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Ant>
+      <targets>php-lint</targets>
+      <buildFile>../build.xml</buildFile>
+    </hudson.tasks.Ant>
+  </builders>
+  <publishers>
+    <hudson.tasks.Fingerprinter>
+      <targets>FETCH_HEAD</targets>
+      <recordBuildArtifacts>false</recordBuildArtifacts>
+    </hudson.tasks.Fingerprinter>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper/>
+  </buildWrappers>
+</project>
