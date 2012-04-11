@@ -145,6 +145,139 @@ require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
 		<delete file="${builddir}/data/my_wiki.sqlite" />
 	</target>
 
+	<target name="-import-gerrit-env"
+		description="Import env variables set by Jenkins Gerrit trigger">
+		<fail>
+			<condition>
+				<not><and>
+					<!-- only checking criticals variables for now -->
+					<isset property="env.GERRIT_BRANCH" />
+					<isset property="env.GERRIT_CHANGE_NUMBER" />
+					<isset property="env.GERRIT_PATCHSET_NUMBER" />
+				</and></not>
+			</condition>
+Requires some Gerrit environnement to be set, usually through the Gerrit trigger plugin.
+Something must be wrong, when running from CLI, you should at least
+set the following environnement variables:
+- GERRIT_BRANCH
+- GERRIT_CHANGE_NUMBER
+- GERRIT_PATCHSET_NUMBER
+		</fail>
+		<echo>Importing Gerrit environnement as ant variables...</echo>
+		<property name="gerrit.branch"                  value="${env.GERRIT_BRANCH}" />
+		<property name="gerrit.change.number"           value="${env.GERRIT_CHANGE_NUMBER}" />
+		<property name="gerrit.change.id"               value="${env.GERRIT_CHANGE_ID}" />
+		<property name="gerrit.patchset.number"         value="${env.GERRIT_PATCHSET_NUMBER}" />
+		<property name="gerrit.patchset.revision"       value="${env.GERRIT_PATCHSET_REVISION}" />
+		<property name="gerrit.refspec"                 value="${env.GERRIT_REFSPEC}" />
+		<property name="gerrit.project"                 value="${env.GERRIT_PROJECT}" />
+		<property name="gerrit.change.subject"          value="${env.GERRIT_CHANGE_SUBJECT}" />
+		<property name="gerrit.change.url"              value="${env.GERRIT_CHANGE_URL}" />
+		<property name="gerrit.change.owner"            value="${env.GERRIT_CHANGE_OWNER}" />
+		<property name="gerrit.change.owner.name"       value="${env.GERRIT_CHANGE_OWNER_NAME}" />
+		<property name="gerrit.change.owner.email"      value="${env.GERRIT_CHANGE_OWNER_EMAIL}" />
+		<property name="gerrit.patchset.uploader"       value="${env.GERRIT_PATCHSET_UPLOADER}" />
+		<property name="gerrit.patchset.uploader.name"  value="${env.GERRIT_PATCHSET_UPLOADER_NAME}" />
+		<property name="gerrit.patchset.uploader.email" value="${env.GERRIT_PATCHSET_UPLOADER_EMAIL}" />
+		<!-- Dump properties defined just above: -->
+		<echoproperties prefix="gerrit." />
+	</target>
+
+	<!-- Takes a copy of a MediaWiki install -->
+	<target name="testswarm-snapshot" depends="-import-gerrit-env,install">
+		<fail>
+			<condition>
+			<not><and>
+				<isset property="gerrit.change.number" />
+				<isset property="gerrit.patchset.number" />
+			</and></not>
+			</condition>
+			This ant target requires both GERRIT_CHANGE_NUMBER and GERRIT_PATCHSET_NUMBER environnement variables to be set or at least their ant equivalents `gerrit.change.number` and `gerrit.patchset.number`.
+		</fail>
+
+		<!-- some testswarm specific properties depending on gerrit context -->
+		<property
+			name="changePath"
+			value="${gerrit.change.number}/${gerrit.patchset.number}" />
+		<property
+			name="testswarm.publicdir"
+			value="${testswarm.basedir}/clone/${changePath}" />
+		<property
+			name="testswarm.sqlite.dir"
+			value="${testswarm.basedir}/db/${changePath}" />
+		<property
+			name="testswarm.sqlite.file"
+			value="${testswarm.sqlite.dir}/my_wiki.sqlite" />
+		<!-- Dump properties defined just above: -->
+		<echoproperties prefix="testswarm." />
+
+		<!-- create various directories -->
+		<mkdir dir="${testswarm.sqlite.dir}" />
+		<mkdir dir="${testswarm.publicdir}" />
+<!--
+		<mkdir dir="${testswarm.basedir}/conf" />
+		<mkdir dir="${testswarm.basedir}/log" />
+-->
+		<!-- apply "sane" permissions to files in the base directory -->
+		<chmod perm="2775">
+			<dirset dir="${testswarm.basedir}">
+				<include name="*" />
+			</dirset>
+		</chmod>
+		<!-- the `db` path need to be in the www-data group. That is done by puppet -->
+
+		<!-- Snapshot the sqlite database -->
+		<echo>Copying sqlite database</echo>
+		<copy
+			file="${builddir}/data/my_wiki.sqlite"
+			tofile="${testswarm.sqlite.file}"
+			/>
+
+		<!-- Snapshot MediaWiki files -->
+		<!-- FIXME: this should most probably uses `git clone` -->
+		<echo>Publishing MediaWiki files</echo>
+		<copy todir="${testswarm.publicdir}">
+			<fileset dir="${sourcedir}">
+				<exclude name="**/.git/" />
+			</fileset>
+		</copy>
+
+		<echo>Copying LocalSettings.php</echo>
+		<copy
+			file="${builddir}/LocalSettings.php"
+			todir="${testswarm.publicdir}"
+		/>
+
+		<echo>Tweaking configuration</echo>
+		<!-- TODO actually copy the ExtraSettings file -->
+
+		<!-- Property containing the URL path -->
+		<property name="testswarm.URL.path"
+			value="${testswarm.URL.basepath}/${changePath}" />
+
+		<replace file="${testswarm.publicdir}/LocalSettings.php">
+			<replacefilter
+				token="http://localhost"
+				value="${testswarm.URL.scheme}${testswarm.URL.authority}"
+			/>
+		<replacefilter>
+			<replacetoken><![CDATA[$wgScriptPath       = "/wiki";]]></replacetoken>
+			<replacevalue expandProperties="true"><![CDATA[$wgScriptPath       = "${testswarm.URL.path}";]]></replacevalue>
+		</replacefilter>
+		<replacefilter>
+			<replacetoken expandProperties="true">${builddir}/data</replacetoken>
+			<replacevalue expandProperties="true">${testswarm.sqlite.dir}</replacevalue>
+		</replacefilter>
+		</replace>
+
+		<!-- TODO: alter extrasettings.php? -->
+	</target>
+
+	<!-- Submit a job to TestSwarm -->
+	<target name="testswarm-addjob" depends="testswarm-snapshot">
+		<fail>Not implemented</fail>
+	</target>
+
 	<!-- PHPUnit related targets -->
 	<target name="phpunit-databaseless" depends="fake-localsettings">
 		<run-phpunit options="--exclude-group Database,${phpunitexcludes}" />
