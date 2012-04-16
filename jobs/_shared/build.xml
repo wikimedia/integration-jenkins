@@ -256,6 +256,7 @@ set the following environnement variables:
 			value="${testswarm.URL.basepath}/${changePath}" />
 
 		<replace file="${testswarm.publicdir}/LocalSettings.php">
+			<!-- Replace $wgServer value -->
 			<replacefilter
 				token="http://localhost"
 				value="${testswarm.URL.scheme}${testswarm.URL.authority}"
