@@ -53,8 +53,11 @@
 # START: PHP code inserted automatically by build job
 
 # Include ExtraSettings.php
-require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
-
+if( file_exists( 'ExtraSettings.php' ) ) {
+	require_once( 'ExtraSettings.php' );
+} else {
+	require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
+}
 # END: PHP code inserted automatically by build job
 ]]>
 		</echo>
@@ -245,6 +248,11 @@ set the following environnement variables:
 		<echo>Copying LocalSettings.php</echo>
 		<copy
 			file="${builddir}/LocalSettings.php"
+			todir="${testswarm.publicdir}"
+		/>
+		<echo>Copying ExtraSettings.php</echo>
+		<copy
+			file="${basedir}/ExtraSettings.php"
 			todir="${testswarm.publicdir}"
 		/>
 
