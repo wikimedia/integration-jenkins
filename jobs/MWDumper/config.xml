@@ -54,7 +54,7 @@
   </rootModule>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
   <incrementalBuild>false</incrementalBuild>
-  <usePrivateRepository>false</usePrivateRepository>
+  <perModuleEmail>true</perModuleEmail>
   <ignoreUpstremChanges>false</ignoreUpstremChanges>
   <archivingDisabled>false</archivingDisabled>
   <resolveDependencies>false</resolveDependencies>
@@ -83,26 +83,6 @@
       </thresholds>
       <dontComputeNew>true</dontComputeNew>
     </hudson.plugins.checkstyle.CheckStyleReporter>
-    <hudson.plugins.findbugs.FindBugsReporter>
-      <healthy></healthy>
-      <unHealthy></unHealthy>
-      <pluginName>[FINDBUGS] </pluginName>
-      <thresholdLimit>low</thresholdLimit>
-      <canRunOnFailed>false</canRunOnFailed>
-      <useDeltaValues>false</useDeltaValues>
-      <thresholds>
-        <unstableTotalAll></unstableTotalAll>
-        <unstableTotalHigh></unstableTotalHigh>
-        <unstableTotalNormal></unstableTotalNormal>
-        <unstableTotalLow></unstableTotalLow>
-        <failedTotalAll></failedTotalAll>
-        <failedTotalHigh></failedTotalHigh>
-        <failedTotalNormal></failedTotalNormal>
-        <failedTotalLow></failedTotalLow>
-      </thresholds>
-      <dontComputeNew>true</dontComputeNew>
-      <isRankActivated>false</isRankActivated>
-    </hudson.plugins.findbugs.FindBugsReporter>
     <hudson.plugins.pmd.PmdReporter>
       <healthy></healthy>
       <unHealthy></unHealthy>
@@ -137,4 +117,6 @@
     </hudson.plugins.jdepend.JDependRecorder>
   </publishers>
   <buildWrappers/>
+  <prebuilders/>
+  <postbuilders/>
 </maven2-moduleset>
