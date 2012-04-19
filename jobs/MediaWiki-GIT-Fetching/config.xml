@@ -42,7 +42,7 @@
 /var/lib/jenkins/bin/fetch_gerrit_head.sh</command>
     </hudson.tasks.Shell>
     <hudson.plugins.createfingerprint.CreateFingerprint>
-      <targets>.git/FETCH_HEAD</targets>
+      <targets>FETCH_HEAD</targets>
     </hudson.plugins.createfingerprint.CreateFingerprint>
     <hudson.plugins.parameterizedtrigger.TriggerBuilder>
       <configs>

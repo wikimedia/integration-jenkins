@@ -30,6 +30,10 @@ then
 	git clean -x -f -d -q
 	git fetch origin $GERRIT_REFSPEC
 	git merge FETCH_HEAD
+
+	# Symbolic link to the checked out sha1 in workspace root
+	# Jenkins can not fingerprint .git/FETCH_HEAD :-(
+	/bin/ln -s .git/FETCH_HEAD
 else
 	git checkout $GERRIT_NEWREV
 	git reset --hard $GERRIT_NEWREV
