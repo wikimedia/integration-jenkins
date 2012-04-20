@@ -196,6 +196,10 @@
         </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
       </configs>
     </hudson.plugins.parameterizedtrigger.TriggerBuilder>
+    <hudson.tasks.Ant>
+      <targets>testswarm-submitjob</targets>
+      <buildFile>../build.xml</buildFile>
+    </hudson.tasks.Ant>
   </builders>
   <publishers>
     <hudson.tasks.test.AggregatedTestResultPublisher>
