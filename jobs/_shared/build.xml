@@ -236,8 +236,9 @@ set the following environnement variables:
 			tofile="${testswarm.sqlite.file}"
 			/>
 		<!-- Both sqlite file and directory need to be writable by apache -->
-		<chmod perm="g+w" dir="${testswarm.sqlite.dir}" />
-		<chmod perm="g+w" file="${testswarm.sqlite.file}" />
+		<!-- FIXME!! www-data should be enforced by g+s already :-(  -->
+		<chmod perm="go+w" dir="${testswarm.sqlite.dir}" />
+		<chmod perm="go+w" file="${testswarm.sqlite.file}" />
 
 		<!-- Snapshot MediaWiki files -->
 		<!-- FIXME: this should most probably uses `git clone` -->
