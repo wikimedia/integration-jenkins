@@ -11,7 +11,7 @@
 */javadoc/
 */modules/
 */site/
-*/workspace/*
+*/workspace/
 # hack to track the symbolic link which points to .git/FETCH_HEAD
 # in the GIT fetching job. This is used by jenkins fingerprints
 !*/workspace/FETCH_HEAD
