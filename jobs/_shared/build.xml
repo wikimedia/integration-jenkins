@@ -193,6 +193,7 @@ set the following environnement variables:
 			<not><and>
 				<isset property="gerrit.change.number" />
 				<isset property="gerrit.patchset.number" />
+				<isset property="gerrit.branch" />
 			</and></not>
 			</condition>
 			This ant target requires both GERRIT_CHANGE_NUMBER and GERRIT_PATCHSET_NUMBER environnement variables to be set or at least their ant equivalents `gerrit.change.number` and `gerrit.patchset.number`.
@@ -294,6 +295,7 @@ set the following environnement variables:
 			<arg line="--change   ${gerrit.change.number}" />
 			<arg line="--patchset ${gerrit.patchset.number}" />
 			<arg line="--commit   ${gerrit.patchset.revision}" />
+			<arg line="--branch   ${gerrit.branch}" />
 		</exec>
 	</target>
 
