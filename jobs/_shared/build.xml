@@ -360,10 +360,17 @@ set the following environnement variables:
 			</exec>
 	</target>
 
-	<!-- A very very basic linter using `php -l` -->
+	<!-- php-lint:
+		A very very basic linter using `php -l`
+		To test this target locally you could override the sourcedir variable
+		to point to a local checkout of a git repository.
+
+		Example:
+		  ant php-lint -Dsourcedir=/var/www/mediawiki
+	-->
 	<!-- FIXME: find a way to limit list of files to *.php *.inc *.phtml *.php5 -->
 	<target name="php-lint" depends="git-files-changed">
-		<echo>Blindly running `php -l` on all modified files</echo>
+		<echo>Blindly running `php -l` on modified PHP files:</echo>
 		<apply
 			executable="php"
 			relative="true"
