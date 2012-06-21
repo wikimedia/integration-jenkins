@@ -348,7 +348,7 @@ set the following environnement variables:
 			inputstring="${gitfileschanged}"
 			outputproperty="gitphpfileschanged">
 			<arg value="-E" />
-			<arg value="'\.(php|php5|inc|phtml)$'" />
+			<arg value="\.(php|php5|inc|phtml)$" />
 			</exec>
 
 		<!-- Create a new property without newlines: -->
