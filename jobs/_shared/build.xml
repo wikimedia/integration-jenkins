@@ -336,6 +336,12 @@ set the following environnement variables:
 		</sequential>
 	</macrodef>
 
+	<!-- git-files-changed:
+		Find out uwhat file changed in git copy ${sourcedir} before HEAD
+
+		Example:
+		  ant git-files-changed -Dsourcedir=/var/www/mediawiki
+	-->
 	<target name="git-files-changed">
 		<exec executable="git" dir="${sourcedir}" failonerror="true"
 			outputproperty="gitfileschanged">
