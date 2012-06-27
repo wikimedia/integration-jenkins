@@ -348,13 +348,24 @@ set the following environnement variables:
 			<arg line="diff --name-only HEAD^" />
 		</exec>
 		<echo>Files changed according to git:</echo>
+		<echo>--------------------------------------------------------------</echo>
 		<echo>${gitfileschanged}</echo>
+		<echo>--------------------------------------------------------------</echo>
 		<!-- Create a new property with only php files: -->
 		<exec executable="grep"
 			inputstring="${gitfileschanged}"
 			outputproperty="gitphpfileschanged">
 			<arg value="-E" />
 			<arg value="\.(php|php5|inc|phtml)$" />
+			</exec>
+		<!-- find out files ending with .sql -->
+		<exec executable="grep"
+			failonerror="false"
+			inputstring="${gitfileschanged}"
+			resultproperty="gitgrepsqlresult"
+			outputproperty="gitsqlfileschanged">
+			<arg value="-E" />
+			<arg value="\.(sql)$" />
 			</exec>
 
 		<!-- Create a new property without newlines: -->
@@ -364,6 +375,13 @@ set the following environnement variables:
 			<arg value="\n" />
 			<arg value=" " />
 			</exec>
+
+		<!-- set a property whether any .sql file got changed -->
+		<condition property="gitsqlhaschanged" value="true" else="false">
+			<equals arg1="${gitgrepsqlresult}" arg2="0" />
+		</condition>
+		<echo>.sql file changed? ${gitsqlhaschanged}</echo>
+
 	</target>
 
 	<!-- php-lint:
