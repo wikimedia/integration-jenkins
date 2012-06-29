@@ -428,6 +428,30 @@ set the following environnement variables:
 		<echoproperties />
 	</target>
 
+	<!-- Clone a gerrit project unless it is already there -->
+	<target name="clone-gerrit-project"
+		description="Clone a gerrit project to `git.shared.dir`"
+		depends="-import-gerrit-env,-check-clone-exist"
+		unless="gerrit.git.clone.exist"
+		>
+		<echo>Cloning ${gerrit.baseurl}/${gerrit.project}.git</echo>
+		<echo>to ${git.shared.dir}/${gerrit.project}</echo>
+		<git-clone
+			repository="${gerrit.baseurl}/${gerrit.project}.git"
+			dest="${git.shared.dir}/${gerrit.project}"
+			/>
+	</target>
+
+	<!-- Verify whether a git project has eventually be cloned by simply
+		check the existance of a `.git` directory -->
+	<target name="-check-clone-exist" depends="-import-gerrit-env">
+		<echo>Checking existance of "${git.shared.dir}/${gerrit.project}/.git"</echo>
+		<available property="gerrit.git.clone.exist"
+			type="dir"
+			file="${git.shared.dir}/${gerrit.project}/.git"
+			/>
+	</target>
+
 	<!-- wrapper around git command
 		http://tlrobinson.net/blog/2008/11/ant-tasks-for-git/
 	-->
