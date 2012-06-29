@@ -424,6 +424,10 @@ set the following environnement variables:
 		<echo>PHP CodeSniffer apparently finished analysis.</echo>
 	</target>
 
+	<target name="properties" description="Dump ant properties">
+		<echoproperties />
+	</target>
+
 	<!-- wrapper around git command
 		http://tlrobinson.net/blog/2008/11/ant-tasks-for-git/
 	-->
