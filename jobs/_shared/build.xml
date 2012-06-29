@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
 	ant build file for MediaWiki Core continuous integration
+
+	git macros from http://tlrobinson.net/blog/2008/11/ant-tasks-for-git/
 -->
 <project name="MediaWiki" default="build">
 
@@ -421,4 +423,104 @@ set the following environnement variables:
 		</exec>
 		<echo>PHP CodeSniffer apparently finished analysis.</echo>
 	</target>
+
+	<!-- wrapper around git command
+		http://tlrobinson.net/blog/2008/11/ant-tasks-for-git/
+	-->
+	<macrodef name="git">
+		<attribute name="command" />
+		<attribute name="dir" default="" />
+		<element name="args" optional="true" />
+		<sequential>
+			<echo message="git @{command}" />
+			<exec executable="git" dir="@{dir}">
+				<arg value="@{command}" />
+				<args/>
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<!-- clone a git repository -->
+	<macrodef name="git-clone">
+		<attribute name="dest" />
+		<attribute name="repository" />
+		<sequential>
+		<git command="clone">
+			<args>
+				<arg value="@{repository}" />
+				<arg value="@{dest}" />
+			</args>
+		</git>
+		</sequential>
+	</macrodef>
+
+	<!-- checkout a reference -->
+	<macrodef name="git-checkout">
+		<attribute name="commit" />
+		<sequential>
+			<git command="checkout">
+				<args><arg value="@{commit}" /></args>
+			</git>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="git-clean-dfqx">
+		<sequential>
+			<git command="clean">
+				<args><arg value="-d -f -q -x" /></args>
+			</git>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="git-fetch">
+		<attribute name="repository" />
+		<attribute name="refspec" />
+		<sequential>
+			<git command="fetch">
+				<args>
+					<arg value="@{repository}" />
+					<arg value="@{refspec}" />
+				</args>
+			</git>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="git-merge">
+		<attribute name="commit" />
+		<sequential>
+			<git command="merge">
+				<args><arg value="@{commit}" /></args>
+			</git>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="git-merge-fetchhead">
+		<sequential>
+			<git command="merge">
+				<args><arg value="FETCH_HEAD" /></args>
+			</git>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="git-remote-update">
+		<sequential>
+			<git command="remote">
+				<args><arg value="update"/></args>
+			</git>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="git-reset">
+		<attribute name="commit" />
+		<element name="mode" optional="true" />
+		<sequential>
+			<git command="reset">
+				<args>
+					<arg value="@{commit}" />
+					<mode/>
+				</args>
+			</git>
+		</sequential>
+	</macrodef>
+
 </project>
