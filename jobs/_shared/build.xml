@@ -173,6 +173,7 @@ set the following environnement variables:
 		<property name="gerrit.patchset.number"         value="${env.GERRIT_PATCHSET_NUMBER}" />
 		<property name="gerrit.patchset.revision"       value="${env.GERRIT_PATCHSET_REVISION}" />
 		<property name="gerrit.refspec"                 value="${env.GERRIT_REFSPEC}" />
+		<property name="gerrit.newrev"                  value="${env.GERRIT_NEWREV}" />
 		<property name="gerrit.project"                 value="${env.GERRIT_PROJECT}" />
 		<property name="gerrit.change.subject"          value="${env.GERRIT_CHANGE_SUBJECT}" />
 		<property name="gerrit.change.url"              value="${env.GERRIT_CHANGE_URL}" />
