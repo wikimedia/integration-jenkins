@@ -500,7 +500,9 @@ set the following environnement variables:
 		<attribute name="dir" />
 		<sequential>
 			<git dir="@{dir}" command="clean">
-				<args><arg value="-d -f -q -x" /></args>
+				<args>
+					<arg line="-d -f -q -x" />
+				</args>
 			</git>
 		</sequential>
 	</macrodef>
