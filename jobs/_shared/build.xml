@@ -431,26 +431,73 @@ set the following environnement variables:
 	<!-- Clone a gerrit project unless it is already there -->
 	<target name="clone-gerrit-project"
 		description="Clone a gerrit project to `git.shared.dir`"
-		depends="-import-gerrit-env,-check-clone-exist"
-		unless="gerrit.git.clone.exist"
-		>
-		<echo>Cloning ${gerrit.baseurl}/${gerrit.project}.git</echo>
-		<echo>to ${git.shared.dir}/${gerrit.project}</echo>
+		unless="git.shared.exist.${name}"
+	>
+		<fail unless="name">
+			clone-gerrit-project require a Gerrit project name passed as 'name'
+		</fail>
+		<echo>Cloning from : ${gerrit.baseurl}/${name}</echo>
+		<echo>To shared dir: ${git.shared.dir}/${name}</echo>
 		<git-clone
-			repository="${gerrit.baseurl}/${gerrit.project}.git"
-			dest="${git.shared.dir}/${gerrit.project}"
+			repository="${gerrit.baseurl}/${name}.git"
+			dest="${git.shared.dir}/${name}"
 			/>
 	</target>
 
-	<!-- Verify whether a git project has eventually be cloned by simply
-		check the existance of a `.git` directory -->
-	<target name="-check-clone-exist" depends="-import-gerrit-env">
-		<echo>Checking existance of "${git.shared.dir}/${gerrit.project}/.git"</echo>
-		<available property="gerrit.git.clone.exist"
-			type="dir"
-			file="${git.shared.dir}/${gerrit.project}/.git"
-			/>
+	<!-- locally copy a project from the shared repo to a local dest -->
+	<target name="copy-project" unless="git.shared.exist.${name}">
+		<echo>LOCAL clone from ${git.shared.dir}/${name}</echo>
+		<echo>To: ${dest}</echo>
+		<git-clone
+			repository="${git.shared.dir}/${name}"
+			dest="${dest}"
+			branch="${branch}" />
 	</target>
+
+	<!-- Import and initalize a shared git repo in working directory -->
+	<macrodef name="import-project">
+		<attribute name="name" />
+		<attribute name="branch" default="master" />
+		<attribute name="dest"   default="${sourcedir}" />
+		<sequential>
+			<!-- make sure the shared repo is up to date -->
+			<!--	<git-remote-update dir="${git.shared.dir}/@{name}" /> -->
+
+			<!-- Check existence of a git clone in the shared repo: -->
+			<git-cloned name="@{name}" />
+
+			<!-- Eventually clone project from the Gerrit repository -->
+			<antcall target="clone-gerrit-project">
+				<param name="name"   value="@{name}"   />
+			</antcall>
+
+			<!-- Copy from shared repo to dest (usually a Jenkins workspace -->
+			<antcall target="copy-project">
+				<param name="name"   value="@{name}"   />
+				<param name="branch" value="@{branch}" />
+				<param name="dest"   value="@{dest}"   />
+			</antcall>
+
+			<!-- Set up destination -->
+			<git-checkout   dir="@{dest}" />
+			<git-reset-hard dir="@{dest}" commit="remotes/origin/@{branch}" />
+			<git-clean-dfqx dir="@{dest}" />
+		</sequential>
+	</macrodef>
+
+	<!-- Check if a project was cloned by looking for .git dir
+		Set property git.shared.exist.name/of/project
+	 -->
+	<macrodef name="git-cloned">
+		<attribute name="name" />
+		<sequential>
+			<available
+				file="${git.shared.dir}/@{name}/.git"
+				type="dir"
+				property="git.shared.exist.@{name}"
+				/>
+		</sequential>
+	</macrodef>
 
 	<!-- wrapper around git command
 		http://tlrobinson.net/blog/2008/11/ant-tasks-for-git/
