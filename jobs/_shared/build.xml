@@ -496,6 +496,23 @@ set the following environnement variables:
 		</sequential>
 	</macrodef>
 
+	<target name="import-mediawiki-core-master">
+		<import-project
+			name="mediawiki/core"
+			branch="master"
+			dest="${sourcedir}"
+			/>
+	</target>
+
+	<target name="import-wikidata">
+		<import-project
+			name="mediawiki/core"
+			branch="Wikidata"
+			dest="${sourcedir}"
+			/>
+		<import-extension name="Wikibase" />
+	</target>
+
 	<!-- Check if a project was cloned by looking for .git dir
 		Set property git.shared.exist.name/of/project
 	 -->
