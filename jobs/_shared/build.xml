@@ -561,4 +561,16 @@ set the following environnement variables:
 		</sequential>
 	</macrodef>
 
+	<macrodef name="git-reset-hard">
+		<attribute name="dir" />
+		<attribute name="commit" />
+		<sequential>
+			<git-reset
+				dir="@{dir}"
+				commit="@{commit}"
+				mode="--hard"
+				/>
+		</sequential>
+	</macrodef>
+
 </project>
