@@ -485,6 +485,17 @@ set the following environnement variables:
 		</sequential>
 	</macrodef>
 
+	<!-- Helper to easily import a MediaWiki extension -->
+	<macrodef name="import-extension">
+		<attribute name="name" />
+		<sequential>
+			<import-project
+				name="mediawiki/extensions/@{name}"
+				dest="${sourcedir}/extensions/@{name}"
+				/>
+		</sequential>
+	</macrodef>
+
 	<!-- Check if a project was cloned by looking for .git dir
 		Set property git.shared.exist.name/of/project
 	 -->
