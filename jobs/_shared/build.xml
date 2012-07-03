@@ -460,7 +460,6 @@ set the following environnement variables:
 		<attribute name="dir" default="" />
 		<element name="args" optional="true" />
 		<sequential>
-			<echo message="git @{command}" />
 			<exec executable="git" dir="@{dir}">
 				<arg value="@{command}" />
 				<args/>
@@ -470,11 +469,15 @@ set the following environnement variables:
 
 	<!-- clone a git repository -->
 	<macrodef name="git-clone">
-		<attribute name="dest" />
+		<attribute name="branch" default="master" />
 		<attribute name="repository" />
+		<attribute name="dest" />
 		<sequential>
 		<git command="clone">
 			<args>
+				<arg value="--branch" />
+				<arg value="@{branch}" />
+				<arg value="--" />
 				<arg value="@{repository}" />
 				<arg value="@{dest}" />
 			</args>
@@ -484,17 +487,19 @@ set the following environnement variables:
 
 	<!-- checkout a reference -->
 	<macrodef name="git-checkout">
-		<attribute name="commit" />
+		<attribute name="commit" default="master" />
+		<attribute name="dir" />
 		<sequential>
-			<git command="checkout">
+			<git dir="@{dir}" command="checkout">
 				<args><arg value="@{commit}" /></args>
 			</git>
 		</sequential>
 	</macrodef>
 
 	<macrodef name="git-clean-dfqx">
+		<attribute name="dir" />
 		<sequential>
-			<git command="clean">
+			<git dir="@{dir}" command="clean">
 				<args><arg value="-d -f -q -x" /></args>
 			</git>
 		</sequential>
@@ -503,8 +508,9 @@ set the following environnement variables:
 	<macrodef name="git-fetch">
 		<attribute name="repository" />
 		<attribute name="refspec" />
+		<attribute name="dir" />
 		<sequential>
-			<git command="fetch">
+			<git dir="@{dir}" command="fetch">
 				<args>
 					<arg value="@{repository}" />
 					<arg value="@{refspec}" />
@@ -515,37 +521,41 @@ set the following environnement variables:
 
 	<macrodef name="git-merge">
 		<attribute name="commit" />
+		<attribute name="dir" />
 		<sequential>
-			<git command="merge">
+			<git dir="@{dir}" command="merge">
 				<args><arg value="@{commit}" /></args>
 			</git>
 		</sequential>
 	</macrodef>
 
 	<macrodef name="git-merge-fetchhead">
+		<attribute name="dir" />
 		<sequential>
-			<git command="merge">
+			<git dir="@{dir}" command="merge">
 				<args><arg value="FETCH_HEAD" /></args>
 			</git>
 		</sequential>
 	</macrodef>
 
 	<macrodef name="git-remote-update">
+		<attribute name="dir" />
 		<sequential>
-			<git command="remote">
+			<git dir="@{dir}" command="remote">
 				<args><arg value="update"/></args>
 			</git>
 		</sequential>
 	</macrodef>
 
 	<macrodef name="git-reset">
+		<attribute name="dir" />
 		<attribute name="commit" />
-		<element name="mode" optional="true" />
+		<attribute name="mode" />
 		<sequential>
-			<git command="reset">
+			<git dir="@{dir}" command="reset">
 				<args>
+					<arg value="@{mode}" />
 					<arg value="@{commit}" />
-					<mode/>
 				</args>
 			</git>
 		</sequential>
