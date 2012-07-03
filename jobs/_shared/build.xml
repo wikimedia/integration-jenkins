@@ -460,14 +460,14 @@ set the following environnement variables:
 		<attribute name="dir" default="" />
 		<element name="args" optional="true" />
 		<sequential>
-			<exec executable="git" dir="@{dir}">
+			<exec executable="git" dir="@{dir}" failonerror="true">
 				<arg value="@{command}" />
 				<args/>
 			</exec>
 		</sequential>
 	</macrodef>
 
-	<!-- clone a git repository -->
+	<!-- clone a git repository. Fail if dest already exist! -->
 	<macrodef name="git-clone">
 		<attribute name="branch" default="master" />
 		<attribute name="repository" />
