@@ -15,7 +15,7 @@ https://github.com/wikimedia/WikipediaMobile</description>
       <hudson.plugins.git.UserRemoteConfig>
         <name></name>
         <refspec></refspec>
-        <url>git://github.com/wikimedia/WikipediaMobile</url>
+        <url>git://github.com/wikimedia/WikipediaMobile.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>

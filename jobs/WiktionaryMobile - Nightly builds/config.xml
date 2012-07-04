@@ -15,7 +15,7 @@ https://github.com/wikimedia/WiktionaryMobile/</description>
       <hudson.plugins.git.UserRemoteConfig>
         <name></name>
         <refspec></refspec>
-        <url>git://github.com/wikimedia/WiktionaryMobile</url>
+        <url>git://github.com/wikimedia/WiktionaryMobile.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
