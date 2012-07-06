@@ -48,7 +48,7 @@
 	<target name="build" depends="install" description="Main entry point" />
 
 	<!-- Entry point to build the Wikidata project -->
-	<target name="build-wikidata">
+	<target name="build-wikidata" depends="-import-gerrit-env">
 		<!-- We need a copy of mediawiki/core.git@Wikidata -->
 		<import-project
 			name="mediawiki/core"
@@ -58,7 +58,11 @@
 		<import-extension name="Wikibase" />
 
 		<!-- Apply Gerrit change to the extension -->
-		<gerrit-apply-change dir="${sourcedir}/extensions/Wikibase" />
+		<gerrit-apply-change
+			dir="${sourcedir}/extensions/Wikibase"
+			branch="${gerrit.branch}"
+			refspec="${gerrit.refspec}"
+			/>
 
 		<antcall target="php-lint" />
 		<antcall target="phpunit-databaseless" />
