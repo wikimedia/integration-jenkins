@@ -533,9 +533,10 @@ set the following environnement variables:
 	<macrodef name="git">
 		<attribute name="command" />
 		<attribute name="dir" default="" />
+		<attribute name="failonerror" default="true" />
 		<element name="args" optional="true" />
 		<sequential>
-			<exec executable="git" dir="@{dir}" failonerror="true">
+			<exec executable="git" dir="@{dir}" failonerror="@{failonerror}">
 				<arg value="@{command}" />
 				<args/>
 			</exec>
