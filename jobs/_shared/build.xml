@@ -47,6 +47,26 @@
 
 	<target name="build" depends="install" description="Main entry point" />
 
+	<!-- Entry point to build the Wikidata project -->
+	<target name="build-wikidata">
+		<!-- We need a copy of mediawiki/core.git@Wikidata -->
+		<import-project
+			name="mediawiki/core"
+			branch="Wikidata"
+			/>
+		<!-- Then mediawiki/extension/Wikibase.git -->
+		<import-extension name="Wikibase" />
+
+		<!-- Apply Gerrit change to the extension -->
+		<gerrit-apply-change dir="${sourcedir}/extensions/Wikibase" />
+
+		<antcall target="php-lint" />
+		<antcall target="phpunit-databaseless" />
+		<antcall target="install" />
+		<antcall target="phpunit-databased" />
+		<!-- fixme: should just test @group Wikibase -->
+	</target>
+
 	<target name="install" depends="clean,create-dirs,installdb">
 		<!-- Append a call to extrasettings -->
 		<echo level="info">Making MediaWiki to load ExtraSettings.php</echo>
