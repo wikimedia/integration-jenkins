@@ -445,11 +445,14 @@ set the following environnement variables:
 	</target>
 
 	<!-- locally copy a project from the shared repo to a local dest -->
-	<target name="copy-project" unless="git.shared.exist.${name}">
-		<echo>LOCAL clone from ${git.shared.dir}/${name}</echo>
+	<target name="copy-project">
+		<echo>Clone: ${gerrit.baseurl}/${name}.git</echo>
 		<echo>To: ${dest}</echo>
+		<echo>Ref: ${git.shared.dir}/${name}</echo>
 		<git-clone
-			repository="${git.shared.dir}/${name}"
+			failonerror="false"
+			options="--reference ${git.shared.dir}/${name}"
+			repository="${gerrit.baseurl}/${name}.git"
 			dest="${dest}"
 			branch="${branch}" />
 	</target>
