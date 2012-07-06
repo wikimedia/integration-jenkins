@@ -523,9 +523,10 @@ set the following environnement variables:
 				<param name="dest"   value="@{dest}"   />
 			</antcall>
 
-			<!-- Set up destination -->
-			<git-checkout   dir="@{dest}" />
+			<!-- While we are at it, make dest clean -->
+			<git-remote-update dir="@{dest}" />
 			<git-reset-hard dir="@{dest}" commit="remotes/origin/@{branch}" />
+			<git-checkout   dir="@{dest}" />
 			<git-clean-dfqx dir="@{dest}" />
 		</sequential>
 	</macrodef>
