@@ -428,6 +428,22 @@ set the following environnement variables:
 		<echoproperties />
 	</target>
 
+	<!-- apply the Gerrit change to a git working directory -->
+	<macrodef name="gerrit-apply-change">
+		<attribute name="dir" default="${sourcedir}" />
+		<sequential>
+			<echo>Applying gerrit change ${gerrit.change} from ${gerrit.project} to @{dir}</echo>
+			<git-checkout  dir="@{dir}"
+				commit="${gerrit.branch}" />
+			<git-reset         dir="@{dir}"
+				mode="--hard" commit="${gerrit.branch}" />
+			<git-clean-dfqx dir="@{dir}" />
+			<git-fetch dir="@{dir}"
+				repository="origin" refspec="${gerrit.refspec}" />
+			<git-merge-fetchhead dir="@{dir}" />
+		</sequential>
+	</macrodef>
+
 	<!-- Clone a gerrit project unless it is already there -->
 	<target name="clone-gerrit-project"
 		description="Clone a gerrit project to `git.shared.dir`"
