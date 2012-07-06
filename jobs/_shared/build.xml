@@ -543,16 +543,19 @@ set the following environnement variables:
 		</sequential>
 	</macrodef>
 
-	<!-- clone a git repository. Fail if dest already exist! -->
+	<!-- clone a git repository
+		 Fail if dest already exist! Use failonerror=false to ignore
+	-->
 	<macrodef name="git-clone">
 		<attribute name="branch" default="master" />
 		<attribute name="repository" />
 		<attribute name="dest" />
+		<attribute name="failonerror" default="true" />
+		<attribute name="options" default="" />
 		<sequential>
-		<git command="clone">
+		<git command="clone" failonerror="@{failonerror}">
 			<args>
-				<arg value="--branch" />
-				<arg value="@{branch}" />
+				<arg line="@{options}" />
 				<arg value="--" />
 				<arg value="@{repository}" />
 				<arg value="@{dest}" />
