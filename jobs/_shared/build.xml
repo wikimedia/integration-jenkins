@@ -451,15 +451,17 @@ set the following environnement variables:
 	<!-- apply the Gerrit change to a git working directory -->
 	<macrodef name="gerrit-apply-change">
 		<attribute name="dir" default="${sourcedir}" />
+		<attribute name="branch"  />
+		<attribute name="refspec" />
 		<sequential>
-			<echo>Applying gerrit change ${gerrit.change} from ${gerrit.project} to @{dir}</echo>
+			<echo>Applying @{refspec} from @{branch} to @{dir}</echo>
 			<git-checkout  dir="@{dir}"
-				commit="${gerrit.branch}" />
+				commit="@{branch}" />
 			<git-reset         dir="@{dir}"
-				mode="--hard" commit="${gerrit.branch}" />
+				mode="--hard" commit="@{branch}" />
 			<git-clean-dfqx dir="@{dir}" />
 			<git-fetch dir="@{dir}"
-				repository="origin" refspec="${gerrit.refspec}" />
+				repository="origin" refspec="@{refspec}" />
 			<git-merge-fetchhead dir="@{dir}" />
 		</sequential>
 	</macrodef>
