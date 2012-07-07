@@ -148,10 +148,13 @@ if( file_exists( 'ExtraSettings.php' ) ) {
 		<touch file="${builddir}/LocalSettings.php" />
 	</target>
 
-	<target name="clean" depends="cleandb">
+	<target name="nolocalsettings" description="Delete LocalSettings.php">
 		<echo level="info">Deleting LocalSettings.php</echo>
 		<delete file="${builddir}/LocalSettings.php" />
 	</target>
+
+	<target name="clean" depends="cleandb, nolocalsettings" />
+
 	<!-- Database cleaning targets -->
 	<target name="cleandb"
 		depends="select-database"
