@@ -110,10 +110,10 @@ if( file_exists( 'ExtraSettings.php' ) ) {
 		<echo>Running MediaWiki installer for database ${mw.database}</echo>
 		<antcall target="installdb-${mw.database}" />
 	</target>
-	<target name="installdb-mysql" depends="create-dirs,cleandb-mysql">
+	<target name="installdb-mysql" depends="create-dirs,cleandb-mysql,nolocalsettings">
 		<fail>Install not implemented for MySQL</fail>
 	</target>
-	<target name="installdb-postgre" depends="create-dirs,cleandb-postgre">
+	<target name="installdb-postgre" depends="create-dirs,cleandb-postgre,nolocalsettings">
 		<exec executable="php" dir="${builddir}/" failonerror="true">
 			<arg line="${sourcedir}/maintenance/install.php
 				--confpath ${builddir}
@@ -130,7 +130,7 @@ if( file_exists( 'ExtraSettings.php' ) ) {
 			"/>
 		</exec>
 	</target>
-	<target name="installdb-sqlite" depends="create-dirs,cleandb-sqlite">
+	<target name="installdb-sqlite" depends="create-dirs,cleandb-sqlite,nolocalsettings">
 		<exec executable="php" dir="${builddir}/" failonerror="true">
 			<arg line="${sourcedir}/maintenance/install.php
 				--confpath ${builddir}
