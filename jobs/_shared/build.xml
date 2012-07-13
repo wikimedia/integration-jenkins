@@ -473,6 +473,48 @@ set the following environnement variables:
 		</sequential>
 	</macrodef>
 
+	<!-- Takes snapshots of FETCH_HEAD files in "fingerprints" dir
+		Example usage:
+		ant take-fingerprints -Dsourcedir=/working/copy
+	-->
+	<target name="take-fingerprints">
+		<jenkins-fingerprint
+			dir="${sourcedir}"
+			todir="${sourcedir}/fingerprints"
+		/>
+	</target>
+
+	<!-- Copy files matching .git/FETCH_HEAD under 'fingerprints' using
+		the directory name to forge a new name. Example output:
+		$ ls -1 $WORKSPACE/fingerprints
+		workspace
+		workspace_extensions_Wikibase
+	-->
+	<macrodef name="jenkins-fingerprint">
+		<!-- Base directory to look for fingerprints -->
+		<attribute name="dir"   default="." />
+		<attribute name="todir" default="@{dir}/fingerprints" />
+		<sequential>
+			<echo>Fingerprinting @{dir}</echo>
+			<echo>To @{dir}/fingerprints</echo>
+			<!-- verbose and overwrite to make sure user see what is going on -->
+			<copy todir="@{todir}"
+				overwrite="yes"
+				preservelastmodified="yes"
+				verbose="yes"
+			>
+				<!-- find .git/FETCH_HEAD files -->
+				<fileset dir="@{dir}" defaultexcludes="no" includes="**/.git/FETCH_HEAD" />
+				<!-- strip git/FETCH_HEAD, replaces slashes by underscores -->
+				<filtermapper>
+					<replacestring from="/.git/FETCH_HEAD" to="" />
+					<replacestring from="/" to="_" />
+				</filtermapper>
+			</copy>
+		</sequential>
+	</macrodef>
+
+
 	<!-- Clone a gerrit project unless it is already there -->
 	<target name="clone-gerrit-project"
 		description="Clone a gerrit project to `git.shared.dir`"
