@@ -480,7 +480,7 @@ set the following environnement variables:
 	<target name="take-fingerprints">
 		<jenkins-fingerprint
 			dir="${sourcedir}"
-			todir="${sourcedir}/fingerprints"
+			todir="${builddir}/fingerprints"
 		/>
 	</target>
 
