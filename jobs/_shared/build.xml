@@ -507,7 +507,7 @@ set the following environnement variables:
 				<fileset dir="@{dir}" defaultexcludes="no" includes="**/.git/FETCH_HEAD" />
 				<!-- strip git/FETCH_HEAD, replaces slashes by underscores -->
 				<filtermapper>
-					<replacestring from="/.git/FETCH_HEAD" to="" />
+					<replacestring from=".git/FETCH_HEAD" to="_git_FETCH_HEAD" />
 					<replacestring from="/" to="_" />
 				</filtermapper>
 			</copy>
