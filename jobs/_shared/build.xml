@@ -150,6 +150,7 @@ if( file_exists( 'ExtraSettings.php' ) ) {
 
 	<target name="nolocalsettings" description="Delete LocalSettings.php">
 		<echo level="info">Deleting LocalSettings.php</echo>
+		<delete file="${sourcedir}/LocalSettings.php" />
 		<delete file="${builddir}/LocalSettings.php" />
 	</target>
 
