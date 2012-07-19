@@ -360,6 +360,10 @@ set the following environnement variables:
 		<attribute name="options" default="" />
 
 		<sequential>
+		<echo>Builddir: ${builddir}</echo>
+		<echo>Logdir..: ${builddir}/logs/</echo>
+		<echo>Indir...: ${sourcedir}/tests/phpunit</echo>
+		<echo>Opts....: @{options}</echo>
 		<exec executable="php" dir="${sourcedir}/tests/phpunit" failonerror="true">
 			<arg line="phpunit.php --conf ${builddir}/LocalSettings.php @{options} --log-junit ${builddir}/logs/junit.xml" />
 		</exec>
