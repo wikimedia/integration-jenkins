@@ -20,3 +20,7 @@
 
 # Ignore jobs private properties
 */private.properties
+
+# Easily ignore old / archived jobs
+/*-old/
+/*-back/
