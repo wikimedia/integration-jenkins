@@ -8,6 +8,7 @@
 
 # Some jobs subdirectories (TODO: ignore all?)
 */builds/
+*/fingerprints/
 */javadoc/
 */modules/
 */site/

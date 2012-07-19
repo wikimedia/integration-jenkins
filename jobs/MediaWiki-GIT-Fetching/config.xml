@@ -41,6 +41,13 @@
 # Borrowed from OpenStack
 /var/lib/jenkins/bin/fetch_gerrit_head.sh</command>
     </hudson.tasks.Shell>
+    <hudson.tasks.Ant>
+      <targets>take-fingerprints</targets>
+      <buildFile>../build.xml</buildFile>
+    </hudson.tasks.Ant>
+    <hudson.plugins.createfingerprint.CreateFingerprint>
+      <targets>fingerprints/*</targets>
+    </hudson.plugins.createfingerprint.CreateFingerprint>
     <hudson.plugins.createfingerprint.CreateFingerprint>
       <targets>FETCH_HEAD</targets>
     </hudson.plugins.createfingerprint.CreateFingerprint>

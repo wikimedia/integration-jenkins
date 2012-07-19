@@ -12,10 +12,6 @@
   <triggers class="vector"/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.tasks.Shell>
-      <command>echo &quot;This is the very dumb MediaWiki linter!!&quot;
-/bin/true</command>
-    </hudson.tasks.Shell>
     <hudson.tasks.Ant>
       <targets>php-lint</targets>
       <buildFile>../build.xml</buildFile>

@@ -1,20 +1,45 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Runs PHPUnit without a database backend. Runs when changesets are pushed to Gerrit for review in `mediawiki/core`</description>
+  <description></description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers class="vector"/>
+  <triggers class="vector">
+    <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger>
+      <spec></spec>
+      <gerritProjects>
+        <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
+          <compareType>PLAIN</compareType>
+          <pattern>mediawiki/extensions/Wikibase</pattern>
+          <branches>
+            <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+              <compareType>ANT</compareType>
+              <pattern>**</pattern>
+            </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+          </branches>
+        </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
+      </gerritProjects>
+      <silentMode>true</silentMode>
+      <escapeQuotes>true</escapeQuotes>
+      <buildStartMessage></buildStartMessage>
+      <buildFailureMessage></buildFailureMessage>
+      <buildSuccessfulMessage></buildSuccessfulMessage>
+      <buildUnstableMessage></buildUnstableMessage>
+      <buildUnsuccessfulFilepath></buildUnsuccessfulFilepath>
+      <customUrl></customUrl>
+    </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger>
+  </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Ant>
-      <targets>phpunit-databaseless take-fingerprints</targets>
+      <targets>properties build-wikidata</targets>
       <buildFile>../build.xml</buildFile>
+      <properties>sourcedir=$WORKSPACE</properties>
     </hudson.tasks.Ant>
   </builders>
   <publishers>
@@ -42,10 +67,6 @@
         </org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
       </thresholds>
     </xunit>
-    <hudson.tasks.Fingerprinter>
-      <targets>FETCH_HEAD,fingerprints/*</targets>
-      <recordBuildArtifacts>false</recordBuildArtifacts>
-    </hudson.tasks.Fingerprinter>
   </publishers>
   <buildWrappers>
     <hudson.plugins.timestamper.TimestamperBuildWrapper/>

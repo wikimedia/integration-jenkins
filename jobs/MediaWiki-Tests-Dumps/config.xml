@@ -13,7 +13,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Ant>
-      <targets>phpunit-dump</targets>
+      <targets>phpunit-dump take-fingerprints</targets>
       <buildFile>../build.xml</buildFile>
     </hudson.tasks.Ant>
   </builders>
@@ -43,7 +43,7 @@
       </thresholds>
     </xunit>
     <hudson.tasks.Fingerprinter>
-      <targets>FETCH_HEAD</targets>
+      <targets>FETCH_HEAD, fingerprints/*</targets>
       <recordBuildArtifacts>false</recordBuildArtifacts>
     </hudson.tasks.Fingerprinter>
   </publishers>
