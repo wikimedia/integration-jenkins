@@ -65,9 +65,6 @@
 			/>
 
 		<antcall target="php-lint" />
-		<antcall target="phpunit-databaseless" />
-		<antcall target="install" />
-		<antcall target="phpunit-databased" />
 		<!-- fixme: should just test @group Wikibase -->
 	</target>
 
