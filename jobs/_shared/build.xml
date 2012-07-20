@@ -356,14 +356,15 @@ set the following environnement variables:
 	-->
 	<macrodef name="run-phpunit">
 		<attribute name="options" default="" />
+		<attribute name="directory" default="" />
 
 		<sequential>
 		<echo>Builddir: ${builddir}</echo>
 		<echo>Logdir..: ${builddir}/logs/</echo>
 		<echo>Indir...: ${sourcedir}/tests/phpunit</echo>
-		<echo>Opts....: @{options}</echo>
+		<echo>Opts....: @{options} -- @{directory}</echo>
 		<exec executable="php" dir="${sourcedir}/tests/phpunit" failonerror="true">
-			<arg line="phpunit.php --conf ${builddir}/LocalSettings.php @{options} --log-junit ${builddir}/logs/junit.xml" />
+			<arg line="phpunit.php --conf ${builddir}/LocalSettings.php @{options} --log-junit ${builddir}/logs/junit.xml -- @{directory}" />
 		</exec>
 		</sequential>
 	</macrodef>
