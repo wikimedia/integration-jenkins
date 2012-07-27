@@ -56,6 +56,8 @@
 			/>
 		<!-- Then mediawiki/extension/Wikibase.git -->
 		<import-extension name="Wikibase" />
+		<!-- Then mediawiki/extension/Diff.git -->
+		<import-extension name="Diff" />
 
 		<!-- Apply Gerrit change to the extension -->
 		<gerrit-apply-change
