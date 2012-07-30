@@ -353,6 +353,12 @@ set the following environnement variables:
 		<run-phpunit options="--group Database --exclude-group API,Dump,Parser,${phpunitexcludes}"/>
 	</target>
 
+	<!-- Execute phpunit on each sub directory of 'extensions' -->
+	<target name="phpunit-extensions" depends="installdb">
+		<run-phpunit options="--exclude-group ${phpunitexcludes}"
+			directory="${sourcedir}/extensions" />
+	</target>
+
 	<!-- Macro to run some phpunit tests
 	     @param Options Additional parameters to pass to PHPUnit
 	-->
