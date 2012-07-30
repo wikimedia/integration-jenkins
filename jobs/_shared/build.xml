@@ -561,9 +561,6 @@ set the following environnement variables:
 		<attribute name="branch" default="master" />
 		<attribute name="dest"   default="${sourcedir}" />
 		<sequential>
-			<!-- make sure the shared repo is up to date -->
-			<!--	<git-remote-update dir="${git.shared.dir}/@{name}" /> -->
-
 			<!-- Check existence of a git clone in the shared repo: -->
 			<git-cloned name="@{name}" />
 
@@ -571,6 +568,9 @@ set the following environnement variables:
 			<antcall target="clone-gerrit-project">
 				<param name="name"   value="@{name}"   />
 			</antcall>
+
+			<!-- make sure the shared repo is up to date -->
+			<git-remote-update dir="${git.shared.dir}/@{name}" />
 
 			<!-- Copy from shared repo to dest (usually a Jenkins workspace -->
 			<antcall target="copy-project">
