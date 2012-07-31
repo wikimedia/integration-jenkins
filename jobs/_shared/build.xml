@@ -90,20 +90,26 @@
 		<echo>Running MediaWiki installer for database ${mw.database}</echo>
 		<antcall target="installdb-${mw.database}" />
 		<!-- Append a call to extrasettings -->
-		<echo level="info">Making MediaWiki to load ExtraSettings.php</echo>
+		<echo>Injecting include_once() of ExtraSettings.php files</echo>
 		<echo append="true" file="${builddir}/LocalSettings.php">
 <![CDATA[
 # START: PHP code inserted automatically by build job
 
-# Include ExtraSettings.php
-if( file_exists( 'ExtraSettings.php' ) ) {
-	require_once( 'ExtraSettings.php' );
-} else {
-	require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
+# Include ExtraSettings.php provided in source directory
+if( file_exists( "${sourcedir}".'/ExtraSettings.php' ) ) {
+	require_once( "${sourcedir}".'/ExtraSettings.php' );
+}
+# ... or its parent path
+if( file_exists( dirname("${sourcedir}").'/ExtraSettings.php' ) ) {
+	require_once( dirname("${sourcedir}").'/ExtraSettings.php' );
+}
+# And finally the globally shared setting
+if( file_exists( dirname(dirname("${sourcedir}")).'_shared/ExtraSettings.php' ) ) {
+	require_once( dirname(dirname("${sourcedir}")).'_shared/ExtraSettings.php' );
 }
 # END: PHP code inserted automatically by build job
 ]]>
-		</echo>
+</echo>
 		<!-- Make sure we apply the extensions updates as well -->
 		<echo level="info">Running MediaWiki update</echo>
 		<exec executable="php" dir="${builddir}/" failonerror="true">
