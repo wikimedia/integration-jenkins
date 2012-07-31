@@ -6,7 +6,7 @@ https://github.com/wikimedia/WLMMobile</description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <com.coravy.hudson.plugins.github.GithubProjectProperty>
-		<projectUrl>https://github.com/wikimedia/WLMMobile</projectUrl>
+      <projectUrl>https://github.com/wikimedia/WLMMobile</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
   <scm class="hudson.plugins.git.GitSCM">
@@ -81,7 +81,6 @@ ln -f -s /srv/org/mediawiki/integration/WLMMobile/nightly/WLMMobile${GIT_COMMIT%
       <notifyUpstreamCommitters>false</notifyUpstreamCommitters>
       <buildToChatNotifier class="hudson.plugins.im.build_notify.DefaultBuildToChatNotifier"/>
       <matrixMultiplier>ONLY_CONFIGURATIONS</matrixMultiplier>
-      <channels/>
     </hudson.plugins.ircbot.IrcPublisher>
   </publishers>
   <buildWrappers/>
