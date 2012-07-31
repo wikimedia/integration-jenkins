@@ -71,25 +71,6 @@
 	</target>
 
 	<target name="install" depends="clean,create-dirs,installdb">
-		<!-- Append a call to extrasettings -->
-		<echo level="info">Making MediaWiki to load ExtraSettings.php</echo>
-		<echo append="true" file="${builddir}/LocalSettings.php">
-<![CDATA[
-# START: PHP code inserted automatically by build job
-
-# Include ExtraSettings.php
-if( file_exists( 'ExtraSettings.php' ) ) {
-	require_once( 'ExtraSettings.php' );
-} else {
-	require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
-}
-# END: PHP code inserted automatically by build job
-]]>
-		</echo>
-		<echo level="info">Running MediaWiki update</echo>
-		<exec executable="php" dir="${builddir}/" failonerror="true">
-			<arg line="${sourcedir}/maintenance/update.php --quick --conf ${builddir}/LocalSettings.php" />
-		</exec>
 	</target>
 
 	<target name="create-dirs">
@@ -108,7 +89,28 @@ if( file_exists( 'ExtraSettings.php' ) ) {
 	<target name="installdb" depends="select-database">
 		<echo>Running MediaWiki installer for database ${mw.database}</echo>
 		<antcall target="installdb-${mw.database}" />
+		<!-- Append a call to extrasettings -->
+		<echo level="info">Making MediaWiki to load ExtraSettings.php</echo>
+		<echo append="true" file="${builddir}/LocalSettings.php">
+<![CDATA[
+# START: PHP code inserted automatically by build job
+
+# Include ExtraSettings.php
+if( file_exists( 'ExtraSettings.php' ) ) {
+	require_once( 'ExtraSettings.php' );
+} else {
+	require_once( dirname( dirname( __FILE__ ) ) ) . '/ExtraSettings.php';
+}
+# END: PHP code inserted automatically by build job
+]]>
+		</echo>
+		<!-- Make sure we apply the extensions updates as well -->
+		<echo level="info">Running MediaWiki update</echo>
+		<exec executable="php" dir="${builddir}/" failonerror="true">
+			<arg line="${sourcedir}/maintenance/update.php --quick --conf ${builddir}/LocalSettings.php" />
+		</exec>
 	</target>
+
 	<target name="installdb-mysql" depends="create-dirs,cleandb-mysql,nolocalsettings">
 		<fail>Install not implemented for MySQL</fail>
 	</target>
