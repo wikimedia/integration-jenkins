@@ -12,7 +12,7 @@
   <triggers class="vector">
     <hudson.triggers.TimerTrigger>
       <spec># Every day at 3am
-* 3 * * *</spec>
+0 3 * * *</spec>
     </hudson.triggers.TimerTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
