@@ -623,6 +623,45 @@ set the following environnement variables:
 		<import-extension name="Wikibase" />
 	</target>
 
+
+	<!-- Nightly builds -->
+
+	<!-- To test it:
+		ant nightly-mediawiki-core -Dgit.shared.dir=/path/to/git/repos \
+			-Dnightly.dir=/tmp/nightly
+	-->
+	<target name="nightly-mediawiki-core">
+		<local name="projectname" />
+		<property name="projectname" value="mediawiki/core" />
+		<local name="remote.dir" />
+		<property name="remote.dir" value="${git.shared.dir}/${projectname}" />
+
+		<!-- Make sure our shared git repository has the latest values -->
+		<git-remote-update dir="${remote.dir}" />
+
+		<!-- Find sha1 for origin/master -->
+		<local name="sha1" />
+		<echo>Finding sha1 of origin/master in ${remote.dir}</echo>
+		<exec executable="git" dir="${remote.dir}" failonerror="true"
+			outputproperty="sha1" >
+			<arg line="log --pretty=format:'%h' -n 1 origin/master" />
+		</exec>
+
+		<!-- git-archive does not create parent directories! -->
+		<mkdir dir="${nightly.dir}/${projectname}" />
+		<!-- prefix must have a trailing slash!! -->
+		<git-archive
+			output="${nightly.dir}/${projectname}/mediawiki-${sha1}.zip"
+			remote="${remote.dir}"
+			prefix="mediawiki-${sha1}/"
+			treeish="origin/master"
+			/>
+		<symlink link="${nightly.dir}/${projectname}/mediawiki-latest.zip"
+			resource="mediawiki-${sha1}.zip"
+			overwrite="true" />
+	</target>
+
+
 	<!-- Check if a project was cloned by looking for .git dir
 		Set property git.shared.exist.name/of/project
 	 -->
