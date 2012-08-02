@@ -653,6 +653,28 @@ set the following environnement variables:
 		</sequential>
 	</macrodef>
 
+	<!-- archive a repository
+		When giving a directory to prefix, make sure it ends with a trailing slash!
+	-->
+	<macrodef name="git-archive">
+		<attribute name="output" />
+		<attribute name="remote" />
+		<attribute name="format"  default="zip" />
+		<attribute name="prefix"  default="''" />
+		<attribute name="treeish" default="HEAD" />
+		<sequential>
+			<git command="archive" failonerror="true">
+				<args>
+					<arg line="--format @{format}"  />
+					<arg line="--output @{output}"  />
+					<arg line="--prefix @{prefix}"  />
+					<arg line="--remote=@{remote}" />
+					<arg line="@{treeish}" />
+				</args>
+			</git>
+		</sequential>
+	</macrodef>
+
 	<!-- clone a git repository
 		 Fail if dest already exist! Use failonerror=false to ignore
 	-->
