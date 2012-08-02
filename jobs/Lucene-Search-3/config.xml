@@ -19,7 +19,7 @@
     <workspaceUpdater class="hudson.scm.subversion.UpdateWithCleanUpdater"/>
   </scm>
   <canRoam>true</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector">
@@ -36,7 +36,7 @@
   <defaultGoals>install</defaultGoals>
   <aggregatorStyleBuild>true</aggregatorStyleBuild>
   <incrementalBuild>false</incrementalBuild>
-  <usePrivateRepository>false</usePrivateRepository>
+  <perModuleEmail>true</perModuleEmail>
   <ignoreUpstremChanges>true</ignoreUpstremChanges>
   <archivingDisabled>false</archivingDisabled>
   <resolveDependencies>false</resolveDependencies>
@@ -151,4 +151,11 @@
     </hudson.plugins.cobertura.CoberturaPublisher>
   </publishers>
   <buildWrappers/>
+  <prebuilders/>
+  <postbuilders/>
+  <runPostStepsIfResult>
+    <name>FAILURE</name>
+    <ordinal>2</ordinal>
+    <color>RED</color>
+  </runPostStepsIfResult>
 </maven2-moduleset>
