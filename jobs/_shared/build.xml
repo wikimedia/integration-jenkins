@@ -121,7 +121,7 @@
 # START: PHP code inserted automatically by build job
 
 # Inject any extensions
-require_once( dirname(dirname("${sourcedir}")).'_shared/InjectExtensions.php' );
+require_once( dirname(dirname("${sourcedir}")).'/_shared/InjectExtensions.php' );
 
 # Include ExtraSettings.php provided in source directory
 if( file_exists( "${sourcedir}".'/ExtraSettings.php' ) ) {
