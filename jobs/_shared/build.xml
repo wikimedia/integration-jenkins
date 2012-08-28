@@ -74,10 +74,20 @@
 			 the extension according to Gerrit project name.
 			 TODO: handle extensions dependencies
 			 -->
-	<target name="setup-extension" depends="-import-gerrit-env,import-mediawiki-core-master">
+	<target name="setup-extension" depends="-import-gerrit-env">
 		<!-- Split gerrit project name to only retains the last part
 				 aka: 'mediawiki/extensions/RSS' => 'RSS'
 		-->
+
+		<!-- Use latest mediawiki/core@master -->
+		<git-remote-update dir="${git.shared.dir}/mediawiki/core" />
+		<git-snapshot
+			remote="${git.shared.dir}/mediawiki/core"
+			treeish="master"
+			dest="${sourcedir}"
+		/>
+
+		<!-- Import the extension referenced by Gerrit change -->
 		<loadresource property="mediawiki.extension.name">
 			<string value="${gerrit.project}" />
 			<filterchain>
