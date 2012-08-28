@@ -64,8 +64,6 @@
 		<!-- Apply Gerrit change to the extension -->
 		<gerrit-apply-change
 			dir="${sourcedir}/extensions/Wikibase"
-			branch="${gerrit.branch}"
-			refspec="${gerrit.refspec}"
 			/>
 
 		<antcall target="php-lint" />
@@ -478,9 +476,9 @@ set the following environnement variables:
 
 	<!-- apply the Gerrit change to a git working directory -->
 	<macrodef name="gerrit-apply-change">
-		<attribute name="dir" default="${sourcedir}" />
-		<attribute name="branch"  />
-		<attribute name="refspec" />
+		<attribute name="dir" />
+		<attribute name="branch"  default="${gerrit.branch}" />
+		<attribute name="refspec" default="${gerrit.refspec}" />
 		<sequential>
 			<echo>Applying @{refspec} from @{branch} to @{dir}</echo>
 			<git-checkout  dir="@{dir}"
