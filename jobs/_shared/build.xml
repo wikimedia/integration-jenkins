@@ -699,6 +699,8 @@ set the following environnement variables:
 
 	<!-- Check if a project was cloned by looking for .git dir
 		Set property git.shared.exist.name/of/project
+
+		Also look at <git-snapshot />
 	 -->
 	<macrodef name="git-cloned">
 		<attribute name="name" />
@@ -858,6 +860,33 @@ set the following environnement variables:
 				mode="--hard"
 				/>
 		</sequential>
+	</macrodef>
+
+	<!--
+			Copy from @{remote} git repository rev @{treeish} to @{dest}
+			This rely on 'git archive' and is way faster than doing a git clone.
+
+			Usage Example:
+			<git-snapshot
+				remote="/var/lib/git/mediawiki/core"
+				treeish="master"
+				dest="/tmp/snapshot"
+				/>
+			-->
+	<macrodef name="git-snapshot">
+		<attribute name="remote"  />
+		<attribute name="treeish" />
+		<attribute name="dest"    />
+		<sequential>
+			<echo>Snapshoting @{remote}@@{treeish} to @{dest}</echo>
+			<!-- git-archive does not create parent directories! -->
+			<mkdir dir="@{dest}" />
+			<!-- Wrap execution in bash since we use a pipe -->
+			<exec executable="bash">
+				<arg value="-c" />
+				<arg value="git archive --remote=@{remote} @{treeish} | (cd @{dest} &amp;&amp; tar xf - )" />
+			</exec>
+	</sequential>
 	</macrodef>
 
 </project>
