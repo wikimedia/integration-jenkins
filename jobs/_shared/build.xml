@@ -70,6 +70,31 @@
 		<!-- fixme: should just test @group Wikibase -->
 	</target>
 
+	<!-- For jobs reacting to changes made to an Extension, this will setup
+			 the extension according to Gerrit project name.
+			 TODO: handle extensions dependencies
+			 -->
+	<target name="setup-extension" depends="-import-gerrit-env,import-mediawiki-core-master">
+		<!-- Split gerrit project name to only retains the last part
+				 aka: 'mediawiki/extensions/RSS' => 'RSS'
+		-->
+		<loadresource property="mediawiki.extension.name">
+			<string value="${gerrit.project}" />
+			<filterchain>
+				<tokenfilter>
+					<containsregex pattern=".*/(.*)" replace="\1" />
+				</tokenfilter>
+			</filterchain>
+		</loadresource>
+
+		<import-extension name="${mediawiki.extension.name}" />
+
+		<gerrit-apply-change
+			dir="${sourcedir}/extensions/${mediawiki.extension.name}"
+			/>
+
+	</target>
+
 	<target name="install" depends="clean,create-dirs,installdb">
 	</target>
 
