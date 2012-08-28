@@ -193,7 +193,9 @@ if( file_exists( dirname(dirname("${sourcedir}")).'_shared/ExtraSettings.php' ) 
 
 	<!-- Delete anything under "extensions" directory -->
 	<target name="cleanextensions">
-		<delete dir="${builddir}/extensions" />
+		<delete includeemptydirs="true" >
+			<fileset dir="${builddir}/extensions" includes="**/*" />
+		</delete>
 	</target>
 
 	<!-- Database cleaning targets -->
