@@ -191,6 +191,11 @@ if( file_exists( dirname(dirname("${sourcedir}")).'_shared/ExtraSettings.php' ) 
 
 	<target name="clean" depends="cleandb, nolocalsettings" />
 
+	<!-- Delete anything under "extensions" directory -->
+	<target name="cleanextensions">
+		<delete dir="${builddir}/extensions" />
+	</target>
+
 	<!-- Database cleaning targets -->
 	<target name="cleandb"
 		depends="select-database"

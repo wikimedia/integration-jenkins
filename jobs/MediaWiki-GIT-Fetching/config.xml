@@ -42,7 +42,7 @@
 /var/lib/jenkins/bin/fetch_gerrit_head.sh</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Ant>
-      <targets>take-fingerprints</targets>
+      <targets>cleanextensions take-fingerprints</targets>
       <buildFile>../build.xml</buildFile>
     </hudson.tasks.Ant>
     <hudson.plugins.createfingerprint.CreateFingerprint>
