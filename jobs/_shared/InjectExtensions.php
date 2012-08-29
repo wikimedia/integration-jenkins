@@ -14,6 +14,18 @@ foreach( scandir( "$IP/extensions" ) as $name ) {
 		continue;
 	}
 
+	#### EXCEPTIONS ###################################################
+	if( $name == 'Wikibase' ) {
+		# Wikibase extension does not respect the usual conventions
+		# we load it using the job ExtraSettings.php
+		continue;
+	}
+
+
 	# Blindly require extension entry file
+	#
+	# require_once() is used to easily detect extension not respecting
+	# the default convention. That will throw out a fatal error under
+	# Jenkins.
 	require_once( "$dir/$name.php" );
 }
