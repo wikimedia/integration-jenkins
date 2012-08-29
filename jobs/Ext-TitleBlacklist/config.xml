@@ -24,7 +24,7 @@
           </branches>
         </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
       </gerritProjects>
-      <silentMode>true</silentMode>
+      <silentMode>false</silentMode>
       <escapeQuotes>true</escapeQuotes>
       <buildStartMessage></buildStartMessage>
       <buildFailureMessage></buildFailureMessage>
