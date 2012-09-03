@@ -37,7 +37,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Ant>
-      <targets>properties setup-extension phpunit-extensions take-fingerprints</targets>
+      <targets>setup-extension take-fingerprints phpunit-extensions</targets>
       <buildFile>../build.xml</buildFile>
       <properties>sourcedir=$WORKSPACE</properties>
     </hudson.tasks.Ant>
