@@ -43,7 +43,7 @@
     </hudson.tasks.Shell>
     <hudson.tasks.Ant>
       <targets>cleanextensions take-fingerprints</targets>
-      <buildFile>../build.xml</buildFile>
+      <buildFile>../../_shared/build.xml</buildFile>
     </hudson.tasks.Ant>
     <hudson.plugins.createfingerprint.CreateFingerprint>
       <targets>fingerprints/*</targets>

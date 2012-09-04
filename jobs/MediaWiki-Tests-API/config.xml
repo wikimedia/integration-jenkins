@@ -14,7 +14,7 @@
   <builders>
     <hudson.tasks.Ant>
       <targets>phpunit-api take-fingerprints</targets>
-      <buildFile>../build.xml</buildFile>
+      <buildFile>../../_shared/build.xml</buildFile>
     </hudson.tasks.Ant>
   </builders>
   <publishers>
