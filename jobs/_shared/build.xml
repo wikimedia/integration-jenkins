@@ -888,7 +888,7 @@ set the following environnement variables:
 		<attribute name="treeish" />
 		<attribute name="dest"    />
 		<sequential>
-			<echo>Snapshoting @{remote}@@{treeish} to @{dest}</echo>
+			<echo>Snapshoting @{remote} @{treeish} to @{dest}</echo>
 			<!-- git-archive does not create parent directories! -->
 			<mkdir dir="@{dest}" />
 			<!-- Wrap execution in bash since we use a pipe -->
