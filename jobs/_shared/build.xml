@@ -83,7 +83,7 @@
 		<git-remote-update dir="${git.shared.dir}/mediawiki/core" />
 		<git-snapshot
 			remote="${git.shared.dir}/mediawiki/core"
-			treeish="master"
+			treeish="origin/master"
 			dest="${sourcedir}"
 		/>
 
