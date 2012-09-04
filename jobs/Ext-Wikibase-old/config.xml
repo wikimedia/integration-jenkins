@@ -38,7 +38,7 @@
   <builders>
     <hudson.tasks.Ant>
       <targets>properties build-wikidata</targets>
-      <buildFile>../../_shared/build.xml</buildFile>
+      <buildFile>../build.xml</buildFile>
       <properties>sourcedir=$WORKSPACE</properties>
     </hudson.tasks.Ant>
   </builders>

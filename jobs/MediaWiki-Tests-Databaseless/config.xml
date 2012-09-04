@@ -14,7 +14,7 @@
   <builders>
     <hudson.tasks.Ant>
       <targets>phpunit-databaseless take-fingerprints</targets>
-      <buildFile>../../_shared/build.xml</buildFile>
+      <buildFile>../build.xml</buildFile>
     </hudson.tasks.Ant>
   </builders>
   <publishers>

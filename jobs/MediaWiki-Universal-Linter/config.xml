@@ -14,7 +14,7 @@
   <builders>
     <hudson.tasks.Ant>
       <targets>php-lint</targets>
-      <buildFile>../../_shared/build.xml</buildFile>
+      <buildFile>../build.xml</buildFile>
       <properties>-verbose</properties>
     </hudson.tasks.Ant>
   </builders>
