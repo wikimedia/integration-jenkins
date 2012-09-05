@@ -103,6 +103,23 @@
 			dir="${sourcedir}/extensions/${mediawiki.extension.name}"
 			/>
 
+		<!-- Import MediaWiki extensions
+				 Defined as a comma list in mw.dependencies.extensions, will
+				simply call the <import-extension name="foo" /> on each element
+				 -->
+        <script language="javascript"> <![CDATA[
+list = project.getProperty( "mw.dependencies.extensions" );
+if( list ) { // FIXME find out how to do an early 'return'
+    exts = list.split(',');
+    for each (var extension in exts) {
+        // Mimic <import-extension name="$extension" />
+        task = project.createTask( 'import-extension' );
+        task.setDynamicAttribute( 'name', extension );
+        task.execute();
+    }
+}
+        ]]></script>
+
 	</target>
 
 	<target name="install" depends="clean,create-dirs,installdb">
