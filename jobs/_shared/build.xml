@@ -114,8 +114,13 @@ if( list ) { // FIXME find out how to do an early 'return'
     for each (var extension in exts) {
         // Mimic <import-extension name="$extension" />
         task = project.createTask( 'import-extension' );
+
+				// Make sure target belong to something or we get a NPE
+				// http://stackoverflow.com/questions/12280295
+				task.setOwningTarget( self.getOwningTarget() );
+
         task.setDynamicAttribute( 'name', extension );
-        task.execute();
+				task.execute();
     }
 }
         ]]></script>
