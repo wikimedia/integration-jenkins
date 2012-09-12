@@ -41,6 +41,7 @@
           <failureNewThreshold></failureNewThreshold>
         </org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
       </thresholds>
+      <thresholdMode>0</thresholdMode>
     </xunit>
     <hudson.tasks.Fingerprinter>
       <targets>FETCH_HEAD, fingerprints/*</targets>

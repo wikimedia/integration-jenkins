@@ -24,14 +24,21 @@
           </branches>
         </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
       </gerritProjects>
-      <silentMode>false</silentMode>
+      <silentMode>true</silentMode>
       <escapeQuotes>true</escapeQuotes>
       <buildStartMessage></buildStartMessage>
       <buildFailureMessage></buildFailureMessage>
       <buildSuccessfulMessage></buildSuccessfulMessage>
       <buildUnstableMessage></buildUnstableMessage>
+      <buildNotBuiltMessage></buildNotBuiltMessage>
       <buildUnsuccessfulFilepath></buildUnsuccessfulFilepath>
       <customUrl></customUrl>
+      <triggerOnEvents>
+        <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.events.PluginPatchsetCreatedEvent/>
+      </triggerOnEvents>
+      <dynamicTriggerConfiguration>false</dynamicTriggerConfiguration>
+      <triggerConfigURL></triggerConfigURL>
+      <triggerInformationAction/>
     </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
@@ -46,11 +53,36 @@
     </hudson.plugins.createfingerprint.CreateFingerprint>
   </builders>
   <publishers>
-    <hudson.tasks.test.AggregatedTestResultPublisher>
-      <includeFailedBuilds>true</includeFailedBuilds>
-    </hudson.tasks.test.AggregatedTestResultPublisher>
+    <xunit>
+      <types>
+        <PHPUnitJunitHudsonTestType>
+          <pattern>logs/junit.xml</pattern>
+          <faildedIfNotNew>true</faildedIfNotNew>
+          <deleteOutputFiles>true</deleteOutputFiles>
+          <stopProcessingIfError>true</stopProcessingIfError>
+        </PHPUnitJunitHudsonTestType>
+      </types>
+      <thresholds>
+        <org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
+          <unstableThreshold></unstableThreshold>
+          <unstableNewThreshold></unstableNewThreshold>
+          <failureThreshold></failureThreshold>
+          <failureNewThreshold></failureNewThreshold>
+        </org.jenkinsci.plugins.xunit.threshold.FailedThreshold>
+        <org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
+          <unstableThreshold></unstableThreshold>
+          <unstableNewThreshold></unstableNewThreshold>
+          <failureThreshold></failureThreshold>
+          <failureNewThreshold></failureNewThreshold>
+        </org.jenkinsci.plugins.xunit.threshold.SkippedThreshold>
+      </thresholds>
+      <thresholdMode>1</thresholdMode>
+    </xunit>
   </publishers>
   <buildWrappers>
     <hudson.plugins.timestamper.TimestamperBuildWrapper/>
+    <hudson.plugins.ansicolor.AnsiColorBuildWrapper>
+      <colorMapName>xterm</colorMapName>
+    </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
   </buildWrappers>
 </project>
