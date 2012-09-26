@@ -56,10 +56,11 @@
 			name="mediawiki/core"
 			branch="Wikidata"
 			/>
-		<!-- Then mediawiki/extension/Wikibase.git -->
+
+		<!-- Import some extension dependencies: -->
 		<import-extension name="Wikibase" />
-		<!-- Then mediawiki/extension/Diff.git -->
 		<import-extension name="Diff" />
+		<import-extension name="DataValues" />
 
 		<!-- Apply Gerrit change to the extension -->
 		<gerrit-apply-change
