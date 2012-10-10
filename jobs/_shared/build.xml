@@ -54,7 +54,6 @@
 		<!-- We need a copy of mediawiki/core.git@Wikidata -->
 		<import-project
 			name="mediawiki/core"
-			branch="Wikidata"
 			/>
 
 		<!-- Import some extension dependencies: -->
@@ -685,7 +684,6 @@ set the following environnement variables:
 	<target name="import-wikidata">
 		<import-project
 			name="mediawiki/core"
-			branch="Wikidata"
 			dest="${sourcedir}"
 			/>
 		<import-extension name="Wikibase" />
