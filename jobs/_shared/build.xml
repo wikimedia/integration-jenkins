@@ -26,8 +26,12 @@
 	     set previously -->
 	<property file="default.properties" />
 
-	<fail unless="sourcedir">You must define sourcedir</fail>
-	<fail unless="builddir" >You must define builddir</fail>
+	<!--
+		In case they have not been defined above, set sourcedir and buildir
+		to this job workspace which is most of the case a sane default.
+	-->
+	<property name="sourcedir" value="${env.WORKSPACE}" />
+	<property name="builddir" value="${env.WORKSPACE}" />
 
 	<!-- ant -Dmw.database=sqlite -->
 	<target name="select-database" unless="mw.database">
