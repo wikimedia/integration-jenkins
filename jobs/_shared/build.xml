@@ -61,6 +61,8 @@
 			/>
 
 		<!-- Import some extension dependencies: -->
+		<import-extension name="cldr" />
+		<import-extension name="UniversalLanguageSelector" />
 		<import-extension name="Wikibase" />
 		<import-extension name="Diff" />
 		<import-extension name="DataValues" />
