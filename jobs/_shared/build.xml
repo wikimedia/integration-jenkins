@@ -410,6 +410,11 @@ set the following environnement variables:
 		</exec>
 	</target>
 
+	<!-- Run PHPUnit with any group -->
+	<target name="phpunit-all" depends="installdb">
+		<run-phpunit />
+	</target>
+
 	<!-- PHPUnit related targets -->
 	<target name="phpunit-databaseless" depends="fake-localsettings">
 		<run-phpunit options="--exclude-group Database,${phpunitexcludes}" />
