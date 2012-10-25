@@ -13,7 +13,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Ant>
-      <targets>phpunit-extensions take-fingerprints</targets>
+      <targets>take-fingerprints phpunit-extensions</targets>
       <buildFile>../build.xml</buildFile>
     </hudson.tasks.Ant>
   </builders>
