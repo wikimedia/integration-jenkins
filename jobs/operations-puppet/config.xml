@@ -1,9 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Experimental job to link puppet.&#xd;
-&#xd;
-Disabled since ops dont do linting check for now.</description>
+  <description>Lint puppet.</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.plugins.git.GitSCM">
@@ -17,7 +15,7 @@ Disabled since ops dont do linting check for now.</description>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>**</name>
+        <name>$GERRIT_BRANCH</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <disableSubmodules>false</disableSubmodules>
@@ -30,7 +28,9 @@ Disabled since ops dont do linting check for now.</description>
     <remotePoll>false</remotePoll>
     <ignoreNotifyCommit>false</ignoreNotifyCommit>
     <useShallowClone>false</useShallowClone>
-    <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+    <buildChooser class="com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTriggerBuildChooser">
+      <separator>#</separator>
+    </buildChooser>
     <gitTool>Default</gitTool>
     <submoduleCfg class="list"/>
     <relativeTargetDir></relativeTargetDir>
@@ -44,7 +44,7 @@ Disabled since ops dont do linting check for now.</description>
     <scmName></scmName>
   </scm>
   <canRoam>true</canRoam>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector">
@@ -57,12 +57,12 @@ Disabled since ops dont do linting check for now.</description>
           <branches>
             <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
               <compareType>ANT</compareType>
-              <pattern>**</pattern>
+              <pattern>production</pattern>
             </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
           </branches>
         </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
       </gerritProjects>
-      <silentMode>true</silentMode>
+      <silentMode>false</silentMode>
       <escapeQuotes>true</escapeQuotes>
       <buildStartMessage></buildStartMessage>
       <buildFailureMessage></buildFailureMessage>
@@ -81,18 +81,15 @@ Disabled since ops dont do linting check for now.</description>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.plugins.rake.Rake>
-      <rakeInstallation>(Default)</rakeInstallation>
-      <rakeFile></rakeFile>
-      <rakeLibDir></rakeLibDir>
-      <rakeWorkingDir></rakeWorkingDir>
-      <tasks>validate
-lint</tasks>
-      <silent>false</silent>
-    </hudson.plugins.rake.Rake>
+    <hudson.tasks.Shell>
+      <command>/bin/sed -i &apos;s%import \&quot;../private%#import \&quot;../private%&apos; manifests/base.pp | /usr/bin/puppet parser validate --color none manifests/site.pp</command>
+    </hudson.tasks.Shell>
   </builders>
   <publishers/>
   <buildWrappers>
     <hudson.plugins.timestamper.TimestamperBuildWrapper/>
+    <hudson.plugins.ansicolor.AnsiColorBuildWrapper>
+      <colorMapName>xterm</colorMapName>
+    </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
   </buildWrappers>
 </project>
