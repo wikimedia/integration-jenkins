@@ -24,14 +24,32 @@
           </branches>
         </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
       </gerritProjects>
-      <silentMode>true</silentMode>
+      <gerritBuildStartedVerifiedValue>0</gerritBuildStartedVerifiedValue>
+      <gerritBuildStartedCodeReviewValue>0</gerritBuildStartedCodeReviewValue>
+      <gerritBuildSuccessfulVerifiedValue>0</gerritBuildSuccessfulVerifiedValue>
+      <gerritBuildSuccessfulCodeReviewValue>0</gerritBuildSuccessfulCodeReviewValue>
+      <gerritBuildFailedVerifiedValue>0</gerritBuildFailedVerifiedValue>
+      <gerritBuildFailedCodeReviewValue>0</gerritBuildFailedCodeReviewValue>
+      <gerritBuildUnstableVerifiedValue>0</gerritBuildUnstableVerifiedValue>
+      <gerritBuildUnstableCodeReviewValue>0</gerritBuildUnstableCodeReviewValue>
+      <gerritBuildNotBuiltVerifiedValue>0</gerritBuildNotBuiltVerifiedValue>
+      <gerritBuildNotBuiltCodeReviewValue>0</gerritBuildNotBuiltCodeReviewValue>
+      <silentMode>false</silentMode>
       <escapeQuotes>true</escapeQuotes>
       <buildStartMessage></buildStartMessage>
       <buildFailureMessage></buildFailureMessage>
       <buildSuccessfulMessage></buildSuccessfulMessage>
       <buildUnstableMessage></buildUnstableMessage>
+      <buildNotBuiltMessage></buildNotBuiltMessage>
       <buildUnsuccessfulFilepath></buildUnsuccessfulFilepath>
       <customUrl></customUrl>
+      <triggerOnEvents>
+        <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.events.PluginPatchsetCreatedEvent/>
+        <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.events.PluginDraftPublishedEvent/>
+      </triggerOnEvents>
+      <dynamicTriggerConfiguration>false</dynamicTriggerConfiguration>
+      <triggerConfigURL></triggerConfigURL>
+      <triggerInformationAction/>
     </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
