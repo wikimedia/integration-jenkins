@@ -9,13 +9,13 @@
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
         <name></name>
-        <refspec></refspec>
+        <refspec>$GERRIT_REFSPEC</refspec>
         <url>https://gerrit.wikimedia.org/r/p/mediawiki/tools/mwdumper.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>**</name>
+        <name>$GERRIT_BRANCH</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <disableSubmodules>false</disableSubmodules>
@@ -27,7 +27,10 @@
     <pruneBranches>false</pruneBranches>
     <remotePoll>false</remotePoll>
     <ignoreNotifyCommit>false</ignoreNotifyCommit>
-    <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+    <useShallowClone>false</useShallowClone>
+    <buildChooser class="com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTriggerBuildChooser">
+      <separator>#</separator>
+    </buildChooser>
     <gitTool>Default</gitTool>
     <submoduleCfg class="list"/>
     <relativeTargetDir></relativeTargetDir>
@@ -41,13 +44,40 @@
     <scmName></scmName>
   </scm>
   <canRoam>true</canRoam>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector">
-    <hudson.triggers.SCMTrigger>
+    <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger>
       <spec></spec>
-    </hudson.triggers.SCMTrigger>
+      <gerritProjects>
+        <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
+          <compareType>PLAIN</compareType>
+          <pattern>mediawiki/tools/mwdumper</pattern>
+          <branches>
+            <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+              <compareType>ANT</compareType>
+              <pattern>**</pattern>
+            </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+          </branches>
+        </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
+      </gerritProjects>
+      <silentMode>false</silentMode>
+      <escapeQuotes>true</escapeQuotes>
+      <buildStartMessage></buildStartMessage>
+      <buildFailureMessage></buildFailureMessage>
+      <buildSuccessfulMessage></buildSuccessfulMessage>
+      <buildUnstableMessage></buildUnstableMessage>
+      <buildNotBuiltMessage></buildNotBuiltMessage>
+      <buildUnsuccessfulFilepath></buildUnsuccessfulFilepath>
+      <customUrl></customUrl>
+      <triggerOnEvents>
+        <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.events.PluginPatchsetCreatedEvent/>
+      </triggerOnEvents>
+      <dynamicTriggerConfiguration>false</dynamicTriggerConfiguration>
+      <triggerConfigURL></triggerConfigURL>
+      <triggerInformationAction/>
+    </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <rootModule>
@@ -99,7 +129,12 @@
       <configuredJDependFile></configuredJDependFile>
     </hudson.plugins.jdepend.JDependRecorder>
   </publishers>
-  <buildWrappers/>
+  <buildWrappers>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper/>
+    <hudson.plugins.ansicolor.AnsiColorBuildWrapper>
+      <colorMapName>xterm</colorMapName>
+    </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
+  </buildWrappers>
   <prebuilders/>
   <postbuilders/>
   <runPostStepsIfResult>
