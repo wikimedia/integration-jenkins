@@ -204,6 +204,7 @@ if( file_exists( dirname(dirname("${sourcedir}")).'_shared/ExtraSettings.php' ) 
 		</exec>
 	</target>
 	<target name="installdb-sqlite" depends="create-dirs,cleandb-sqlite,nolocalsettings">
+		<echo level="info">SQLite data dir: ${builddir}/data</echo>
 		<exec executable="php" dir="${builddir}/" failonerror="true">
 			<arg line="${sourcedir}/maintenance/install.php
 				--confpath ${builddir}
