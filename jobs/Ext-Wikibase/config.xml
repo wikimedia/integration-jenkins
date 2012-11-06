@@ -6,7 +6,7 @@
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
-  <disabled>false</disabled>
+  <disabled>true</disabled>
   <blockBuildWhenDownstreamBuilding>true</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <triggers class="vector">
@@ -62,38 +62,11 @@
     <hudson.plugins.createfingerprint.CreateFingerprint>
       <targets>fingerprints/*</targets>
     </hudson.plugins.createfingerprint.CreateFingerprint>
-    <hudson.plugins.parameterizedtrigger.TriggerBuilder>
-      <configs>
-        <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
-          <configs>
-            <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
-              <properties>sourcedir=$WORKSPACE</properties>
-            </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
-          </configs>
-          <projects>MediaWiki-Tests-Databaseless, MediaWiki-Tests-Extensions, MediaWiki-Tests-API, MediaWiki-Tests-Misc, MediaWiki-Tests-Parser</projects>
-          <condition>ALWAYS</condition>
-          <triggerWithNoParameters>false</triggerWithNoParameters>
-          <block>
-            <buildStepFailureThreshold>
-              <name>FAILURE</name>
-              <ordinal>2</ordinal>
-              <color>RED</color>
-            </buildStepFailureThreshold>
-            <unstableThreshold>
-              <name>UNSTABLE</name>
-              <ordinal>1</ordinal>
-              <color>YELLOW</color>
-            </unstableThreshold>
-            <failureThreshold>
-              <name>FAILURE</name>
-              <ordinal>2</ordinal>
-              <color>RED</color>
-            </failureThreshold>
-          </block>
-          <buildAllNodesWithLabel>false</buildAllNodesWithLabel>
-        </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
-      </configs>
-    </hudson.plugins.parameterizedtrigger.TriggerBuilder>
+    <hudson.tasks.Ant>
+      <targets>phpunit-databaseless phpunit-extensions phpunit-api phpunit-misc phpunit-parser</targets>
+      <buildFile>../build.xml</buildFile>
+      <properties>sourcedir=$WORKSPACE</properties>
+    </hudson.tasks.Ant>
   </builders>
   <publishers>
     <hudson.tasks.test.AggregatedTestResultPublisher>
@@ -102,5 +75,8 @@
   </publishers>
   <buildWrappers>
     <hudson.plugins.timestamper.TimestamperBuildWrapper/>
+    <hudson.plugins.ansicolor.AnsiColorBuildWrapper>
+      <colorMapName>xterm</colorMapName>
+    </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
   </buildWrappers>
 </project>
