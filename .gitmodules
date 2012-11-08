@@ -4,3 +4,6 @@
 [submodule "tools/codesniffer"]
 	path = tools/codesniffer
 	url = https://gerrit.wikimedia.org/r/p/mediawiki/tools/codesniffer
+[submodule "tools/gruntjs"]
+	path = tools/gruntjs
+	url = https://gerrit.wikimedia.org/r/p/integration/gruntjs.git
