@@ -1,11 +1,12 @@
 <?php
+
 require_once( "$IP/extensions/cldr/cldr.php" );
 require_once( "$IP/extensions/UniversalLanguageSelector/UniversalLanguageSelector.php" );
+
+require_once( "$IP/extensions/Diff/Diff.php");
+
 require_once( "$IP/extensions/Wikibase/lib/WikibaseLib.php");
 require_once( "$IP/extensions/Wikibase/repo/Wikibase.php");
-#require_once( "$IP/extensions/Wikibase/repo/ExampleSettings.php");
-require_once( "$IP/extensions/Diff/Diff.php");
-#require_once( "$IP/extensions/Wikibase/StickToThatLanguage/StickToThatLanguage.php");
 
 $baseNs = 100;
 
