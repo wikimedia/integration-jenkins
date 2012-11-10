@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Experimental job to test mediawiki/core.git@Wikidata + Wikibase extension.</description>
+  <description>Job to test mediawiki/core.git with the Wikibase extension.&#xd;
+&lt;br/&gt;&lt;br/&gt;&#xd;
+&lt;b&gt;This job is disabled since it causes a HUGE memory leak that eventually kill the server&lt;/b&gt;</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
