@@ -24,6 +24,9 @@
           </branches>
         </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
       </gerritProjects>
+      <gerritBuildFailedVerifiedValue>0</gerritBuildFailedVerifiedValue>
+      <gerritBuildUnstableVerifiedValue>0</gerritBuildUnstableVerifiedValue>
+      <gerritBuildNotBuiltVerifiedValue>0</gerritBuildNotBuiltVerifiedValue>
       <silentMode>false</silentMode>
       <escapeQuotes>true</escapeQuotes>
       <buildStartMessage></buildStartMessage>
