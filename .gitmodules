@@ -7,3 +7,6 @@
 [submodule "tools/gruntjs"]
 	path = tools/gruntjs
 	url = https://gerrit.wikimedia.org/r/p/integration/gruntjs.git
+[submodule "tools/grunt-contrib-wikimedia"]
+	path = tools/grunt-contrib-wikimedia
+	url = https://gerrit.wikimedia.org/r/p/integration/grunt-contrib-wikimedia.git
