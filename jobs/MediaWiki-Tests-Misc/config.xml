@@ -22,7 +22,7 @@
       <types>
         <PHPUnitJunitHudsonTestType>
           <pattern>logs/junit.xml</pattern>
-          <faildedIfNotNew>true</faildedIfNotNew>
+          <failIfNotNew>true</failIfNotNew>
           <deleteOutputFiles>true</deleteOutputFiles>
           <stopProcessingIfError>true</stopProcessingIfError>
         </PHPUnitJunitHudsonTestType>
