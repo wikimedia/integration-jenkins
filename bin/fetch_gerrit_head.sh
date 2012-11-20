@@ -17,7 +17,7 @@ if [ -z "$WORKSPACE" ] || [ -z "$GERRIT_BRANCH" ]; then
 fi
 
 
-cd $WORKSPACE || exit 1
+cd "$WORKSPACE" || exit 1
 
 git remote update || git remote update # attempt to work around bug #925790
 git reset --hard
