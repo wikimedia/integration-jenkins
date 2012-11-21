@@ -59,7 +59,6 @@
     <hudson.tasks.Ant>
       <targets>properties build-wikidata take-fingerprints</targets>
       <buildFile>../build.xml</buildFile>
-      <properties>sourcedir=$WORKSPACE</properties>
     </hudson.tasks.Ant>
     <hudson.plugins.createfingerprint.CreateFingerprint>
       <targets>fingerprints/*</targets>
@@ -67,7 +66,6 @@
     <hudson.tasks.Ant>
       <targets>phpunit-databaseless phpunit-extensions phpunit-api phpunit-misc phpunit-parser</targets>
       <buildFile>../build.xml</buildFile>
-      <properties>sourcedir=$WORKSPACE</properties>
     </hudson.tasks.Ant>
   </builders>
   <publishers>

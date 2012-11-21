@@ -15,7 +15,7 @@
     <hudson.tasks.Ant>
       <targets>php-lint</targets>
       <buildFile>../build.xml</buildFile>
-      <properties>-verbose</properties>
+      <properties>-verbose sourcedir=&quot;/var/lib/jenkins/jobs/MediaWiki-GIT-Fetching/workspace/&quot;</properties>
     </hudson.tasks.Ant>
   </builders>
   <publishers>

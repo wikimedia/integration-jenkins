@@ -15,6 +15,7 @@
     <hudson.tasks.Ant>
       <targets>take-fingerprints phpunit-api</targets>
       <buildFile>../build.xml</buildFile>
+      <properties>sourcedir=&quot;/var/lib/jenkins/jobs/MediaWiki-GIT-Fetching/workspace/&quot;</properties>
     </hudson.tasks.Ant>
   </builders>
   <publishers>

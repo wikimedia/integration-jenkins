@@ -46,7 +46,6 @@
     <hudson.tasks.Ant>
       <targets>properties setup-extension phpunit-extensions take-fingerprints</targets>
       <buildFile>../build.xml</buildFile>
-      <properties>sourcedir=$WORKSPACE</properties>
     </hudson.tasks.Ant>
     <hudson.plugins.createfingerprint.CreateFingerprint>
       <targets>fingerprints/*</targets>
