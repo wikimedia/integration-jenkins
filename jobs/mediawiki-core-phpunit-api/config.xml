@@ -136,7 +136,7 @@
     <xunit>
       <types>
         <PHPUnitJunitHudsonTestType>
-          <pattern>junit.log</pattern>
+          <pattern>logs/junit.xml</pattern>
           <failIfNotNew>true</failIfNotNew>
           <deleteOutputFiles>true</deleteOutputFiles>
           <stopProcessingIfError>true</stopProcessingIfError>
