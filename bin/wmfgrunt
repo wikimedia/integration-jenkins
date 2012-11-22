@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Wikimedia wrapper to easily start out grunt with the continuous
+# integration grunt file.
+
+# Find out Jenkins home dir absolute path.
+#
+# bash does not provide any easy way to find out the real dir of the current
+# script so we have to shell out cd to the relative path and then resolve it as
+# an absolute path using pwd. The ksh equivalent is `whence`
+BASE_DIR=$(cd $(dirname $0)/..; pwd)
+
+# Paths to grunt script and CI gruntfile:
+GRUNT_BIN="$BASE_DIR/tools/gruntjs/node_modules/grunt-cli/bin/grunt"
+GRUNT_FILE="$BASE_DIR/jobs/_shared/gruntfile.js"
+
+if [ ! -e $GRUNT_BIN -o ! -e $GRUNT_FILE ]; then
+	echo "Either grunt or gruntfile.js could not be found. Tried:"
+	echo "Grunt    : $GRUNT_BIN"
+	echo "Gruntfile: $GRUNT_FILE"
+	echo "Exiting..."
+	exit 1;
+fi;
+
+$GRUNT_BIN --gruntfile $GRUNT_FILE $*
