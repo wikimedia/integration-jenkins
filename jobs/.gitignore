@@ -24,3 +24,6 @@
 # Easily ignore old / archived jobs
 /*-old/
 /*-back/
+
+/mediawiki-core-.*
+/operations-puppet-validate/
