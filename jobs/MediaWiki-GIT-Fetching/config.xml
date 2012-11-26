@@ -58,6 +58,9 @@
     <hudson.plugins.createfingerprint.CreateFingerprint>
       <targets>FETCH_HEAD</targets>
     </hudson.plugins.createfingerprint.CreateFingerprint>
+    <hudson.tasks.Shell>
+      <command>if [ &quot;$GERRIT_BRANCH&quot; = &quot;master&quot; ]; then /var/lib/jenkins/bin/grunt --gruntfile /var/lib/jenkins/jobs/_shared/gruntfile.js --cwd &quot;$PWD&quot; jshint; else echo &quot;Skipping grunt for this branch&quot;; fi</command>
+    </hudson.tasks.Shell>
     <hudson.plugins.parameterizedtrigger.TriggerBuilder>
       <configs>
         <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
