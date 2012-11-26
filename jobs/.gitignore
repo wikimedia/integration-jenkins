@@ -25,5 +25,6 @@
 /*-old/
 /*-back/
 
-/mediawiki-core-.*
+/mediawiki-core-*
+/mwext-*
 /operations-puppet-validate/
