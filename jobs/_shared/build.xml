@@ -157,6 +157,7 @@ if( list ) { // FIXME find out how to do an early 'return'
 		<mkdir dir="${builddir}/dist" />
 		<mkdir dir="${builddir}/logs" />
 		<mkdir dir="${builddir}/php-code-browser" />
+		<mkdir dir="${sqlite.dir.forjob}" />
 	</target>
 
 	<!-- Database installation targets -->
