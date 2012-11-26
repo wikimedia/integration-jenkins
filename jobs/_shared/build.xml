@@ -33,6 +33,17 @@
 	<property name="sourcedir" value="${env.WORKSPACE}" />
 	<property name="builddir" value="${env.WORKSPACE}" />
 
+	<!--
+		Detect whether we have /mnt/jenkins-tmp which is a tmpfs else fallback to
+		workspace. See default.properties for actual values.
+	-->
+	<available file="${sqlite.dir.tempfs}"
+		property="sqlite.dir.real"
+		value="${sqlite.dir.tempfs}"
+		/>
+	<property name="sqlite.dir.real" value="${sqlite.dir.fallback}" />
+	<property name="sqlite.dir.forjob" value="${sqlite.dir.real}/${env.JOB_NAME}" />
+
 	<!-- ant -Dmw.database=sqlite -->
 	<target name="select-database" unless="mw.database">
 		<input
@@ -204,12 +215,12 @@ if( file_exists( dirname(dirname("${sourcedir}")).'_shared/ExtraSettings.php' ) 
 		</exec>
 	</target>
 	<target name="installdb-sqlite" depends="create-dirs,cleandb-sqlite,nolocalsettings">
-		<echo level="info">SQLite data dir: ${builddir}/data</echo>
+		<echo level="info">SQLite data dir: ${sqlite.dir.forjob}</echo>
 		<exec executable="php" dir="${builddir}/" failonerror="true">
 			<arg line="${sourcedir}/maintenance/install.php
 				--confpath ${builddir}
 				--dbtype=sqlite
-				--dbpath=${builddir}/data
+				--dbpath=${sqlite.dir.forjob}
 				--showexceptions=true
 				--pass testpass
 				sqlitetest
@@ -256,7 +267,7 @@ if( file_exists( dirname(dirname("${sourcedir}")).'_shared/ExtraSettings.php' ) 
 	</target>
 	<target name="cleandb-sqlite">
 		<echo>Cleaning SQLite!</echo>
-		<delete file="${builddir}/data/my_wiki.sqlite" />
+		<delete file="${sqlite.dir.forjob}/my_wiki.sqlite" />
 	</target>
 
 	<target name="-import-gerrit-env"
@@ -345,7 +356,7 @@ set the following environnement variables:
 		<!-- Snapshot the sqlite database -->
 		<echo>Copying sqlite database</echo>
 		<copy
-			file="${builddir}/data/my_wiki.sqlite"
+			file="${sqlite.dir.forjob}/my_wiki.sqlite"
 			tofile="${testswarm.sqlite.file}"
 			/>
 		<!-- Both sqlite file and directory need to be writable by apache -->
@@ -391,7 +402,7 @@ set the following environnement variables:
 			<replacevalue expandProperties="true"><![CDATA[$wgScriptPath       = "${testswarm.URL.path}";]]></replacevalue>
 		</replacefilter>
 		<replacefilter>
-			<replacetoken expandProperties="true">${builddir}/data</replacetoken>
+			<replacetoken expandProperties="true">${sqlite.dir.forjob}}</replacetoken>
 			<replacevalue expandProperties="true">${testswarm.sqlite.dir}</replacevalue>
 		</replacefilter>
 		</replace>
