@@ -14,12 +14,11 @@ BASE_DIR=$(cd $(dirname $0)/..; pwd)
 GRUNT_BIN="$BASE_DIR/tools/gruntjs/node_modules/grunt-cli/bin/grunt"
 GRUNT_FILE="$BASE_DIR/jobs/_shared/gruntfile.js"
 
-if [ ! -e $GRUNT_BIN -o ! -e $GRUNT_FILE ]; then
-	echo "Either grunt or gruntfile.js could not be found. Tried:"
-	echo "Grunt    : $GRUNT_BIN"
-	echo "Gruntfile: $GRUNT_FILE"
-	echo "Exiting..."
+if [ ! -e "$GRUNT_BIN" -o ! -e "$GRUNT_FILE" ]; then
+	echo "Either grunt or gruntfile.js could not be found. Expected:"
+	echo "grunt        : $GRUNT_BIN"
+	echo "gruntfile.js : $GRUNT_FILE"
 	exit 1;
 fi;
 
-$GRUNT_BIN --gruntfile $GRUNT_FILE $*
+$GRUNT_BIN --gruntfile "$GRUNT_FILE" "$@"
