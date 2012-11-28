@@ -9,13 +9,14 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>(Default)</jdk>
   <triggers class="vector"/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Ant>
       <targets>php-lint</targets>
       <buildFile>../build.xml</buildFile>
-      <properties>-verbose sourcedir=&quot;/var/lib/jenkins/jobs/MediaWiki-GIT-Fetching/workspace/&quot;</properties>
+      <properties>sourcedir=&quot;/var/lib/jenkins/jobs/MediaWiki-GIT-Fetching/workspace/&quot;</properties>
     </hudson.tasks.Ant>
   </builders>
   <publishers>
