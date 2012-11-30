@@ -114,7 +114,10 @@
 			</filterchain>
 		</loadresource>
 
-		<import-extension name="${mediawiki.extension.name}" />
+		<import-extension
+			name="${mediawiki.extension.name}"
+			branch="${gerrit.branch}"
+			/>
 
 		<gerrit-apply-change
 			dir="${sourcedir}/extensions/${mediawiki.extension.name}"
@@ -680,8 +683,9 @@ set the following environnement variables:
 
 			<!-- While we are at it, make dest clean -->
 			<git-remote-update dir="@{dest}" />
+			<echo level="info">Reset --hard to remotes/origin/@{branch}</echo>
 			<git-reset-hard dir="@{dest}" commit="remotes/origin/@{branch}" />
-			<git-checkout   dir="@{dest}" />
+			<git-checkout   dir="@{dest}" commit="remotes/origin/@{branch}" />
 			<git-clean-dfqx dir="@{dest}" />
 		</sequential>
 	</macrodef>
@@ -689,9 +693,11 @@ set the following environnement variables:
 	<!-- Helper to easily import a MediaWiki extension -->
 	<macrodef name="import-extension">
 		<attribute name="name" />
+		<attribute name="branch" default="master" />
 		<sequential>
 			<import-project
 				name="mediawiki/extensions/@{name}"
+				branch="@{branch}"
 				dest="${sourcedir}/extensions/@{name}"
 				/>
 		</sequential>
