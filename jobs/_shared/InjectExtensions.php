@@ -1,4 +1,12 @@
 <?php
+####################################################################
+#
+# NO MORE USED SINCE ZUUL SWITCH
+#
+# Look at /tools/extensions-loader.php instead.
+#
+####################################################################
+
 # Lame script to import any extension available under $IP/extensions
 # This is used by Jenkins to easily bootstrap extensions
 
