@@ -1,0 +1,56 @@
+#!/bin/bash -e
+#
+# Dumb hack to get a snapshot of MediaWiki extensions
+
+GERRIT_BASE="https://gerrit.wikimedia.org/r/p/"
+GIT_BARE_BASE="/var/lib/jenkins/git-bare"
+
+# Helper functions
+function warn()  { echo "$@" 1>&2; }
+function fatal() { warn "$@"; exit 1; }
+
+# Function fetch an extension under the job workspace
+# Parameter: extension name (ex: Validator)
+function get_ext {
+	GERRIT_URL="$GERRIT_BASE/mediawiki/extensions/$1.git"
+	GIT_BARE_DIR="$GIT_BARE_BASE/mediawiki/extensions/$1"
+	mkdir -p "$GIT_BARE_DIR"
+	DEST="$WORKSPACE/extensions/$1"
+	mkdir -p "$DEST"
+
+	# Clone/update a bare copy of mediawiki/core.git
+	(
+		# Attempt to clone to make sure the local copy exists
+		git clone --bare -- "$GERRIT_URL" "$GIT_BARE_DIR"
+	) || (
+		# Exists! So simply update it
+		git --git-dir="$GIT_BARE_DIR" remote update
+	)
+
+	# Snapshot `master` in the job workspace
+	echo "Copying '$1' in '$DEST'"
+	git archive --remote="$GIT_BARE_DIR" master \
+		| (cd "$DEST" && tar xf -)
+	echo "Copy complete."
+}
+
+# Pre checks
+if [ "x$WORKSPACE" == "x" ]; then
+	fatal \$WORKSPACE env variable must be set
+elif [ ! -d "$WORKSPACE" ]; then
+	fatal "$WORKSPACE" is not a directory
+fi
+
+# Extract extension names separated by comma
+ARGS=$@
+IFS=","
+mw_exts=($*)
+
+echo "Starting extensions fetches..."
+for mw_ext in "${mw_exts[@]}"; do
+	echo
+	echo "Fetching $mw_ext"
+	get_ext "$mw_ext"
+done;
+echo
+echo "Done."
