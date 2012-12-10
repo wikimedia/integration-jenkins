@@ -1,9 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Job to test mediawiki/core.git with the Wikibase extension.&#xd;
-&lt;br/&gt;&lt;br/&gt;&#xd;
-&lt;b&gt;This job is disabled since it causes a HUGE memory leak that eventually kill the server&lt;/b&gt;</description>
+  <description>Job to test mediawiki/core.git with the Wikibase extension.</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
@@ -11,6 +9,7 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>true</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>(Default)</jdk>
   <triggers class="vector">
     <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger>
       <spec></spec>

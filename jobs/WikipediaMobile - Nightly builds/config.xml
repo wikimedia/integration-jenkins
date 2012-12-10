@@ -32,6 +32,7 @@ https://github.com/wikimedia/WikipediaMobile</description>
     <pruneBranches>false</pruneBranches>
     <remotePoll>false</remotePoll>
     <ignoreNotifyCommit>false</ignoreNotifyCommit>
+    <useShallowClone>false</useShallowClone>
     <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
     <gitTool>Default</gitTool>
     <submoduleCfg class="list"/>
@@ -49,6 +50,7 @@ https://github.com/wikimedia/WikipediaMobile</description>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>(Default)</jdk>
   <triggers class="vector">
     <com.cloudbees.jenkins.GitHubPushTrigger>
       <spec></spec>
