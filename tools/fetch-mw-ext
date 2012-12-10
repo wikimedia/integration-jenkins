@@ -21,7 +21,7 @@ function get_ext {
 	# Clone/update a bare copy of mediawiki/core.git
 	(
 		# Attempt to clone to make sure the local copy exists
-		git clone --bare -- "$GERRIT_URL" "$GIT_BARE_DIR"
+		git clone --mirror=fetch -- "$GERRIT_URL" "$GIT_BARE_DIR"
 	) || (
 		# Exists! So simply update it
 		git --git-dir="$GIT_BARE_DIR" remote update
