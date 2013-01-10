@@ -34,7 +34,7 @@
 	<property name="builddir" value="${env.WORKSPACE}" />
 
 	<!--
-		Detect whether we have /mnt/jenkins-tmp which is a tmpfs else fallback to
+		Detect whether we have the tmpfs system else fallback to
 		workspace. See default.properties for actual values.
 	-->
 	<available file="${sqlite.dir.tempfs}"
