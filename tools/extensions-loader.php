@@ -32,7 +32,7 @@ $func_get_exts = function () {
 		}
 		$extfile = "{$IP}/extensions/{$extname}/{$extname}.php";
 		if( file_exists($extfile) ) {
-			$ext_to_load[] = $extfile;
+			$ext_to_load[$extname] = $extfile;
 		} else {
 			$ext_missing[] = $extfile;
 		}
