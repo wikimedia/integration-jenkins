@@ -3,7 +3,8 @@
 # Dumb hack to get a snapshot of MediaWiki extensions
 
 GERRIT_BASE="https://gerrit.wikimedia.org/r/p/"
-GIT_BARE_BASE="/var/lib/jenkins/git-bare"
+# Path where Gerrit replicates repositories:
+GIT_BARE_BASE="/var/lib/git"
 
 # Helper functions
 function warn()  { echo "$@" 1>&2; }
@@ -13,22 +14,15 @@ function fatal() { warn "$@"; exit 1; }
 # Parameter: extension name (ex: Validator)
 function get_ext {
 	GERRIT_URL="$GERRIT_BASE/mediawiki/extensions/$1.git"
-	GIT_BARE_DIR="$GIT_BARE_BASE/mediawiki/extensions/$1"
-	mkdir -p "$GIT_BARE_DIR"
+	GIT_BARE_DIR="$GIT_BARE_BASE/mediawiki/extensions/$1.git"
+	# TODO: make sure that directory exist or die saying the
+	# Gerrit replication failed to replicate this extension.
 	DEST="$WORKSPACE/extensions/$1"
 	mkdir -p "$DEST"
 
-	# Clone/update a bare copy of mediawiki/core.git
-	(
-		# Attempt to clone to make sure the local copy exists
-		# TODO: use --mirror=fetch when using git v1.8+
-		git clone --mirror -- "$GERRIT_URL" "$GIT_BARE_DIR"
-	) || (
-		# Exists! So simply update it
-		git --git-dir="$GIT_BARE_DIR" remote update
-	)
-
 	# Snapshot `master` in the job workspace
+	# TODO: should probably cleanup the old copy in case the
+	# job does not wipe its workspace
 	echo "Copying '$1' in '$DEST'"
 	git archive --remote="$GIT_BARE_DIR" master \
 		| (cd "$DEST" && tar xf -)
