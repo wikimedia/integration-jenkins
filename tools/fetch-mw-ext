@@ -18,11 +18,16 @@ function get_ext {
 	# TODO: make sure that directory exist or die saying the
 	# Gerrit replication failed to replicate this extension.
 	DEST="$WORKSPACE/extensions/$1"
-	mkdir -p "$DEST"
 
 	# Snapshot `master` in the job workspace
-	# TODO: should probably cleanup the old copy in case the
-	# job does not wipe its workspace
+
+	echo "Deleting and recreating '$DEST'..."
+	# Wipe the extension destination directory before applying
+	# the archive or deleted file will still be around :/
+	rm -fR "$DEST"
+	# Recreate the directory for 'git archive'
+	mkdir -p "$DEST"
+
 	echo "Copying '$1' in '$DEST'"
 	git archive --remote="$GIT_BARE_DIR" master \
 		| (cd "$DEST" && tar xf -)
