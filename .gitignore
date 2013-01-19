@@ -1,7 +1,14 @@
-# Ignore anything in the root project directory:
-/*
-# .. except:
-!.gitignore
-!bin/
-!jobs/
-!tools/
+*.egg
+*.egg-info
+*.pyc
+.test
+.tox
+AUTHORS
+build/*
+ChangeLog
+config
+etc/jenkins_jobs.ini
+dist/*
+doc/build/*
+doc/source/*
+jenkins_jobs/versioninfo
