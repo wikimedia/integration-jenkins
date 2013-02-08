@@ -182,8 +182,8 @@ if( file_exists( dirname("${sourcedir}").'/ExtraSettings.php' ) ) {
 	require_once( dirname("${sourcedir}").'/ExtraSettings.php' );
 }
 # And finally the globally shared setting
-if( file_exists( dirname(dirname("${sourcedir}")).'_shared/ExtraSettings.php' ) ) {
-	require_once( dirname(dirname("${sourcedir}")).'_shared/ExtraSettings.php' );
+if( file_exists( dirname(dirname("${sourcedir}")).'/_shared/ExtraSettings.php' ) ) {
+	require_once( dirname(dirname("${sourcedir}")).'/_shared/ExtraSettings.php' );
 }
 # END: PHP code inserted automatically by build job
 ]]>
