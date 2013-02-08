@@ -167,6 +167,15 @@ if( list ) { // FIXME find out how to do an early 'return'
 	<target name="installdb" depends="select-database">
 		<echo>Running MediaWiki installer for database ${mw.database}</echo>
 		<antcall target="installdb-${mw.database}" />
+		<antcall target="inject-extrasettings" />
+		<!-- Make sure we apply the extensions updates as well -->
+		<echo level="info">Running MediaWiki update</echo>
+		<exec executable="php" dir="${builddir}/" failonerror="true">
+			<arg line="${sourcedir}/maintenance/update.php --quick --conf ${builddir}/LocalSettings.php" />
+		</exec>
+	</target>
+
+	<target name="inject-extrasettings">
 		<!-- Append a call to extrasettings -->
 		<echo>Injecting include_once() of ExtraSettings.php files</echo>
 		<echo append="true" file="${builddir}/LocalSettings.php">
@@ -188,11 +197,6 @@ if( file_exists( dirname(dirname("${sourcedir}")).'/_shared/ExtraSettings.php' )
 # END: PHP code inserted automatically by build job
 ]]>
 </echo>
-		<!-- Make sure we apply the extensions updates as well -->
-		<echo level="info">Running MediaWiki update</echo>
-		<exec executable="php" dir="${builddir}/" failonerror="true">
-			<arg line="${sourcedir}/maintenance/update.php --quick --conf ${builddir}/LocalSettings.php" />
-		</exec>
 	</target>
 
 	<target name="installdb-mysql" depends="create-dirs,cleandb-mysql,nolocalsettings">
@@ -228,10 +232,14 @@ if( file_exists( dirname(dirname("${sourcedir}")).'/_shared/ExtraSettings.php' )
 				WikiAdmin
 			"/>
 		</exec>
+		<!-- We better have the global shared settings -->
+		<antcall target="inject-extrasettings" />
 	</target>
 
 	<target name="fake-localsettings" depends="create-dirs">
 		<touch file="${builddir}/LocalSettings.php" />
+		<!-- We better have the global shared settings -->
+		<antcall target="inject-extrasettings" />
 	</target>
 
 	<target name="nolocalsettings" description="Delete LocalSettings.php">
