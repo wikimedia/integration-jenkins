@@ -1,12 +1,12 @@
 [submodule "tools/testswarm"]
 	path = tools/testswarm
 	url = https://gerrit.wikimedia.org/r/p/integration/testswarm
-[submodule "tools/codesniffer"]
-	path = tools/codesniffer
-	url = https://gerrit.wikimedia.org/r/p/mediawiki/tools/codesniffer
 [submodule "tools/gruntjs"]
 	path = tools/gruntjs
 	url = https://gerrit.wikimedia.org/r/p/integration/gruntjs.git
 [submodule "tools/grunt-contrib-wikimedia"]
 	path = tools/grunt-contrib-wikimedia
 	url = https://gerrit.wikimedia.org/r/p/integration/grunt-contrib-wikimedia.git
+[submodule "tools/mwcodesniffer"]
+	path = tools/mwcodesniffer
+	url = https://gerrit.wikimedia.org/r/p/mediawiki/tools/codesniffer
