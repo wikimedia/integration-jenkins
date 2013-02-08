@@ -237,12 +237,9 @@ if( file_exists( dirname(dirname("${sourcedir}")).'/_shared/ExtraSettings.php' )
 	</target>
 
 	<target name="fake-localsettings" depends="create-dirs">
-		<echo append="true" file="${builddir}/LocalSettings.php">
-<![CDATA[
-<?php
+		<echo append="true" file="${builddir}/LocalSettings.php"><![CDATA[<?php
 # Dumy LocalSettings.php created by ant:fake-localsettings
-]]>
-</echo>
+]]></echo>
 		<!-- We better have the global shared settings -->
 		<antcall target="inject-extrasettings" />
 	</target>
