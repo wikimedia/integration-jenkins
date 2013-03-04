@@ -1,0 +1,10 @@
+{
+	"name": "wikimedia-integration-jenkins",
+	"version": "0.2.0",
+	"dependencies": {
+		"jshint": "1.0.0",
+		"grunt-contrib-qunit": "0.2.0",
+		"grunt-cli": "0.1.6",
+		"grunt": "0.4.0"
+	}
+}

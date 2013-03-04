@@ -8,7 +8,21 @@ module.exports = function ( grunt ) {
 		grunt.file.setBase( grunt.option( 'cwd' ) ) ;
 	}
 
-	grunt.task.loadTasks( __dirname + '/../../tools/grunt-contrib-wikimedia/tasks' );
+	grunt.task.loadTasks( __dirname + '/../../tools/grunt-tasks' );
+	grunt.task.loadTasks( __dirname + '/../../tools/node_modules/grunt-contrib-qunit/tasks' );
+
+	grunt.initConfig({
+		qunit: {
+			all: {
+				options: {
+					urls: [
+						grunt.option( 'qunit-url' ) || 'http://localhost/wiki/Special:JavaScriptTest/qunit'
+					],
+					timeout: 30 * 1000
+				}
+			}
+		}
+	});
 
 	// Alias for sequence of lint tasks, later this will include phplint, csslint etc.
 	grunt.registerTask( 'lint', 'jshint' );

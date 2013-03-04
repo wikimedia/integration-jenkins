@@ -11,7 +11,7 @@
 BASE_DIR=$(cd $(dirname $0)/..; pwd)
 
 # Paths to grunt script and CI gruntfile:
-GRUNT_BIN="$BASE_DIR/tools/gruntjs/node_modules/grunt-cli/bin/grunt"
+GRUNT_BIN="$BASE_DIR/bin/grunt"
 GRUNT_FILE="$BASE_DIR/jobs/_shared/gruntfile.js"
 
 if [ ! -e "$GRUNT_BIN" -o ! -e "$GRUNT_FILE" ]; then
@@ -21,4 +21,5 @@ if [ ! -e "$GRUNT_BIN" -o ! -e "$GRUNT_FILE" ]; then
 	exit 1;
 fi;
 
+cd $BASE_DIR/tools
 $GRUNT_BIN --gruntfile "$GRUNT_FILE" "$@"
