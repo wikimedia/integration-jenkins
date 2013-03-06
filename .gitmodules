@@ -7,3 +7,6 @@
 [submodule "tools/mwcodesniffer"]
 	path = tools/mwcodesniffer
 	url = https://gerrit.wikimedia.org/r/p/mediawiki/tools/codesniffer
+[submodule "tools/junitdiff"]
+	path = tools/junitdiff
+	url = https://gerrit.wikimedia.org/r/p/integration/junitdiff
