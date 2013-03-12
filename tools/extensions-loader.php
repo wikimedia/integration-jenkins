@@ -30,6 +30,16 @@ $func_get_exts = function () {
 		) {
 			continue;
 		}
+
+		# Bug 42960: ignore empty extensions
+		$hasContent = array_diff(
+			scandir( "{$IP}/extensions/${extname}"),
+			array('.','..')
+		);
+		if( !$hasContent ) {
+			continue;
+		}
+
 		$extfile = "{$IP}/extensions/{$extname}/{$extname}.php";
 		if( file_exists($extfile) ) {
 			$ext_to_load[$extname] = $extfile;
