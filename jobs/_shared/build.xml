@@ -96,10 +96,9 @@
 				 aka: 'mediawiki/extensions/RSS' => 'RSS'
 		-->
 
-		<!-- Use latest mediawiki/core@master -->
-		<git-remote-update dir="${git.shared.dir}/mediawiki/core" />
+		<!-- Use latest mediawiki/core@master as provided by Gerrit replication -->
 		<git-snapshot
-			remote="${git.shared.dir}/mediawiki/core"
+			remote="${git.shared.dir}/mediawiki/core.git"
 			treeish="origin/master"
 			dest="${sourcedir}"
 		/>
@@ -634,53 +633,24 @@ set the following environnement variables:
 		</sequential>
 	</macrodef>
 
-
-	<!-- Clone a gerrit project unless it is already there -->
-	<target name="clone-gerrit-project"
-		description="Clone a gerrit project to `git.shared.dir`"
-		unless="git.shared.exist.${name}"
-	>
-		<fail unless="name">
-			clone-gerrit-project require a Gerrit project name passed as 'name'
-		</fail>
-		<echo>Cloning from : ${gerrit.baseurl}/${name}</echo>
-		<echo>To shared dir: ${git.shared.dir}/${name}</echo>
-		<git-clone
-			repository="${gerrit.baseurl}/${name}.git"
-			dest="${git.shared.dir}/${name}"
-			/>
-	</target>
-
-	<!-- locally copy a project from the shared repo to a local dest -->
+	<!-- locally copy a project from the replicated repo to a local dest -->
 	<target name="copy-project">
-		<echo>Clone: ${gerrit.baseurl}/${name}.git</echo>
+		<echo>Clone: ${git.shared.dir}/${name}.git</echo>
 		<echo>To: ${dest}</echo>
-		<echo>Ref: ${git.shared.dir}/${name}</echo>
+		<echo>Branch: ${branch}</echo>
 		<git-clone
 			failonerror="false"
-			options="--reference ${git.shared.dir}/${name}"
-			repository="${gerrit.baseurl}/${name}.git"
+			repository="${git.shared.dir}/${name}.git"
 			dest="${dest}"
 			branch="${branch}" />
 	</target>
 
-	<!-- Import and initalize a shared git repo in working directory -->
+	<!-- Import and initalize a replicated git repo in working directory -->
 	<macrodef name="import-project">
 		<attribute name="name" />
 		<attribute name="branch" default="master" />
 		<attribute name="dest"   default="${sourcedir}" />
 		<sequential>
-			<!-- Check existence of a git clone in the shared repo: -->
-			<git-cloned name="@{name}" />
-
-			<!-- Eventually clone project from the Gerrit repository -->
-			<antcall target="clone-gerrit-project">
-				<param name="name"   value="@{name}"   />
-			</antcall>
-
-			<!-- make sure the shared repo is up to date -->
-			<git-remote-update dir="${git.shared.dir}/@{name}" />
-
 			<!-- Copy from shared repo to dest (usually a Jenkins workspace -->
 			<antcall target="copy-project">
 				<param name="name"   value="@{name}"   />
@@ -737,17 +707,14 @@ set the following environnement variables:
 		<local name="projectname" />
 		<property name="projectname" value="mediawiki/core" />
 		<local name="remote.dir" />
-		<property name="remote.dir" value="${git.shared.dir}/${projectname}" />
-
-		<!-- Make sure our shared git repository has the latest values -->
-		<git-remote-update dir="${remote.dir}" />
+		<property name="remote.dir" value="${git.shared.dir}/${projectname}.git" />
 
 		<!-- Find sha1 for origin/master -->
 		<local name="sha1" />
 		<echo>Finding sha1 of origin/master in ${remote.dir}</echo>
 		<exec executable="git" dir="${remote.dir}" failonerror="true"
 			outputproperty="sha1" >
-			<arg line="log --pretty=format:'%h' -n 1 origin/master" />
+			<arg line="log --pretty=format:'%h' -n 1 master" />
 		</exec>
 
 		<!-- git-archive does not create parent directories! -->
@@ -757,29 +724,12 @@ set the following environnement variables:
 			output="${nightly.dir}/${projectname}/mediawiki-${sha1}.zip"
 			remote="${remote.dir}"
 			prefix="mediawiki-${sha1}/"
-			treeish="origin/master"
+			treeish="master"
 			/>
 		<symlink link="${nightly.dir}/${projectname}/mediawiki-latest.zip"
 			resource="mediawiki-${sha1}.zip"
 			overwrite="true" />
 	</target>
-
-
-	<!-- Check if a project was cloned by looking for .git dir
-		Set property git.shared.exist.name/of/project
-
-		Also look at <git-snapshot />
-	 -->
-	<macrodef name="git-cloned">
-		<attribute name="name" />
-		<sequential>
-			<available
-				file="${git.shared.dir}/@{name}/.git"
-				type="dir"
-				property="git.shared.exist.@{name}"
-				/>
-		</sequential>
-	</macrodef>
 
 	<!-- wrapper around git command
 		http://tlrobinson.net/blog/2008/11/ant-tasks-for-git/
