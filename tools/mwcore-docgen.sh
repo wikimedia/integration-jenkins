@@ -10,22 +10,28 @@
 #
 # Licensed under GPL v2.0
 
+TARGET_PROJECTDIR=`echo "$ZUUL_PROJECT" | tr '/' '-'`
+TARGET_VERSIONDIR=""
 
-# Will hold the tag or branch
-TARGET_NAME=""
+if [ -z "$TARGET_PROJECTDIR" ]; then
+	echo "Error: Project name not found."
+	echo "\$ZUUL_PROJECT: $ZUUL_PROJECT"
+	exit 1
+fi
 
 # Example values:
 # - ZUUL_REF: refs/zuul/master/Z74178670e7c5495199f8a92e92cf609c
 # - GERRIT_BRANCH: master
 if [[ "$ZUUL_REF" =~ ^refs/tags/(.*) ]]; then
-	TARGET_NAME="${BASH_REMATCH[1]}"
+	TARGET_VERSIONDIR="${BASH_REMATCH[1]}"
 elif [[ "$GERRIT_BRANCH" =~ ^(master|REL[0-9]+_[0-9]+)$ ]]; then
-	TARGET_NAME="${BASH_REMATCH[1]}"
+	TARGET_VERSIONDIR="${BASH_REMATCH[1]}"
 fi
 
-if [ -z "$TARGET_NAME" ]; then
+if [ -z "$TARGET_VERSIONDIR" ]; then
 	echo "Error: Change target reference is not a tag or a recognized branch."
 	echo "\$ZUUL_REF: $ZUUL_REF"
+	echo "\$GERRIT_BRANCH: $GERRIT_BRANCH"
 	exit 1
 fi
 
@@ -36,15 +42,16 @@ if [ ! -e  "$WORKSPACE/maintenance/mwdocgen.php" ]; then
 	exit 1
 fi
 
-echo "Found target: '$TARGET_NAME'"
 
 # Destination where the generated files will eventually land.
 # For example:
 # http://doc.wikimedia.org/mediawiki-core/master/php
 # http://doc.wikimedia.org/mediawiki-core/REL1_20/php
 # http://doc.wikimedia.org/mediawiki-core/1.20.2/php
-DEST_DIR="/srv/org/wikimedia/doc/mediawiki-core/$TARGET_NAME/php"
+DEST_DIR="/srv/org/wikimedia/doc/$TARGET_PROJECTDIR/$TARGET_VERSIONDIR/php"
 [ ! -d "${DEST_DIR}" ] && mkdir -p "${DEST_DIR}"
+
+echo "Found target: '$DEST_DIR'"
 
 # Run the MediaWiki documentation wrapper
 #
