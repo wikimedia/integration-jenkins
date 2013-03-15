@@ -14,9 +14,12 @@
 # Will hold the tag or branch
 TARGET_NAME=""
 
+# Example values:
+# - ZUUL_REF: refs/zuul/master/Z74178670e7c5495199f8a92e92cf609c
+# - GERRIT_BRANCH: master
 if [[ "$ZUUL_REF" =~ ^refs/tags/(.*) ]]; then
 	TARGET_NAME="${BASH_REMATCH[1]}"
-elif [[ "$ZUUL_REF" =~ ^(master|REL[0-9]+_[0-9]+)$ ]]; then
+elif [[ "$GERRIT_BRANCH" =~ ^(master|REL[0-9]+_[0-9]+)$ ]]; then
 	TARGET_NAME="${BASH_REMATCH[1]}"
 fi
 
