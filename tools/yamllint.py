@@ -13,7 +13,6 @@
    directories and attempt to parse them using PyYAML.
 """
 import argparse
-import fnmatch
 import logging
 import os
 import sys
@@ -40,17 +39,18 @@ errors = 0
 files = 0
 for path in args.dirs:
     for root, dirnames, filenames in os.walk(path):
-        for yaml_file in fnmatch.filter(filenames, '*.yaml'):
-            full_path = os.path.join(root, yaml_file)
-            logging.debug("Invoking yaml.load on %s", full_path)
-            try:
-                files += 1
-                yaml.load(file(full_path))
-                logging.info('[PASS] ' + full_path)
-            except Exception, exc:
-                logging.error("Invalid file %s raised: %s",
-                              full_path, exc, exc_info=False)
-                errors += 1
+        for a_file in filenames:
+            if a_file.lower().endswith(('.yaml', '.yml')):
+                full_path = os.path.join(root, a_file)
+                logging.debug("Invoking yaml.load on %s", full_path)
+                try:
+                    files += 1
+                    yaml.load(file(full_path))
+                    logging.info('[PASS] ' + full_path)
+                except Exception, exc:
+                    logging.error("Invalid file %s raised: %s",
+                                  full_path, exc, exc_info=False)
+                    errors += 1
 
 if errors == 0:
     print "Good, all %s files passed!" % files
