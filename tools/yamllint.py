@@ -42,10 +42,10 @@ for path in args.dirs:
         for a_file in filenames:
             if a_file.lower().endswith(('.yaml', '.yml')):
                 full_path = os.path.join(root, a_file)
-                logging.debug("Invoking yaml.load on %s", full_path)
+                logging.debug("Invoking yaml.safe_load_all on %s", full_path)
                 try:
                     files += 1
-                    yaml.load(file(full_path))
+                    yaml.safe_load_all(file(full_path))
                     logging.info('[PASS] ' + full_path)
                 except Exception, exc:
                     logging.error("Invalid file %s raised: %s",
