@@ -65,5 +65,5 @@ php "$WORKSPACE/maintenance/mwdocgen.php" \
 	--no-extensions \
 	--output "$DEST_DIR" \
 	--version "$TARGET_VERSIONDIR" \
-	1 > "$DEST_DIR/console.txt" \
-	2 > >(tee "$DEST_DIR/errors.txt" >&2)
+	1> "$DEST_DIR/console.txt" \
+	2> >(tee "$DEST_DIR/errors.txt" >&2)
