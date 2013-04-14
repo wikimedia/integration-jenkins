@@ -10,3 +10,6 @@
 [submodule "tools/junitdiff"]
 	path = tools/junitdiff
 	url = https://gerrit.wikimedia.org/r/p/integration/junitdiff
+[submodule "tools/mwcodeutils"]
+	path = tools/mwcodeutils
+	url = https://gerrit.wikimedia.org/r/p/mediawiki/tools/code-utils.git
