@@ -1,0 +1,1 @@
+../tools/mwcodeutils/lint.php
