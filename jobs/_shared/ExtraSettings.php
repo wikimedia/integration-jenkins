@@ -1,5 +1,9 @@
 <?php
 
-$wgDevelopmentWarnings = true; # bug 38882
+// Debugging: PHP
+error_reporting( -1 );
+ini_set( 'display_errors', 1 );
 
-$wgShowExceptionDetails = true; # bug 43059
+// Debugging: MediaWiki
+$wgDevelopmentWarnings = true;
+$wgShowExceptionDetails = true;
