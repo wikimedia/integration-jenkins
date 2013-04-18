@@ -486,8 +486,7 @@ set the following environnement variables:
 	</macrodef>
 
 	<!-- git-files-changed:
-		Files changed in this revision, excluding deleted files and non-php files.
-		-z disables the shell escape git does by default with name-only separates with null-byte instead of new line.
+		Find out uwhat file changed in git copy ${sourcedir} before HEAD
 
 		Example:
 		  ant git-files-changed -Dsourcedir=/var/www/mediawiki
@@ -495,7 +494,7 @@ set the following environnement variables:
 	<target name="git-files-changed">
 		<exec executable="git" dir="${sourcedir}" failonerror="true"
 			outputproperty="gitfileschanged">
-			<arg line="diff HEAD^..HEAD --name-only -z --no-renames --diff-filter=ACM" />
+			<arg line="diff --name-only HEAD^" />
 		</exec>
 		<echo>Files changed according to git:</echo>
 		<echo>--------------------------------------------------------------</echo>
@@ -507,7 +506,7 @@ set the following environnement variables:
 			outputproperty="gitphpfileschanged">
 			<arg value="-E" />
 			<arg value="\.(php|php5|inc|phtml)$" />
-		</exec>
+			</exec>
 		<!-- find out files ending with .sql -->
 		<exec executable="grep"
 			failonerror="false"
@@ -516,15 +515,21 @@ set the following environnement variables:
 			outputproperty="gitsqlfileschanged">
 			<arg value="-E" />
 			<arg value="\.(sql)$" />
-		</exec>
+			</exec>
 
 		<!-- Create a new property without newlines: -->
 		<exec executable="tr"
 			inputstring="${gitfileschanged}"
 			outputproperty="gitfileschangedinline">
-			<arg value="\0" />
+			<arg value="\n" />
 			<arg value=" " />
-		</exec>
+			</exec>
+
+		<!-- set a property whether any .sql file got changed -->
+		<condition property="gitsqlhaschanged" value="true" else="false">
+			<equals arg1="${gitgrepsqlresult}" arg2="0" />
+		</condition>
+		<echo>.sql file changed? ${gitsqlhaschanged}</echo>
 
 	</target>
 
