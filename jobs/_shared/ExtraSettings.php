@@ -12,6 +12,6 @@ $wgShowExceptionDetails = true;
 // the default /tmp.
 $jenkinsTmpFs = '/var/lib/jenkins/tmpfs';
 $jenkinsJobName = getenv( 'JOB_NAME' );
-if ( $jenkinsJobName && is_dir( "$jenkinsJobName/$jenkinsJobName" ) ) {
-	$wgTmpDirectory = "$jenkinsJobName/$jenkinsJobName";
+if ( $jenkinsJobName && is_dir( "$jenkinsTmpFs/$jenkinsJobName" ) ) {
+	$wgTmpDirectory = "$jenkinsTmpFs/$jenkinsJobName";
 }
