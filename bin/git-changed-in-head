@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# git-changed-in-head : list changed files in HEAD matching a file extension
+#
+# This script list any added, copied or modified file in the current directory
+# and filters out by extension.
+#
+# The current directory must be a git repository.
+#
+# USAGE:
+# git-changed-in-head [extension..]
+#
+# EXAMPLE:
+#
+# List files ending with .php, .php5 or .inc
+#   git-changed-in-head php php5 inc
+#
+# List any file changed (now filtering):
+#  git-changed-in-head
+#
+# Copyright © 2013, Antoine Musso
+# Copyright © 2013, Wikimedia Foundation Inc.
+#
+# Licensed under GPLv2.0
+#
+PATH_ARGS=()
+for ext in "$@"; do
+	PATH_ARGS+=("*.$ext")
+done;
+git diff HEAD^..HEAD --name-only --diff-filter=ACM -- "${PATH_ARGS[@]}"
