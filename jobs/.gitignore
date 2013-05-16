@@ -30,11 +30,10 @@
 /beta-*
 /gerrit-*
 /integration-*
-/labs-nagios-*
+/labs-*
 /lucene-search-*
-/mediawiki-core-*
-/mediawiki-vagrant-*
-/mw-tools-*
+/mediawiki-*
+/mw-*
 /mwext-*
 /operations-*
 /parsoid-*
