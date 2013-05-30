@@ -53,6 +53,10 @@ DEST_DIR="/srv/org/wikimedia/doc/$TARGET_PROJECTDIR/$TARGET_VERSIONDIR/php"
 
 echo "Found target: '$DEST_DIR'"
 
+# Craft a dumb LocalSettings.php which is required by Maintenance script
+# albeit the mwdocgen.php script does not require it.
+touch "$WORKSPACE/LocalSettings.php"
+
 # Run the MediaWiki documentation wrapper
 #
 # We want to make sure both stdin and stderr are logged to publicly accessible
