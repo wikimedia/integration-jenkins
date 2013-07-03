@@ -23,12 +23,13 @@ MAX_JOBS=4
 #
 puppet_apply_noop() {
 	manifest="$1"
-
-	echo "INFO: Invoking puppet on '$1'"
+	# Might make use of '--verbose --evaltrace'
 	puppet apply --noop --modulepath="$MODULE_DIR" $manifest
 
 	test_result=$?
-	[[ $test_result != 0 ]] && echo "ERROR: failed tests for '$manifest'"
+	[[ $test_result == 0 ]] \
+		&& echo "SUCCESS: puppet applied '$manifest'" \
+		|| echo "ERROR: failed tests for '$manifest'"
 	return $test_result
 }
 
