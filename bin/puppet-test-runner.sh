@@ -47,3 +47,4 @@ echo $TEST_FILES|xargs -t -I '{}' -P$MAX_JOBS -n1 bash -c 'puppet_apply_noop {}'
 FINAL_EXIT_CODE=$?
 
 echo "info: Final exit code: $FINAL_EXIT_CODE"
+exit $FINAL_EXIT_CODE
