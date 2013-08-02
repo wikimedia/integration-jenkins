@@ -51,7 +51,7 @@ PHP_EXTS_WITH_SEP=$(IFS=,; echo "${PHP_EXTS[*]}")
 PHPCS_OPTS=""
 
 # Filepatterns to ignore
-IGNORE=('languages/messages/Messages' '*.i18n.php')
+IGNORE=('languages/messages/Messages' '*.i18n.php' '*.i18n.alias.php')
 IGNORE_WITH_SEP=$(IFS=,; echo "${IGNORE[*]}")
 
 for arg in "$@"; do
