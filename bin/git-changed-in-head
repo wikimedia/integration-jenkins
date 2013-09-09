@@ -44,4 +44,4 @@ git show HEAD \
 	-m \
 	--first-parent \
 	--format=format: \
-	-- "${PATH_ARGS[@]}" | egrep -v '^$'
+	-- "${PATH_ARGS[@]}" | egrep -v '^$' || :  # grep exit 1 when nothing is found
