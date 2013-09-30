@@ -30,6 +30,7 @@
 /beta-*
 /gerrit-*
 /integration-*
+/jenkins-debian-*
 /labs-*
 /lucene-search-*
 /mediawiki-*
@@ -38,6 +39,8 @@
 /operations-*
 /parsoid-*
 /php-*
+/phpcomponent-*
+/pywikibot-*
 /qa-browsertests-*
 /sartoris-*
 /test-*
