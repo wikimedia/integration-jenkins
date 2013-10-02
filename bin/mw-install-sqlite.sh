@@ -1,5 +1,15 @@
 #!/bin/bash -ex
 
+# Adjust readlink for Mac OS X. You will need GNU utils
+[ "`uname`" = "Darwin" ] && READLINK="greadlink" || READLINK="readlink"
+
+# This script real full path
+SCRIPT=$($READLINK -f "$0")
+# This script real directory
+SCRIPTPATH=$(dirname "$SCRIPT")
+# Real path to MediaWiki extension loader
+MW_EXT_LOADER=$($READLINK -f "$SCRIPTPATH/../tools/extensions-loader.php")
+
 # We sometime have a tmpfs to use, that speeds up sqlite
 if [ -d "$HOME/tmpfs" ]; then
 	SQLITE_DIR="$HOME/tmpfs/$JOB_NAME"
@@ -37,4 +47,6 @@ touch "$MW_DEBUG_LOG_FILE"
 chmod 0666 "$MW_DEBUG_LOG_FILE"
 
 echo "\$wgDebugLogFile = '$MW_DEBUG_LOG_FILE';
+# Load extensions entry points
+require_once( '$MW_EXT_LOADER' );
 " >> "$WORKSPACE/LocalSettings.php"
