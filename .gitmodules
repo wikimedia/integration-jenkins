@@ -13,3 +13,6 @@
 [submodule "tools/mwcodeutils"]
 	path = tools/mwcodeutils
 	url = https://gerrit.wikimedia.org/r/p/mediawiki/tools/code-utils.git
+[submodule "tools/bundler"]
+	path = tools/bundler
+	url = https://gerrit.wikimedia.org/r/p/integration/bundler
