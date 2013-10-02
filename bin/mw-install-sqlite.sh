@@ -29,3 +29,12 @@ php maintenance/install.php \
 # Installer creates sqlite db as 644 jenkins:jenkins
 # Make it writable by Apache (bug 47639)
 chmod a+w "${SQLITE_DIR}/${DB_NAME}.sqlite"
+
+# Enable debug log
+MW_DEBUG_LOG_FILE="$WORKSPACE/mediawiki-debug.log"
+touch "$MW_DEBUG_LOG_FILE"
+# Should be writable by Apache as well
+chmod 0666 "$MW_DEBUG_LOG_FILE"
+
+echo "\$wgDebugLogFile = '$MW_DEBUG_LOG_FILE';
+" >> "$WORKSPACE/LocalSettings.php"
