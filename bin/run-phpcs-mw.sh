@@ -82,6 +82,7 @@ fi
 echo "Starting PHPCS..."
 set -xe
 phpcs -v -s $PHPCS_FILES \
+	--encoding=utf-8 \
 	--standard=/var/lib/jenkins/tools/mwcodesniffer/MediaWiki \
 	$PHPCS_OPTS \
 	--ignore=$IGNORE_WITH_SEP \
