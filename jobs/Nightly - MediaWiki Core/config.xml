@@ -17,13 +17,13 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.tasks.Ant>
+    <hudson.tasks.Ant plugin="ant@1.2">
       <targets>nightly-mediawiki-core -v</targets>
       <buildFile>../build.xml</buildFile>
     </hudson.tasks.Ant>
   </builders>
   <publishers/>
   <buildWrappers>
-    <hudson.plugins.timestamper.TimestamperBuildWrapper/>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.6"/>
   </buildWrappers>
 </project>

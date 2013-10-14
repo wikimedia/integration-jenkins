@@ -18,23 +18,23 @@
 # Borrowed from OpenStack
 /var/lib/jenkins/bin/fetch_gerrit_head.sh</command>
     </hudson.tasks.Shell>
-    <hudson.tasks.Ant>
+    <hudson.tasks.Ant plugin="ant@1.2">
       <targets>cleanextensions take-fingerprints</targets>
       <buildFile>../build.xml</buildFile>
     </hudson.tasks.Ant>
-    <hudson.plugins.createfingerprint.CreateFingerprint>
+    <hudson.plugins.createfingerprint.CreateFingerprint plugin="create-fingerprint@1.2">
       <targets>fingerprints/*</targets>
     </hudson.plugins.createfingerprint.CreateFingerprint>
-    <hudson.plugins.createfingerprint.CreateFingerprint>
+    <hudson.plugins.createfingerprint.CreateFingerprint plugin="create-fingerprint@1.2">
       <targets>FETCH_HEAD</targets>
     </hudson.plugins.createfingerprint.CreateFingerprint>
     <hudson.tasks.Shell>
       <command>if [ &quot;$GERRIT_BRANCH&quot; = &quot;master&quot; ]; then /var/lib/jenkins/bin/grunt --gruntfile /var/lib/jenkins/jobs/_shared/gruntfile.js --cwd &quot;$PWD&quot; jshint; else echo &quot;Skipping grunt for this branch&quot;; fi</command>
     </hudson.tasks.Shell>
-    <hudson.plugins.parameterizedtrigger.TriggerBuilder>
+    <hudson.plugins.parameterizedtrigger.TriggerBuilder plugin="parameterized-trigger@2.19">
       <configs>
         <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
-          <configs class="java.util.Collections$EmptyList"/>
+          <configs class="empty-list"/>
           <projects>MediaWiki-Tests-Databaseless</projects>
           <condition>ALWAYS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
@@ -58,7 +58,7 @@
           <buildAllNodesWithLabel>false</buildAllNodesWithLabel>
         </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
         <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
-          <configs class="java.util.Collections$EmptyList" reference="../../hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig/configs"/>
+          <configs class="empty-list"/>
           <projects>MediaWiki-Tests-Misc</projects>
           <condition>ALWAYS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
@@ -82,7 +82,7 @@
           <buildAllNodesWithLabel>false</buildAllNodesWithLabel>
         </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
         <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
-          <configs class="java.util.Collections$EmptyList" reference="../../hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig/configs"/>
+          <configs class="empty-list"/>
           <projects>MediaWiki-Tests-API</projects>
           <condition>ALWAYS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
@@ -106,7 +106,7 @@
           <buildAllNodesWithLabel>false</buildAllNodesWithLabel>
         </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
         <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
-          <configs class="java.util.Collections$EmptyList" reference="../../hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig/configs"/>
+          <configs class="empty-list"/>
           <projects>MediaWiki-Tests-Parser</projects>
           <condition>ALWAYS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
@@ -131,10 +131,10 @@
         </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
       </configs>
     </hudson.plugins.parameterizedtrigger.TriggerBuilder>
-    <hudson.plugins.parameterizedtrigger.TriggerBuilder>
+    <hudson.plugins.parameterizedtrigger.TriggerBuilder plugin="parameterized-trigger@2.19">
       <configs>
         <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
-          <configs class="java.util.Collections$EmptyList" reference="../../../../hudson.plugins.parameterizedtrigger.TriggerBuilder/configs/hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig/configs"/>
+          <configs class="empty-list"/>
           <projects>MediaWiki-Tests-Dumps</projects>
           <condition>ALWAYS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
@@ -166,8 +166,8 @@
     </hudson.tasks.test.AggregatedTestResultPublisher>
   </publishers>
   <buildWrappers>
-    <hudson.plugins.timestamper.TimestamperBuildWrapper/>
-    <hudson.plugins.ansicolor.AnsiColorBuildWrapper>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper plugin="timestamper@1.5.6"/>
+    <hudson.plugins.ansicolor.AnsiColorBuildWrapper plugin="ansicolor@0.3.1">
       <colorMapName>xterm</colorMapName>
     </hudson.plugins.ansicolor.AnsiColorBuildWrapper>
   </buildWrappers>

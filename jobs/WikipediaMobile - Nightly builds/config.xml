@@ -5,11 +5,11 @@
 https://github.com/wikimedia/WikipediaMobile</description>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <com.coravy.hudson.plugins.github.GithubProjectProperty>
+    <com.coravy.hudson.plugins.github.GithubProjectProperty plugin="github@1.7">
       <projectUrl>https://github.com/wikimedia/WikipediaMobile/</projectUrl>
     </com.coravy.hudson.plugins.github.GithubProjectProperty>
   </properties>
-  <scm class="hudson.plugins.git.GitSCM">
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@1.4.0">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
@@ -52,13 +52,13 @@ https://github.com/wikimedia/WikipediaMobile</description>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <jdk>(Default)</jdk>
   <triggers class="vector">
-    <com.cloudbees.jenkins.GitHubPushTrigger>
+    <com.cloudbees.jenkins.GitHubPushTrigger plugin="github@1.7">
       <spec></spec>
     </com.cloudbees.jenkins.GitHubPushTrigger>
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.tasks.Ant>
+    <hudson.tasks.Ant plugin="ant@1.2">
       <targets>debug</targets>
     </hudson.tasks.Ant>
     <hudson.tasks.Shell>
@@ -68,9 +68,9 @@ ln -f -s /srv/org/mediawiki/integration/WikipediaMobile/nightly/Wikipedia_${GIT_
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <hudson.plugins.ircbot.IrcPublisher>
+    <hudson.plugins.ircbot.IrcPublisher plugin="ircbot@2.23">
       <targets>
-        <hudson.plugins.im.GroupChatIMMessageTarget>
+        <hudson.plugins.im.GroupChatIMMessageTarget plugin="instant-messaging@1.27">
           <name>#wikimedia-mobile</name>
           <notificationOnly>true</notificationOnly>
         </hudson.plugins.im.GroupChatIMMessageTarget>
@@ -81,9 +81,8 @@ ln -f -s /srv/org/mediawiki/integration/WikipediaMobile/nightly/Wikipedia_${GIT_
       <notifyCulprits>false</notifyCulprits>
       <notifyFixers>false</notifyFixers>
       <notifyUpstreamCommitters>false</notifyUpstreamCommitters>
-      <buildToChatNotifier class="hudson.plugins.im.build_notify.DefaultBuildToChatNotifier"/>
+      <buildToChatNotifier class="hudson.plugins.im.build_notify.DefaultBuildToChatNotifier" plugin="instant-messaging@1.27"/>
       <matrixMultiplier>ONLY_CONFIGURATIONS</matrixMultiplier>
-      <channels/>
     </hudson.plugins.ircbot.IrcPublisher>
   </publishers>
   <buildWrappers/>
