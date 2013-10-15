@@ -6,7 +6,9 @@
 # bug: 48147
 # Ib0fdffb97cdf237a49b43d7abaa81b81afe8c499
 
-JUNIT_DEST="$WORKSPACE/junit-phpunit-allexts.xml"
+LOGS_DIR="$WORKSPACE/logs"
+mkdir -p "$LOGS_DIR"
+JUNIT_DEST="$LOGS_DIR/junit-phpunit-allexts.xml"
 
 # We have to move to the tests/phpunit directory where suite.xml is located or
 # the relative paths referenced in that file will not get properly resolved by
