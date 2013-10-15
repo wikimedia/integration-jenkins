@@ -2,7 +2,11 @@
 
 # We sometime have a tmpfs to use, that speeds up sqlite
 if [ -d "$HOME/tmpfs" ]; then
-	SQLITE_DIR="$HOME/tmpfs/$JOB_NAME"
+	# We can not use JOB_NAME has a job identifier since when running in
+	# parallel we will have a race condition. Instead use the trailing part of
+	# the WORKSPACE which would be 'foo', 'foo@1', 'foo@2'
+	# Trailing slash is important there.
+	SQLITE_DIR="$HOME/tmpfs/`basename $WORKSPACE`/"
 	mkdir -p $SQLITE_DIR
 else
 	SQLITE_DIR="$WORKSPACE/data"
