@@ -31,5 +31,6 @@ php maintenance/install.php \
 	WikiAdmin
 
 # Installer creates sqlite db as 644 jenkins:jenkins
-# Make it writable by Apache (bug 47639)
+# Make the parent dir and the sqlite file writable by Apache (bug 47639)
+chmod a+w "${SQLITE_DIR}"
 chmod a+w "${SQLITE_DIR}/${DB_NAME}.sqlite"
