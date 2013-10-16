@@ -15,7 +15,7 @@ fi
 # Ensure LocalSettings does not exist
 rm -f LocalSettings.php
 # Purge sqlite databases
-rm -f "$SQLITE_DIR/*.sqlite"
+rm -f "$SQLITE_DIR"/*.sqlite
 
 # $wgDBName
 DB_NAME="build${BUILD_NUMBER}"
