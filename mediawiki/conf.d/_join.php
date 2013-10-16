@@ -7,7 +7,7 @@
  * @license GPL v2.0
  */
 
-$settingFiles = new GlobIterator( __DIR__ .  '/[0-9][0-9]*.php');
+$settingFiles = new GlobIterator( __DIR__ .  '/[0-9][0-9]*.php' );
 
 # Make sure we start by closing LocalSettings.php tag
 $content = '?>';
@@ -23,14 +23,14 @@ foreach( $settingFiles as $settingFile ) {
 
 	# Files must start with T_OPEN_TAG
 	$tokens = token_get_all($source);
-	if( $tokens[0][0] !== T_OPEN_TAG) {
+	if( $tokens[0][0] !== T_OPEN_TAG ) {
 		fwrite( STDERR, "File '$fname' does not start with '<?php' .. skipping.\n" );
 		continue;
 	}
 
 	# Files must not contains a T_CLOSE_TAG since we are appending them
 	$hasCloseTag = false;
-	foreach($tokens as $token) {
+	foreach( $tokens as $token ) {
 		if( $token[0] === T_CLOSE_TAG ) {
 			$hasCloseTag = true;
 			break;
@@ -45,6 +45,7 @@ foreach( $settingFiles as $settingFile ) {
 	$content .= $source . "\n?>";
 }
 
-# Ideally we should make sure the resulting source code is valid php but I am
-# too lazy.
+# On Wikimedia CI Jenkins, the resulting PHP will be appended to
+# LocalSettings.php by the bin/mw-apply-settings.sh script.  That one also run
+# php -l  on LocalSettings.php to ensure it is valid.
 print $content;
