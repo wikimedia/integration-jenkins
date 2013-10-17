@@ -10,6 +10,13 @@ LOG_DIR="$WORKSPACE/log"
 mkdir -p "$LOG_DIR"
 JUNIT_DEST="$LOG_DIR/junit-phpunit-allexts.xml"
 
+# Make sure to compress MediaWiki log dir after phpunit has ran
+function compress_log_dir() {
+	echo "Compressing logs under $LOG_DIR"
+	gzip --verbose --best "$LOG_DIR"/*.log
+}
+trap compress_log_dir EXIT
+
 # We have to move to the tests/phpunit directory where suite.xml is located or
 # the relative paths referenced in that file will not get properly resolved by
 # PHPUnit
