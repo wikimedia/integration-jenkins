@@ -10,7 +10,7 @@ if( $wgCommandLineMode ) {
 	# Under Apache, there is no Jenkins environnement variable. Since MediaWiki
 	# include path is the workspace, use $IP instead.
 	$wgDebugLogFile = $IP . '/log/mw-debug-www.log';
-	# Make sure it is writable by Apache:
-	touch( $wgDebugLogFile );
-	chmod( $wgDebugLogFile, '0666' );
+	# The resulting file has to be created by a shell script in Jenkins
+	# See qunit builder macro which takes care of creation and permission
+	# fixing (aka world writable)
 }
