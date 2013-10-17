@@ -13,7 +13,7 @@ JUNIT_DEST="$LOG_DIR/junit-phpunit-allexts.xml"
 # Make sure to compress MediaWiki log dir after phpunit has ran
 function compress_log_dir() {
 	echo "Compressing logs under $LOG_DIR"
-	gzip --verbose --best "$LOG_DIR"/*.log
+	gzip --verbose --best "$LOG_DIR"/*.log || :
 }
 trap compress_log_dir EXIT
 
