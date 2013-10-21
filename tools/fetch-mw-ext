@@ -29,6 +29,7 @@ function get_ext {
 	mkdir -p "$DEST"
 
 	echo "Copying '$1' in '$DEST'"
+	echo "Git archive of 'master' from $GIT_BARE_DIR"
 	git archive --remote="$GIT_BARE_DIR" master \
 		| (cd "$DEST" && tar xf -)
 	echo "Copy complete."
