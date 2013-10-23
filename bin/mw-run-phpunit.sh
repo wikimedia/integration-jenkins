@@ -41,9 +41,14 @@ trap compress_log_dir EXIT
 
 PHPUNIT_GROUPS_TO_RUN=""
 
+# FIXME: this is all hardcoded :-(
+
 if [ $# -eq 0 ]; then
 	echo "No argument given, Will run all tests."
 	PHPUNIT_GROUPS_TO_RUN=""
+
+elif [ "$1" == "api" ]; then
+	PHPUNIT_GROUPS_TO_RUN="API"
 
 elif [ "$1" == "databaseless" ]; then
 	PHPUNIT_EXCLUDE_GROUP="Database,$PHPUNIT_EXCLUDE_GROUP"
@@ -52,6 +57,9 @@ elif [ "$1" == "misc" ]; then
 	PHPUNIT_GROUPS_TO_RUN="Database"
 	# Exclude all known groups but the Database one since we want to run it
 	PHPUNIT_EXCLUDE_GROUP="${PHPUNIT_GROUPS/'Database,'/},$PHPUNIT_EXCLUDE_GROUP"
+
+elif [ "$1" == "parser" ]; then
+	PHPUNIT_GROUPS_TO_RUN="Parser"
 
 else
 	PHPUNIT_GROUPS_TO_RUN=$(IFS=, eval 'echo "$*"')
