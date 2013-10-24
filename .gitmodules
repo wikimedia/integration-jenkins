@@ -1,18 +1,18 @@
 [submodule "tools/testswarm"]
 	path = tools/testswarm
-	url = https://gerrit.wikimedia.org/r/p/integration/testswarm
+	url = https://gerrit.wikimedia.org/r/p/integration/testswarm.git
 [submodule "tools/gruntjs"]
 	path = tools/gruntjs
 	url = https://gerrit.wikimedia.org/r/p/integration/gruntjs.git
 [submodule "tools/mwcodesniffer"]
 	path = tools/mwcodesniffer
-	url = https://gerrit.wikimedia.org/r/p/mediawiki/tools/codesniffer
+	url = https://gerrit.wikimedia.org/r/p/mediawiki/tools/codesniffer.git
 [submodule "tools/junitdiff"]
 	path = tools/junitdiff
-	url = https://gerrit.wikimedia.org/r/p/integration/junitdiff
+	url = https://gerrit.wikimedia.org/r/p/integration/junitdiff.git
 [submodule "tools/mwcodeutils"]
 	path = tools/mwcodeutils
 	url = https://gerrit.wikimedia.org/r/p/mediawiki/tools/code-utils.git
 [submodule "tools/bundler"]
 	path = tools/bundler
-	url = https://gerrit.wikimedia.org/r/p/integration/bundler
+	url = https://gerrit.wikimedia.org/r/p/integration/bundler.git
