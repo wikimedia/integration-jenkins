@@ -6,7 +6,7 @@ if [ -d "$HOME/tmpfs" ]; then
 	# parallel we will have a race condition. Instead use the trailing part of
 	# the WORKSPACE which would be 'foo', 'foo@1', 'foo@2'
 	# Trailing slash is important there.
-	SQLITE_DIR="$HOME/tmpfs/`basename $WORKSPACE`/"
+	SQLITE_DIR="$HOME/tmpfs/`basename $WORKSPACE`"
 	mkdir -p $SQLITE_DIR
 else
 	SQLITE_DIR="$WORKSPACE/data"
