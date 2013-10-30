@@ -23,6 +23,15 @@ PHPUNIT_GROUPS="API,Database,Dump,Parser"
 # - Stub : not implemented tests
 PHPUNIT_EXCLUDE_GROUP="Broken,ParserFuzz,Stub"
 
+# Path to PHPUnit as deployed by Wikimedia deployment system.
+#
+# The path is passed to MediaWiki php wrapper using --with-phpunitdir. It
+# should match a local checkout of integration/phpunit.git repository which
+# contains PHPUnit as it is installed by Composer. The local copy should be
+# deployed on all slaves via the role::ci::slave puppet class includes:
+# deployment::target { # 'contint-production-slaves': }
+PHPUNIT_DIR="/srv/deployment/integration/phpunit/vendor/phpunit/phpunit"
+
 # Setup Junit destination
 LOG_DIR="$WORKSPACE/log"
 mkdir -p "$LOG_DIR"
@@ -79,7 +88,9 @@ fi
 
 set -x
 cd "${WORKSPACE}/tests/phpunit"
-php phpunit.php $PHPUNIT_GROUP_OPT \
+php phpunit.php \
+	--with-phpunitdir "$PHPUNIT_DIR" \
+	$PHPUNIT_GROUP_OPT \
 	--exclude-group "$PHPUNIT_EXCLUDE_GROUP" \
 	--conf "$WORKSPACE/LocalSettings.php" \
 	--log-junit $JUNIT_DEST
