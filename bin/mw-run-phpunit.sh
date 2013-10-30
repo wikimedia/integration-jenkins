@@ -30,6 +30,10 @@ PHPUNIT_EXCLUDE_GROUP="Broken,ParserFuzz,Stub"
 # contains PHPUnit as it is installed by Composer. The local copy should be
 # deployed on all slaves via the role::ci::slave puppet class includes:
 # deployment::target { # 'contint-production-slaves': }
+#
+#
+# WARNING: don't forget to update mw-run-phpunit-allexts.sh as well
+#
 PHPUNIT_DIR="/srv/deployment/integration/phpunit/vendor/phpunit/phpunit"
 
 # Setup Junit destination

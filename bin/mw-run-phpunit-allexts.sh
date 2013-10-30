@@ -10,6 +10,9 @@ LOG_DIR="$WORKSPACE/log"
 mkdir -p "$LOG_DIR"
 JUNIT_DEST="$LOG_DIR/junit-phpunit-allexts.xml"
 
+# See documentation in mw-run-phpunit.sh
+PHPUNIT_DIR="/srv/deployment/integration/phpunit/vendor/phpunit/phpunit"
+
 # Make sure to compress MediaWiki log dir after phpunit has ran
 function compress_log_dir() {
 	echo "Compressing logs under $LOG_DIR"
@@ -24,4 +27,7 @@ trap compress_log_dir EXIT
 # of the workspace, so make sure we use an absolute path.
 cd "$WORKSPACE/tests/phpunit"
 
-php phpunit.php --log-junit "$JUNIT_DEST" --testsuite extensions
+php phpunit.php \
+	--with-phpunitdir "$PHPUNIT_DIR" \
+	--log-junit "$JUNIT_DEST" \
+	--testsuite extensions
