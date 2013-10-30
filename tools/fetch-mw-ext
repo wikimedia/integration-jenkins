@@ -4,7 +4,7 @@
 
 GERRIT_BASE="https://gerrit.wikimedia.org/r/p/"
 # Path where Gerrit replicates repositories:
-GIT_BARE_BASE="/var/lib/git"
+GIT_BARE_BASE="/srv/ssd/gerrit"
 
 # Helper functions
 function warn()  { echo "$@" 1>&2; }

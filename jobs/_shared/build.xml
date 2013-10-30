@@ -773,7 +773,7 @@ set the following environnement variables:
 
 			Usage Example:
 			<git-snapshot
-				remote="/var/lib/git/mediawiki/core"
+				remote="/srv/ssd/gerrit/mediawiki/core"
 				treeish="master"
 				dest="/tmp/snapshot"
 				/>
