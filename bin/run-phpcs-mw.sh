@@ -61,7 +61,7 @@ for arg in "$@"; do
 done
 
 if $HEAD_ONLY; then
-	PHPCS_FILES=$(/var/lib/jenkins/bin/git-changed-in-head "${PHP_EXTS[@]}")
+	PHPCS_FILES=$(/srv/slave-scripts/bin/git-changed-in-head "${PHP_EXTS[@]}")
 	if [[ -z "$PHPCS_FILES" ]]; then
 		echo "Skipping phpcs run on HEAD: no file matching '$PHP_EXTS'"
 		exit 0
@@ -83,7 +83,7 @@ echo "Starting PHPCS..."
 set -xe
 phpcs -v -s $PHPCS_FILES \
 	--encoding=utf-8 \
-	--standard=/var/lib/jenkins/tools/mwcodesniffer/MediaWiki \
+	--standard=/srv/slave-scripts/tools/mwcodesniffer/MediaWiki \
 	$PHPCS_OPTS \
 	--ignore=$IGNORE_WITH_SEP \
 	--report-checkstyle=checkstyle-phpcs.xml \
