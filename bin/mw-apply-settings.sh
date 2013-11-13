@@ -7,8 +7,11 @@ LOG_DIR="$WORKSPACE/log"
 
 php "$MEDIAWIKI_D/_join.php" >> "$LOCAL_SETTINGS"
 
-# Copy under /log for archival purposes
+# Empty out the logs directory
+rm -fR "$LOG_DIR"
 mkdir -p "$LOG_DIR"
+
+# Copy LocalSettings under /log for archival purposes
 cp "$LOCAL_SETTINGS" "$LOG_DIR"
 
 echo "Making sure $LOCAL_SETTINGS is still valid"
