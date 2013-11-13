@@ -47,6 +47,12 @@ WARNINGS=true
 PHP_EXTS=('php' 'php5' 'inc' 'sample')
 PHP_EXTS_WITH_SEP=$(IFS=,; echo "${PHP_EXTS[*]}")
 
+# Full path to phpcs
+#
+# It is deployed on Jenkins slaves from integration/phpcs.git using Wikimedia
+# deployment system.
+PHPCS="/srv/deployment/integration/phpcs/vendor/bin/phpcs"
+
 # Extra options to pass to phpcs
 PHPCS_OPTS=""
 
