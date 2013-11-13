@@ -87,7 +87,7 @@ fi
 
 echo "Starting PHPCS..."
 set -xe
-phpcs -v -s $PHPCS_FILES \
+$PHPCS -v -s $PHPCS_FILES \
 	--encoding=utf-8 \
 	--standard=/srv/slave-scripts/tools/mwcodesniffer/MediaWiki \
 	$PHPCS_OPTS \
