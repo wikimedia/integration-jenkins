@@ -11,3 +11,4 @@ ini_set( 'display_errors', 1 );
 // Debugging: MediaWiki
 $wgDevelopmentWarnings = true;
 $wgShowExceptionDetails = true;
+$wgDebugRawPage = true; // bug 47960
