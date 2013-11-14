@@ -53,6 +53,12 @@ PHP_EXTS_WITH_SEP=$(IFS=,; echo "${PHP_EXTS[*]}")
 # deployment system.
 PHPCS="/srv/deployment/integration/phpcs/vendor/bin/phpcs"
 
+# Full path to MediaWiki CodeSniffer style
+#
+# It is deployed on Jenkins slaves from mediawiki/tools/codesniffer.git using
+# Wikimedia deployment system.
+PHPCS_STANDARD="/srv/deployment/integration/mediawiki-tools-codesniffer/MediaWiki"
+
 # Extra options to pass to phpcs
 PHPCS_OPTS=""
 
@@ -89,7 +95,7 @@ echo "Starting PHPCS..."
 set -xe
 $PHPCS -v -s $PHPCS_FILES \
 	--encoding=utf-8 \
-	--standard=/srv/slave-scripts/tools/mwcodesniffer/MediaWiki \
+	--standard=$PHPCS_STANDARD \
 	$PHPCS_OPTS \
 	--ignore=$IGNORE_WITH_SEP \
 	--report-checkstyle=checkstyle-phpcs.xml \
