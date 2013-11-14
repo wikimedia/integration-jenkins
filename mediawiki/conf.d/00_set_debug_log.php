@@ -4,23 +4,27 @@
 # mediawiki.d/00_set_debug_log.php
 #
 
-if( $wgCommandLineMode ) {
-	$wgDebugLogFile = getenv( 'WORKSPACE' ) . '/log/mw-debug-cli.log';
+// Under Apache, there is no Jenkins environement variable. We have to detect
+// the workspace using MediaWiki's include path.
+//
+// Legacy mode was to fetch MediaWiki core directly in the workspace hence
+// $IP is the workspace.
+// The new way is to fetch it under $WORKSPACE/src/mediawiki/core
+if ( $wgCommandLineMode ) {
+	$wmgJobWorkspace = getenv( 'WORKSPACE' );
+} elseif ( preg_match( '%(.*)/src/mediawiki/core%', $IP ) ) {
+	$wmgJobWorkspace = $IP . '/../../..';
 } else {
-	# Under Apache, there is no Jenkins environement variable. We have to detect
-	# the workspace using include path.
-	#
-	# Legacy mode was to fetch MediaWiki core directly in the workspace hence
-	# $IP is the workspace.
-	# The new way is to fetch it under $WORKSPACE/src/mediawiki/core
-	#
-	if ( preg_match( '%(.*)/src/mediawiki/core%', $IP ) ) {
-		$wgDebugLogFile = $IP . '/../../../log/mw-debug-www.log';
-	} else {
-		# Legacy
-		$wgDebugLogFile = $IP . '/log/mw-debug-www.log';
-	}
-	# The resulting file has to be created by a shell script in Jenkins
-	# See qunit builder macro which takes care of creation and permission
-	# fixing (aka world writable)
+	$wmgJobWorkspace = $IP;
+}
+
+$wmgMwLogDir = "$wmgJobWorkspace/log";
+
+$wgDBerrorLog = "$wmgMwLogDir/mw-dberror.log";
+$wgRateLimitLog = "$wmgMwLogDir/mw-ratelimit.log";
+
+if ( $wgCommandLineMode ) {
+	$wgDebugLogFile = "$wmgMwLogDir/mw-debug-cli.log";
+} else {
+	$wgDebugLogFile = "$wmgMwLogDir/mw-debug-www.log";
 }
