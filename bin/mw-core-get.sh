@@ -13,13 +13,11 @@ if [[ ! -d "$WORKSPACE" || ! -w "$WORKSPACE" ]]; then
 	exit 1
 fi
 
-function tar_extract() {
-	(cd "$WORKSPACE" && tar xzf -)
-}
-
-if [ -d "$GIT_LOCAL"]; then
-	git archive --remote="$GIT_LOCAL" "$TREE_ISH" | tar_extract
+if [ -d "$GIT_LOCAL" ]; then
+	git archive --remote="$GIT_LOCAL" "$TREE_ISH" \
+		| (cd "$WORKSPACE" && tar xf -)
 else
 	# Fallback to git.wikimedia.org
-	curl "https://git.wikimedia.org/zip/?r=mediawiki/core.git&format=gz&h=$TREE_ISH" | tar_extract
+	curl "https://git.wikimedia.org/zip/?r=mediawiki/core.git&format=gz&h=$TREE_ISH" \
+		| (cd "$WORKSPACE" && tar xzf -)
 fi
