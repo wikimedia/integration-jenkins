@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash -xe
 
 # Local bare git repository
 # On Wikimedia CI server, that is a Gerrit replica
