@@ -5,4 +5,4 @@
 #
 
 // FIXME: migrate file content there.
-require_once( '/srv/slave-scripts/tools/extensions-loader.php' );
+require_once( '/srv/deployment/integration/slave-scripts/tools/extensions-loader.php' );

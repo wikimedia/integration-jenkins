@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 LOCAL_SETTINGS="$WORKSPACE/LocalSettings.php"
-MEDIAWIKI_D="/srv/slave-scripts/mediawiki/conf.d"
+MEDIAWIKI_D="/srv/deployment/integration/slave-scripts/mediawiki/conf.d"
 
 # Setup Junit destination
 LOG_DIR="$WORKSPACE/log"

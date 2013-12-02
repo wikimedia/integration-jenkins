@@ -73,7 +73,7 @@ for arg in "$@"; do
 done
 
 if $HEAD_ONLY; then
-	PHPCS_FILES=$(/srv/slave-scripts/bin/git-changed-in-head "${PHP_EXTS[@]}")
+	PHPCS_FILES=$(/srv/deployment/integration/slave-scripts/bin/git-changed-in-head "${PHP_EXTS[@]}")
 	if [[ -z "$PHPCS_FILES" ]]; then
 		echo "Skipping phpcs run on HEAD: no file matching '$PHP_EXTS'"
 		exit 0
