@@ -14,32 +14,39 @@ module.exports = function ( grunt ) {
 
 	grunt.initConfig({
 		qunit: {
-			all: {
-				options: {
-					urls: [
-						grunt.option( 'qunit-url' ) || 'http://localhost/wiki/Special:JavaScriptTest/qunit'
-					],
-					timeout: 30 * 1000
+			all: ( function () {
+				var url = grunt.option( 'qunit-url' ),
+					file = grunt.option( 'qunit-file' ),
+					ret = {};
+				if ( url ) {
+					ret.options = {
+						urls: [ url ],
+						timeout: 30 * 1000
+					};
 				}
-			}
+				if ( file ) {
+					ret.src = [ file ];
+				}
+				return ret;
+			}() ),
 		},
 		csslint: {
 			options: {
 				csslintrc: '.csslintrc'
 			},
-			all: (function () {
-				var patterns = ['**/*.css'];
-				if (grunt.file.exists('.csslintignore')) {
-					grunt.file.read('.csslintignore').split('\n').forEach(function (pattern) {
+			all: ( function () {
+				var patterns = [ '**/*.css' ];
+				if ( grunt.file.exists( '.csslintignore' ) ) {
+					grunt.file.read( '.csslintignore' ).split( '\n' ).forEach( function ( pattern ) {
 						// Filter out empty lines
 						pattern = pattern.trim();
-						if (pattern) {
-							patterns.push('!' + pattern.trim());
+						if ( pattern ) {
+							patterns.push( '!' + pattern.trim() );
 						}
-					});
+					} );
 				}
 				return patterns;
-			}())
+			}() )
 		}
 	});
 
