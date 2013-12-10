@@ -7,5 +7,5 @@
 
 $wgDjvuDump = '/usr/bin/djvudump';
 $wgDjvuRenderer = '/usr/bin/ddjvu';
-$wgDjvuToXml = '/usr/bin/djvutoxml';
+$wgDjvuToXML = '/usr/bin/djvutoxml';
 $wgDjvuTxt = '/usr/bin/djvutxt';
