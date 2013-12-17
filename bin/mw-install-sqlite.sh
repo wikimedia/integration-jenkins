@@ -14,8 +14,8 @@ mkdir -p $SQLITE_DIR
 
 # Ensure LocalSettings does not exist
 rm -f LocalSettings.php
-# Purge sqlite databases
-rm -f "$SQLITE_DIR"/*.sqlite
+# Purge sqlite databases modified more than 60 minutes ago
+find "$SQLITE_DIR" -type f -name '*.sqlite' -mmin +60 -delete
 
 # $wgDBName
 DB_NAME="build${BUILD_NUMBER}"
