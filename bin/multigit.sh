@@ -32,14 +32,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# URL to fetch ZUUL references from. Hosted
+# URL to fetch ZUUL references from.
 ZUUL_URL="git://integration.wikimedia.org"
+
+# URL to fetch from Gerrit (reference repository)
+GERRIT_URL="https://gerrit.wikimedia.org/r/p"
 
 # Url to the Gerrit change
 GERRIT_CHANGE="https://gerrit.wikimedia.org/r/#/c/$ZUUL_CHANGE/$ZUUL_PATCHSET"
 
 # Base path for locally replicated repositories.
-# Used by git clone with --reference
 GERRIT_REFERENCE=${GERRIT_REFERENCE:-/srv/ssd/gerrit}
 
 echo "Change triggered by $GERRIT_CHANGE"
@@ -81,26 +83,25 @@ function clone_project {
 
 	# Clone or refresh repository
 
+	# Fetch from the locally replicated Gerrit repository if it exist or simply
+	# fallback to Gerrit.
+	ref_repo="$GERRIT_REFERENCE/${project}.git"
+	if [[ ! -d "$ref_repo" ]]; then
+		ref_repo="$GERRIT_URL/$project"
+	fi
+
 	# Variable used for display purposes
 	action_done="cloning"
 	if [[ -d "$dest/.git" ]]; then
 		echo "Refreshing $project in $dest"
 		action_done="refreshing"
-		(cd $dest && git remote update)
+		cd "$dest"
+		git remote set-url origin "$ref_repo"
+		git fetch origin
 	else
 		if [[ ! -d "$dest" ]]; then
 			echo "Cloning $project in $dest"
-			if [ ! -d "$GERRIT_REFERENCE" ]; then
-				echo "WARNING $GERRIT_REFERENCE not a directory"
-				echo "WARNING cloning without --reference"
-				git clone "$ZUUL_URL/$project" $dest
-			else
-				ref_repo="${GERRIT_REFERENCE}/${project}.git"
-				echo "Cloning with reference repository $ref_repo"
-				git clone --reference="$ref_repo" \
-					"$ZUUL_URL/$project" $dest
-			fi
-
+			git clone "$ref_repo" "$dest"
 		else
 			# Workaround cloning in $WORKSPACE
 			# Git refuses to clone at an existing directory
@@ -108,7 +109,7 @@ function clone_project {
 			action_done="initing"
 			cd "$dest"
 			git init .
-			git remote add origin $ZUUL_URL/$project
+			git remote add origin "$ref_repo"
 			git fetch origin
 		fi
 	fi
