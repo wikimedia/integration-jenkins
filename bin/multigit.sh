@@ -36,13 +36,13 @@
 ZUUL_URL="git://integration.wikimedia.org"
 
 # Url to the Gerrit change
-GERRIT_URL="https://gerrit.wikimedia.org/r/#/c/$ZUUL_CHANGE/$ZUUL_PATCHSET"
+GERRIT_CHANGE="https://gerrit.wikimedia.org/r/#/c/$ZUUL_CHANGE/$ZUUL_PATCHSET"
 
 # Base path for locally replicated repositories.
 # Used by git clone with --reference
 GERRIT_REFERENCE=${GERRIT_REFERENCE:-/srv/ssd/gerrit}
 
-echo "Change triggered by $GERRIT_URL"
+echo "Change triggered by $GERRIT_CHANGE"
 echo
 echo "Triggering informations:"
 echo "Pipeline : $ZUUL_PIPELINE"
