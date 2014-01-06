@@ -1,5 +1,7 @@
 #!/bin/bash -ex
 
+. "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
+
 # We sometime have a tmpfs to use, that speeds up sqlite
 if [ -d "$HOME/tmpfs" ]; then
 	# We can not use JOB_NAME has a job identifier since when running in
@@ -13,7 +15,8 @@ fi
 mkdir -p $SQLITE_DIR
 
 # Ensure LocalSettings does not exist
-rm -f LocalSettings.php
+rm -f "$MW_INSTALL_PATH/LocalSettings.php"
+
 # Purge sqlite databases modified more than 60 minutes ago
 find "$SQLITE_DIR" -type f -name '*.sqlite' -mmin +60 -delete
 
@@ -21,8 +24,9 @@ find "$SQLITE_DIR" -type f -name '*.sqlite' -mmin +60 -delete
 DB_NAME="build${BUILD_NUMBER}"
 
 # Run MediaWiki installer
+cd "$MW_INSTALL_PATH"
 php maintenance/install.php \
-	--confpath "$WORKSPACE" \
+	--confpath "${MW_INSTALL_PATH}" \
 	--dbtype=sqlite \
 	--dbname="$DB_NAME" \
 	--dbpath="$SQLITE_DIR" \

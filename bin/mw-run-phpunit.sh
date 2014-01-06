@@ -14,6 +14,8 @@
 # Configuration
 #######################################################################
 
+. "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
+
 # MediaWiki known PHPUnit groups
 PHPUNIT_GROUPS="API,Database,Dump,Parser"
 
@@ -91,10 +93,10 @@ if [ "$PHPUNIT_GROUPS_TO_RUN" != "" ]; then
 fi
 
 set -x
-cd "${WORKSPACE}/tests/phpunit"
+cd "${MW_INSTALL_PATH}/tests/phpunit"
 php phpunit.php \
 	--with-phpunitdir "$PHPUNIT_DIR" \
 	$PHPUNIT_GROUP_OPT \
 	--exclude-group "$PHPUNIT_EXCLUDE_GROUP" \
-	--conf "$WORKSPACE/LocalSettings.php" \
+	--conf "$MW_INSTALL_PATH/LocalSettings.php" \
 	--log-junit $JUNIT_DEST

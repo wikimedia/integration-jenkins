@@ -1,5 +1,8 @@
 #!/bin/bash -ex
-LOCAL_SETTINGS="$WORKSPACE/LocalSettings.php"
+
+. "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
+
+LOCAL_SETTINGS="${MW_INSTALL_PATH}/LocalSettings.php"
 MEDIAWIKI_D="/srv/deployment/integration/slave-scripts/mediawiki/conf.d"
 
 # Setup Junit destination

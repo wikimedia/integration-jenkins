@@ -10,6 +10,8 @@
 #
 # Licensed under GPL v2.0
 
+. "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
+
 TARGET_PROJECTDIR=`echo "$ZUUL_PROJECT" | tr '/' '-'`
 TARGET_VERSIONDIR=""
 
@@ -35,10 +37,10 @@ if [ -z "$TARGET_VERSIONDIR" ]; then
 	exit 1
 fi
 
-if [ ! -e  "$WORKSPACE/maintenance/mwdocgen.php" ]; then
+if [ ! -e  "$MW_INSTALL_PATH/maintenance/mwdocgen.php" ]; then
 	echo "Error: Could not find maintenance/mwdocgen.php"
-	echo "Make sure \$WORKSPACE points to a MediaWiki installation."
-	echo "\$WORKSPACE: $WORKSPACE"
+	echo "Make sure \$MW_INSTALL_PATH points to a MediaWiki installation."
+	echo "\$MW_INSTALL_PATH: $MW_INSTALL_PATH"
 	exit 1
 fi
 
@@ -55,7 +57,7 @@ echo "Found target: '$DEST_DIR'"
 
 # Craft a dumb LocalSettings.php which is required by Maintenance script
 # albeit the mwdocgen.php script does not require it.
-touch "$WORKSPACE/LocalSettings.php"
+touch "$MW_INSTALL_PATH/LocalSettings.php"
 
 # Run the MediaWiki documentation wrapper
 #
@@ -65,7 +67,7 @@ touch "$WORKSPACE/LocalSettings.php"
 #
 # Trick explanation: the command stderr is sent as stdin to a tee FIFO which in
 # turns write back to stderr.
-php "$WORKSPACE/maintenance/mwdocgen.php" \
+php "$MW_INSTALL_PATH/maintenance/mwdocgen.php" \
 	--no-extensions \
 	--output "$DEST_DIR" \
 	--version "$TARGET_VERSIONDIR" \

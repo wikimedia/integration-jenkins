@@ -6,6 +6,8 @@
 # bug: 48147
 # Ib0fdffb97cdf237a49b43d7abaa81b81afe8c499
 
+. "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
+
 LOG_DIR="$WORKSPACE/log"
 mkdir -p "$LOG_DIR"
 JUNIT_DEST="$LOG_DIR/junit-phpunit-allexts.xml"
@@ -25,7 +27,8 @@ trap compress_log_dir EXIT
 # PHPUnit
 # The Jenkins publishers are usually expecting the .xml file to be at the root
 # of the workspace, so make sure we use an absolute path.
-cd "$WORKSPACE/tests/phpunit"
+
+cd "${MW_INSTALL_PATH}/tests/phpunit"
 
 php phpunit.php \
 	--with-phpunitdir "$PHPUNIT_DIR" \
