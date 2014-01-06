@@ -125,7 +125,7 @@ function clone_project {
 		git_checkout FETCH_HEAD
 	else
 		echo "Attempting to get $project to match change branch '$ZUUL_BRANCH'"
-		if git branch -a|fgrep "remotes/origin/$ZUUL_BRANCH">/dev/null; then
+		if git_has_branch $project $ZUUL_BRANCH; then
 			echo "Switching $project to $ZUUL_BRANCH"
 			git_checkout $ZUUL_BRANCH
 		else
@@ -146,6 +146,18 @@ function git_fetch_at_ref {
 		return $?
 	else
 		# failure
+		return 1
+	fi
+}
+
+# Copy pasted from OpenStack devstack-gate
+function git_has_branch {
+	local project=$1
+	local branch=$2
+
+	if git branch -a|grep remotes/origin/$branch>/dev/null; then
+		return 0
+	else
 		return 1
 	fi
 }
