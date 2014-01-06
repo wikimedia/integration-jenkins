@@ -5,6 +5,6 @@
 
 MW_INSTALL_PATH="$WORKSPACE/src/mediawiki/core"
 if [[ ! -d "$MW_INSTALL_PATH" ]]; then
-	MW_INSTALL="$WORKSPACE"
+	MW_INSTALL_PATH="$WORKSPACE"
 fi
 export MW_INSTALL_PATH
