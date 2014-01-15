@@ -23,17 +23,17 @@ fi
 
 # Example values:
 # - ZUUL_REF: refs/zuul/master/Z74178670e7c5495199f8a92e92cf609c
-# - GERRIT_BRANCH: master
+# - ZUUL_BRANCH: master
 if [[ "$ZUUL_REF" =~ ^refs/tags/(.*) ]]; then
 	TARGET_VERSIONDIR="${BASH_REMATCH[1]}"
-elif [[ "$GERRIT_BRANCH" =~ ^(master|REL[0-9]+_[0-9]+)$ ]]; then
+elif [[ "$ZUUL_BRANCH" =~ ^(master|REL[0-9]+_[0-9]+)$ ]]; then
 	TARGET_VERSIONDIR="${BASH_REMATCH[1]}"
 fi
 
 if [ -z "$TARGET_VERSIONDIR" ]; then
 	echo "Error: Change target reference is not a tag or a recognized branch."
 	echo "\$ZUUL_REF: $ZUUL_REF"
-	echo "\$GERRIT_BRANCH: $GERRIT_BRANCH"
+	echo "\$ZUUL_BRANCH: $ZUUL_BRANCH"
 	exit 1
 fi
 
