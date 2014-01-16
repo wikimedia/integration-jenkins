@@ -52,7 +52,7 @@ fi
 git fetch origin
 git reset --hard "${ZUUL_COMMIT}"
 ZUUL_COMMIT_SHORT=`git rev-parse --short HEAD`
-git show --no-patch --format=fuller --color
+git log -n1 --format=fuller --color
 cd ..
 
 # Add change to Gerrit
