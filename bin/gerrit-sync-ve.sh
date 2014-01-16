@@ -14,6 +14,8 @@
 
 MWEXT_DIR='src/extensions'
 MWEXT_REPO_ANON="https://gerrit.wikimedia.org/r/p/mediawiki/extensions.git"
+export GIT_COMMITTER_EMAIL="jenkins-bot@wikimedia.org"
+export GIT_COMMITTER_NAME="jenkins-bot"
 
 if [[ -z "${ZUUL_COMMIT}" ]]; then
 	echo "\$ZUUL_COMMIT must be set!"
