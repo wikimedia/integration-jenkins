@@ -34,11 +34,6 @@ git init
 git remote add origin "${MWEXT_REPO}" ||
 	git remote set-url origin "${MWEXT_REPO}"
 
-# Install commit hook if needed
-if [ ! -e ".git/hooks/commit-msg" ]; then
-	scp -p -P 29418 "${GERRIT_USER}"@gerrit.wikimedia.org:hooks/commit-msg `git rev-parse --git-dir`/hooks/commit-msg
-fi
-
 git fetch --recurse-submodules=no --verbose origin
 git reset --hard origin/master
 
@@ -67,6 +62,12 @@ pwd
 git add VisualEditor
 git commit -a -m "Syncronize VisualEditor: ${VE_OLD_SHORT}..${ZUUL_COMMIT_SHORT}"
 git show
+
+# Install commit hook if needed
+if [ ! -e ".git/hooks/commit-msg" ]; then
+	scp -p -P 29418 "${GERRIT_USER}"@gerrit.wikimedia.org:hooks/commit-msg `git rev-parse --git-dir`/hooks/commit-msg
+fi
+
 git push origin HEAD:refs/for/master
 MWEXT_HEAD=`git rev-parse HEAD`
 ssh -p 29418 "${GERRIT_USER}"@gerrit.wikimedia.org "gerrit approve --code-review +2 --verified +2 --submit $MWEXT_HEAD"
