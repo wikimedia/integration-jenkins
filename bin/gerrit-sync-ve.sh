@@ -13,8 +13,6 @@
 # which is exposed in the Jenkins job as the $ZUUL_COMMIT env variable.
 
 MWEXT_DIR='src/extensions'
-GERRIT_USER='jenkins-bot'
-MWEXT_REPO_SSH="ssh://${GERRIT_USER}@gerrit.wikimedia.org:29418/mediawiki/extensions.git"
 MWEXT_REPO_ANON="https://gerrit.wikimedia.org/r/p/mediawiki/extensions.git"
 
 if [[ -z "${ZUUL_COMMIT}" ]]; then
@@ -22,8 +20,8 @@ if [[ -z "${ZUUL_COMMIT}" ]]; then
 	exit 1
 fi
 
-if [[ "$USER" != "jenkins" ]]; then
-	echo "Must be run as 'jenkins' user to access jenkins-bot SSH credentials"
+if [[ "$USER" != "jenkins-slave" ]]; then
+	echo "Must be run as 'jenkins-slave' just like any script"
 	exit 1
 fi
 
@@ -66,9 +64,7 @@ git show
 
 # Install commit hook if needed
 if [ ! -e ".git/hooks/commit-msg" ]; then
-	scp -p -P 29418 "${GERRIT_USER}"@gerrit.wikimedia.org:hooks/commit-msg `git rev-parse --git-dir`/hooks/commit-msg
+	curl 'https://gerrit.wikimedia.org/r/tools/hooks/commit-msg' > `git rev-parse --git-dir`/hooks/commit-msg
 fi
 
-git push "$MWEXT_REPO_SSH" HEAD:refs/for/master
-MWEXT_HEAD=`git rev-parse HEAD`
-ssh -p 29418 "${GERRIT_USER}"@gerrit.wikimedia.org "gerrit approve --code-review +2 --verified +2 --submit $MWEXT_HEAD"
+echo "Done updating locally. Commit should now be pushed. Use gerrit-sync-ve-push.sh."
