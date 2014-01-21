@@ -59,14 +59,15 @@ cd ..
 
 # Add change to Gerrit
 echo
-pwd
-git add VisualEditor
-git commit -a -m "Syncronize VisualEditor: ${VE_OLD_SHORT}..${ZUUL_COMMIT_SHORT}"
-git show
 
 # Install commit hook if needed
 if [ ! -e ".git/hooks/commit-msg" ]; then
 	curl 'https://gerrit.wikimedia.org/r/tools/hooks/commit-msg' > `git rev-parse --git-dir`/hooks/commit-msg
 fi
+
+pwd
+git add VisualEditor
+git commit -a -m "Syncronize VisualEditor: ${VE_OLD_SHORT}..${ZUUL_COMMIT_SHORT}"
+git show
 
 echo "Done updating locally. Commit should now be pushed. Use gerrit-sync-ve-push.sh."
