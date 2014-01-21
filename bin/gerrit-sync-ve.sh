@@ -64,6 +64,7 @@ echo
 if [ ! -e ".git/hooks/commit-msg" ]; then
 	curl 'https://gerrit.wikimedia.org/r/tools/hooks/commit-msg' > `git rev-parse --git-dir`/hooks/commit-msg
 fi
+chmod +x '.git/hooks/commit-msg'
 
 pwd
 git add VisualEditor
