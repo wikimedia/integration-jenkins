@@ -7,7 +7,7 @@ MWEXT_REPO_SSH="ssh://${GERRIT_USER}@gerrit.wikimedia.org:29418/mediawiki/extens
 GERRIT_USER='jenkins-mwext-sync'
 
 # Export Gerrit related configuration variables. Will be reused by the git
-# shell script wrapper git-jenkins-mwext-sync.sh
+# shell script wrapper ssh-jenkins-mwext-sync.sh
 export GERRIT_USER_SSH_IDENTITY="/var/lib/jenkins/.ssh/jenkins-mwext-sync_id_rsa"
 
 if [[ "$USER" != "jenkins" ]]; then
@@ -20,7 +20,7 @@ git show
 
 # Steps below needs the jenkins-bot credentials and should not write on disk
 # since files in the workspace belong to jenkins-slave user.
-GIT_SSH="/srv/deployment/integration/slave-scripts/bin/git-jenkins-mwext-sync.sh" \
+GIT_SSH="/srv/deployment/integration/slave-scripts/bin/ssh-jenkins-mwext-sync.sh" \
 	git push "$MWEXT_REPO_SSH" HEAD:refs/for/master
 
 MWEXT_HEAD=`git rev-parse HEAD`
