@@ -2,9 +2,9 @@
 #
 # Script to push VisualEditor updates to mediawiki/extensions.git
 
+GERRIT_USER='jenkins-mwext-sync'
 MWEXT_DIR='src/extensions'
 MWEXT_REPO_SSH="ssh://${GERRIT_USER}@gerrit.wikimedia.org:29418/mediawiki/extensions.git"
-GERRIT_USER='jenkins-mwext-sync'
 
 # Export Gerrit related configuration variables. Will be reused by the git
 # shell script wrapper ssh-jenkins-mwext-sync.sh
