@@ -25,4 +25,4 @@ GIT_SSH="/srv/deployment/integration/slave-scripts/bin/ssh-jenkins-mwext-sync.sh
 
 MWEXT_HEAD=`git rev-parse HEAD`
 ssh -i "$GERRIT_USER_SSH_IDENTITY" -p 29418 \
-	"${GERRIT_USER}"@gerrit.wikimedia.org "gerrit approve --code-review +2 --verified +2 --submit $MWEXT_HEAD"
+	"${GERRIT_USER}"@gerrit.wikimedia.org "gerrit review --code-review +2 --verified +2 --submit $MWEXT_HEAD"
