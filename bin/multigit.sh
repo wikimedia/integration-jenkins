@@ -33,7 +33,7 @@
 # limitations under the License.
 
 # URL to fetch ZUUL references from.
-ZUUL_URL="git://integration.wikimedia.org"
+ZUUL_URL="git://zuul.eqiad.wmnet"
 
 # URL to fetch from Gerrit (reference repository)
 GERRIT_URL="https://gerrit.wikimedia.org/r/p"
