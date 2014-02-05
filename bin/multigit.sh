@@ -133,6 +133,9 @@ function clone_project {
 			git_checkout 'master'
 		fi
 	fi
+	echo "Refreshing $project submodules..."
+	git submodule update --init --recursive
+
 	echo -e "Done $action_done $project\n"
 	cd $WORKSPACE
 }
