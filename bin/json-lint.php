@@ -61,9 +61,9 @@ if ( !function_exists( 'json_last_error_msg' ) ) {
 }
 
 $exitCode = 0;
-foreach( $paths as $path ) {
+foreach ( $paths as $path ) {
 	# Find json files and normalizes them to an iterator of SplFileInfo
-	if( !is_dir( $path ) ) {
+	if ( !is_dir( $path ) ) {
 		$jsonFiles = array( new SplFileInfo( $path ) );
 	} else {  // Directory
 		$iter = new RecursiveIteratorIterator(
@@ -76,10 +76,10 @@ foreach( $paths as $path ) {
 
 	foreach ( $jsonFiles as $file ) {
 		$result = lint_json_file( $file->getPathname() );
-		if ( ! $result ) {
+		if ( !$result ) {
 			$exitCode = 1;
-			fwrite(STDERR, $file->getPathname() . ": json decode error.\n" );
+			fwrite( STDERR, $file->getPathname() . ": json decode error.\n" );
 		}
 	}
 }
-exit($exitCode);
+exit( $exitCode );
