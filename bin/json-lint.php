@@ -78,7 +78,7 @@ foreach ( $paths as $path ) {
 		$result = lint_json_file( $file->getPathname() );
 		if ( !$result ) {
 			$exitCode = 1;
-			fwrite( STDERR, $file->getPathname() . ": json decode error.\n" );
+			fwrite( STDERR, $file->getPathname() . ": " . json_last_error_msg() . "\n" );
 		}
 	}
 }
