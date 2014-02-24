@@ -28,11 +28,17 @@ function get_ext {
 	# Recreate the directory for 'git archive'
 	mkdir -p "$DEST"
 
-	echo "Copying '$1' in '$DEST'"
-	echo "Git archive of 'master' from $GIT_BARE_DIR"
-	git archive --remote="$GIT_BARE_DIR" master \
-		| (cd "$DEST" && tar xf -)
-	echo "Copy complete."
+	if [ -d "$GIT_BARE_DIR" ]; then
+		echo "Copying '$1' in '$DEST'"
+		echo "Git archive of 'master' from $GIT_BARE_DIR"
+		git archive --remote="$GIT_BARE_DIR" master \
+			| (cd "$DEST" && tar xf -)
+		echo "Copy complete."
+	else
+		echo "Getting tarball of '$1' from git.wikimedia.org to '$DEST'"
+		curl "https://git.wikimedia.org/zip/?r=mediawiki/extensions/${1}.git&format=gz&h=master" \
+			| (cd "$DEST" && tar xzf -)
+	fi
 }
 
 # Pre checks
