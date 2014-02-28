@@ -12,7 +12,7 @@ echo "# .coveralls.yml generated my jenkins.git\bin\mw-send-to-coveralls.sh" >> 
 set +x
 echo "repo_token: $(cat /var/lib/jenkins-slave/coveralls.io.token)" >> .coveralls.yml
 set -x
-echo "src_dir: /" >> .coveralls.yml
+echo "src_dir: ./" >> .coveralls.yml
 echo "service_name: php-coveralls" >> .coveralls.yml
 echo "coverage_clover: log/clover.xml" >> .coveralls.yml
 echo "json_path: log/coveralls-upload.json" >> .coveralls.yml
