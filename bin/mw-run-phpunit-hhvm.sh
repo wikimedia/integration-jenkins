@@ -43,7 +43,8 @@ trap compress_log_dir EXIT
 
 set -x
 cd "${MW_INSTALL_PATH}/tests/phpunit"
-hhvm --php phpunit.php \
+hhvm -vEval.Jit=1 \
+	--php phpunit.php \
 	--with-phpunitdir "$PHPUNIT_DIR" \
 	--conf "$MW_INSTALL_PATH/LocalSettings.php" \
 	--log-junit $JUNIT_DEST
