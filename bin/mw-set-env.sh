@@ -12,6 +12,11 @@ for mw_path in src/mediawiki/core src; do
 		break
 	fi;
 done;
+
+# allow the dumping of corefiles, up to 64MB
+# T142158
+ulimit -c 2097152
+
 export MW_INSTALL_PATH
 
 export MW_TMPDIR="$TMPDIR"
