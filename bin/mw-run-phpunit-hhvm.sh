@@ -44,6 +44,7 @@ trap compress_log_dir EXIT
 set -x
 cd "${MW_INSTALL_PATH}/tests/phpunit"
 hhvm -vEval.Jit=1 \
+	-vDebug.CoreDumpReportDirectory="$LOG_DIR" \
 	-vRepo.Central.Path="$WORKSPACE/hhvm.hhbc.sqlite" \
 	--php phpunit.php \
 	--with-phpunitdir "$PHPUNIT_DIR" \
