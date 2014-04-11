@@ -10,9 +10,9 @@
 # an absolute path using pwd. The ksh equivalent is `whence`
 BASE_DIR=$(cd $(dirname $0)/..; pwd)
 
-# Paths to grunt script and CI gruntfile:
+# Paths to grunt-cli bin shared gruntfile:
 GRUNT_BIN="$BASE_DIR/bin/grunt"
-GRUNT_FILE="$BASE_DIR/jobs/_shared/gruntfile.js"
+GRUNT_FILE="$BASE_DIR/tools/Gruntfile.js"
 
 if [ ! -e "$GRUNT_BIN" -o ! -e "$GRUNT_FILE" ]; then
 	echo "Either grunt or gruntfile.js could not be found. Expected:"
