@@ -8,9 +8,9 @@ module.exports = function ( grunt ) {
 		grunt.file.setBase( grunt.option( 'cwd' ) ) ;
 	}
 
-	grunt.task.loadTasks( __dirname + '/../../tools/grunt-tasks' );
-	grunt.task.loadTasks( __dirname + '/../../tools/node_modules/grunt-contrib-qunit/tasks' );
-	grunt.task.loadTasks( __dirname + '/../../tools/node_modules/grunt-contrib-csslint/tasks' );
+	grunt.task.loadTasks( __dirname + '/grunt-tasks' );
+	grunt.task.loadTasks( __dirname + '/node_modules/grunt-contrib-qunit/tasks' );
+	grunt.task.loadTasks( __dirname + '/node_modules/grunt-contrib-csslint/tasks' );
 
 	grunt.initConfig({
 		qunit: {
