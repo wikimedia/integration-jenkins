@@ -174,9 +174,9 @@ function git_checkout {
 		reset_branch="remotes/origin/$branch"
 	fi
 	set -x
-	git clean -q -x -f -d
-	git checkout $branch
+	git checkout -f $branch
 	git reset --hard $reset_branch
+	git clean -q -x -f -d
 	set +x
 }
 
