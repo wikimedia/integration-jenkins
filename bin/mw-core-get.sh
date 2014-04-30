@@ -14,7 +14,9 @@ if [[ ! -d "$WORKSPACE" || ! -w "$WORKSPACE" ]]; then
 fi
 
 if [ -d "$GIT_LOCAL" ]; then
+	# Record the exact commit fetched on stderr via 'git get-tar-commit-id'
 	git archive --remote="$GIT_LOCAL" "$TREE_ISH" \
+		| tee >(git get-tar-commit-id 1>&2 ; cat > /dev/null ) \
 		| (cd "$WORKSPACE" && tar xf -)
 else
 	# Fallback to git.wikimedia.org
