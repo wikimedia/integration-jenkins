@@ -17,6 +17,7 @@ Examples:
 """
 
 import argparse
+import json
 import requests
 
 API_QUERY = {
@@ -74,7 +75,7 @@ def main():
     mw_api_url = options.api_url
 
     response = requests.get(mw_api_url, params=API_QUERY)
-    siteinfo = response.json()
+    siteinfo = json.loads(response.content)
     mwresponse = MwApiResponse(**siteinfo)
 
     if options.list:
