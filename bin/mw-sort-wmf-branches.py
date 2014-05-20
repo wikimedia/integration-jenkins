@@ -9,7 +9,7 @@
 """
 
 import fileinput
-from distutils.version import LooseVersion
+import distutils.version
 import re
 
 RE_WMF_BRANCH = r'^[^\/]+/wmf/\d+\.\d+wmf\d+'
@@ -21,12 +21,5 @@ for l in fileinput.input():
         VERSIONS.append(l.rstrip())
 
 
-def version_compare(a, b):
-    """Very lame version comparaison """
-    if LooseVersion(a) > LooseVersion(b):
-        return 1
-    else:
-        return -1
-
-VERSIONS.sort(cmp=version_compare)
+VERSIONS.sort(key=distutils.version.LooseVersion)
 print "\n".join(VERSIONS)
