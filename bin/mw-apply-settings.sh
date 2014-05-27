@@ -13,6 +13,8 @@ php "$MEDIAWIKI_D/_join.php" >> "$LOCAL_SETTINGS"
 # Empty out the logs directory
 rm -fR "$LOG_DIR"
 mkdir -p "$LOG_DIR"
+# Make it writable by apache (for web tests such as qunit)
+chmod 777 "$LOG_DIR"
 
 # Copy LocalSettings under /log for archival purposes
 cp "$LOCAL_SETTINGS" "$LOG_DIR"
