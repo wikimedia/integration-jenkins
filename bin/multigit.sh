@@ -68,7 +68,7 @@ function clone_project {
 
 	# Always get mediawiki/core directly in the workspace
 	elif [ "$project" == 'mediawiki/core' ]; then
-		dest=$WORKSPACE
+		dest='.'
 
 	# Shortcut for mediawiki extensions
 	elif [[ "$project" =~ mediawiki/(extensions/.*) ]]; then
