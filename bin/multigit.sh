@@ -133,8 +133,14 @@ function clone_project {
 			git_checkout 'master'
 		fi
 	fi
-	echo "Refreshing $project submodules..."
-	git submodule update --init --recursive
+
+	if [ "$project" == "mediawiki/core"]; then
+		echo "Skipping submodules for mediawiki/core"
+		echo "... wmf branches have too many extensions"
+	else
+		echo "Refreshing $project submodules..."
+		git submodule update --init --recursive
+	fi
 
 	echo -e "Done $action_done $project\n"
 	cd $WORKSPACE
