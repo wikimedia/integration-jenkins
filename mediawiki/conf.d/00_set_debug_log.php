@@ -14,6 +14,8 @@ if ( $wgCommandLineMode ) {
 	$wmgJobWorkspace = getenv( 'WORKSPACE' );
 } elseif ( preg_match( '%(.*)/src/mediawiki/core%', $IP ) ) {
 	$wmgJobWorkspace = $IP . '/../../..';
+} elseif ( preg_match( '%(.*)/src%', $IP ) ) {
+	$wmgJobWorkspace = $IP . '/..';
 } else {
 	$wmgJobWorkspace = $IP;
 }
