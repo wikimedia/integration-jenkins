@@ -136,7 +136,7 @@ function clone_project {
 		fi
 	fi
 
-	if [ "$project" == "mediawiki/core"]; then
+	if [ "$project" == "mediawiki/core" ]; then
 		echo "Skipping submodules for mediawiki/core"
 		echo "... wmf branches have too many extensions"
 	else
