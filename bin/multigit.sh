@@ -12,6 +12,8 @@
 #  multigit.sh mediawiki/services/parsoid mediawiki/services/parsoid/deploy
 #  multigit.sh mediawiki/core mediawiki/extensions/Echo
 #
+# Final destinations will be prefixed with $WORKSPACE.
+#
 # Adapted for Wikimedia from openstack-infra/devstack-gate project
 #
 # Copyright (C) 2011-2013 OpenStack LLC.
@@ -66,9 +68,9 @@ function clone_project {
 		project=${BASH_REMATCH[1]}
 		dest=${BASH_REMATCH[2]}
 
-	# Always get mediawiki/core directly in the workspace
+	# Unless specificed, always get mediawiki/core directly in the workspace
 	elif [ "$project" == 'mediawiki/core' ]; then
-		dest='.'
+		dest=""
 
 	# Shortcut for mediawiki extensions
 	elif [[ "$project" =~ mediawiki/(extensions/.*) ]]; then
