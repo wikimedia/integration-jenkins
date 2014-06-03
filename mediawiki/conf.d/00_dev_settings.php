@@ -1,7 +1,6 @@
 <?php
 #
-# Snippet coming from integration/jenkins.git
-# mediawiki.d/00_dev_settings.php
+# Snippet coming from integration/jenkins.git:/mediawiki/conf.d/
 #
 
 // Debugging: PHP

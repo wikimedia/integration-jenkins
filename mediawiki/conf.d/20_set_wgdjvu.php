@@ -1,10 +1,9 @@
 <?php
 #
-# Snippet coming from integration/jenkins.git
-# mediawiki.d/20_set_wgdvju.php
+# Snippet coming from integration/jenkins.git:/mediawiki/conf.d/
 #
-# Used to configure $wgDjvu for the MediaWiki core DJVU tests
 
+// Configure $wgDjvu for the MediaWiki core DJVU unit tests
 $wgDjvuDump = '/usr/bin/djvudump';
 $wgDjvuRenderer = '/usr/bin/ddjvu';
 $wgDjvuToXML = '/usr/bin/djvutoxml';

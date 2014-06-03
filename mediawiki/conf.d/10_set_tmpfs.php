@@ -1,7 +1,6 @@
 <?php
 #
-# Snippet coming from integration/jenkins.git
-# mediawiki.d/10_set_tmpfs.php
+# Snippet coming from integration/jenkins.git:/mediawiki/conf.d/
 #
 
 // Production CI slaves have tmpfs under Jenkins home, use it!

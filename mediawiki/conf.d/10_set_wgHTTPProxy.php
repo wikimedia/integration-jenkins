@@ -1,13 +1,15 @@
 <?php
-# Snippet coming from integration/jenkins.git
-# mediawiki.d/10_set_wgHTTPProxy.php
 #
-# Set $wgHTTPProxy depending on the site the code is being executed.
+# Snippet coming from integration/jenkins.git:/mediawiki/conf.d/
 #
-# References:
-# https://bugzilla.wikimedia.org/59253
-# https://wikitech.wikimedia.org/wiki/Http_proxy
-#
+
+/**
+ * Set $wgHTTPProxy depending on the site the code is being executed.
+ *
+ * References:
+ * - https://bugzilla.wikimedia.org/59253
+ * - https://wikitech.wikimedia.org/wiki/Http_proxy
+ */
 $wgHTTPProxy = call_user_func( function() {
 	$proxy = 'webproxy.eqiad.wmnet:8080';
 	$site_file = '/etc/wikimedia-site';

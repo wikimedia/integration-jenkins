@@ -1,10 +1,10 @@
-The /mediawiki.d/ sub directory contains PHP file that are injected by Jenkins
+The /mediawiki/conf.d/ sub directory contains PHP files that are injected by Jenkins
 in MediaWiki LocalSettings.php
 
-To be recognized properly, a setting file must start with two digits and ends
+To be recognized properly, a setting file must start with two digits and end
 with '.php'. Additionally, the PHP files MUST start with a PHP open tag '<?php'
 and MUST NOT use a PHP closing tag '?>'. If any of the two conditions is not
 met, the file will be ignored.
 
-Jenkins would run /mediawiki.d/_join.php which read concatenate the files per
-their alphabetical order and inject the result at the end of LocalSettings.php.
+Jenkins would run /mediawiki/conf.d/_join.php which reads and concatenate the files
+per their alphabetical order and injects the result at the end of LocalSettings.php.

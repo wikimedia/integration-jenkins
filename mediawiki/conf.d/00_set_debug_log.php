@@ -1,7 +1,6 @@
 <?php
 #
-# Snippet coming from integration/jenkins.git
-# mediawiki.d/00_set_debug_log.php
+# Snippet coming from integration/jenkins.git:/mediawiki/conf.d/
 #
 
 // Under Apache, there is no Jenkins environement variable. We have to detect
