@@ -12,7 +12,7 @@
 #  multigit.sh mediawiki/services/parsoid mediawiki/services/parsoid/deploy
 #  multigit.sh mediawiki/core mediawiki/extensions/Echo
 #
-# Final destinations will be prefixed with $WORKSPACE.
+# Final destinations will be prefixed with $BASE_DIR (default: $WORKSPACE)
 #
 # Adapted for Wikimedia from openstack-infra/devstack-gate project
 #
@@ -45,6 +45,9 @@ GERRIT_CHANGE="https://gerrit.wikimedia.org/r/#/c/$ZUUL_CHANGE/$ZUUL_PATCHSET"
 
 # Base path for locally replicated repositories.
 GERRIT_REFERENCE=${GERRIT_REFERENCE:-/srv/ssd/gerrit}
+
+# Prefix where to clone repositories too
+BASE_DIR=${BASE_DIR:-$WORKSPACE}
 
 echo "Change triggered by $GERRIT_CHANGE"
 echo
@@ -81,7 +84,7 @@ function clone_project {
 		dest=`basename $project`
 	fi
 
-	dest="$WORKSPACE/$dest"
+	dest="$BASE_DIR/$dest"
 
 	# Clone or refresh repository
 
