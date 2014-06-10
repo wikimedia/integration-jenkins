@@ -30,7 +30,9 @@ fi
 # FIXME: This also doesn't delete dotfiles (! implies *, which doesn't include
 # dotfiles by default).
 # See bug 66429.
+pushd .
 cd $MW_INSTALL_PATH  && rm -rf !(extensions)
+popd
 
 if [ -d "$GIT_LOCAL" ]; then
 	# Record the exact commit fetched on stderr via 'git get-tar-commit-id'
