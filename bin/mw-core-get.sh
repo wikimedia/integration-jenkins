@@ -1,5 +1,8 @@
 #!/bin/bash -xe
 
+# Enable support for "!(exclude_this_dir)" pattern
+shopt -s extglob
+
 # Local bare git repository
 # On Wikimedia CI server, that is a Gerrit replica
 GIT_LOCAL="/srv/ssd/gerrit/mediawiki/core.git"
@@ -15,6 +18,19 @@ if [[ ! -d "$MW_INSTALL_PATH" || ! -w "$MW_INSTALL_PATH" ]]; then
 	echo "\$MW_INSTALL_PATH must be pointing to a directory"
 	exit 1
 fi
+
+# mwext-* jobs using this script use Jenkins/scm/git to wipe their worktree
+# before fetching mediawik-core. While it uses 'wipe' instead of 'clean', it is
+# still scoped to WORKSPACE/extensions/Foo, so WORKSPACE itself never gets
+# wiped, cleaned or reset. We can't do a wide spectrum `rm -rf *` because this
+# script runs after WORKSPACE/extensions/Foo is already cloned and set up, we
+# we need to preserve that.
+# FIXME: One down-side here is that, while extensions/ is just a stub in
+# mediawiki-core, it does have some files, so those would still get left behind.
+# FIXME: This also doesn't delete dotfiles (! implies *, which doesn't include
+# dotfiles by default).
+# See bug 66429.
+cd $MW_INSTALL_PATH  && rm -rf !(extensions)
 
 if [ -d "$GIT_LOCAL" ]; then
 	# Record the exact commit fetched on stderr via 'git get-tar-commit-id'
