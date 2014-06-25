@@ -1,0 +1,37 @@
+# Clone map for Zuul cloner
+#
+clonemap:
+
+ # MediaWiki core
+ #
+ #  core/
+ #  ├── index.php
+ #  ├── thumbs.php
+ #  ....
+ #  ├── extensions/
+ #  │   ├── BarFoo/
+ #  │   └── Foobar/
+ #  └── vendor/
+ #      ├── swiftmailer/
+ #      │   └── swiftmailer
+ #      └── monolog/
+
+ # MediaWiki to core/
+ - name: 'mediawiki/core'
+   dest: 'core'
+
+ # Keep layout of mediawiki/core sub repositories and clone them under core/
+ # where MediaWiki is cloned by above rule.
+ # Example:
+ #
+ #   mediawiki/core/vendor/swiftmailer.git
+ #   > ./core/vendor/swiftmailer/
+ - name: 'mediawiki/core/(.*)'
+   dest: 'core/\1'
+
+ # MediaWiki extensions where they belong to
+ - name: 'mediawiki/extensions/(.*)'
+   dest: 'core/extensions/\1'
+ # MediaWiki skins
+ - name: 'mediawiki/skins/(.*)'
+   dest: 'core/skins/\1'

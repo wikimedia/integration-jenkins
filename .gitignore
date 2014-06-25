@@ -4,6 +4,7 @@
 !.gitignore
 !.pep8
 !bin/
+!etc/
 !jobs/
 !mediawiki/
 !tools/
