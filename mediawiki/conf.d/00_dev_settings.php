@@ -9,5 +9,6 @@ ini_set( 'display_errors', 1 );
 
 // Debugging: MediaWiki
 $wgDevelopmentWarnings = true;
+$wgShowDBErrorBacktrace = true;
 $wgShowExceptionDetails = true;
 $wgDebugRawPage = true; // bug 47960
