@@ -9,7 +9,15 @@ UPDATE="php $MW_INSTALL_PATH/maintenance/update.php"
 mkdir -p $LOG_DIR
 
 # Dry run the updating script with logging
-$UPDATE --quiet --quick --schema $LOG_FILE
+#
+# IT IS NOT DRY RUN !! The post-db maintenance scripts are being run which
+# breaks at least Flow and Wikibase. Most probably an issue in MediaWiki core
+# update.php script.
+#
+# Issue logged as bug 67163
+#
+# Might want to restore the sleep(1) below later on
+#$UPDATE --quiet --quick --schema $LOG_FILE
 
 # delete unless it has some content
 [ -s $LOG_FILE ] || rm $LOG_FILE
@@ -21,7 +29,9 @@ $UPDATE --quiet --quick --schema $LOG_FILE
 # different unix timestamp and hence a different key.
 #
 # -- hashar 2014-06-25
-sleep 1
+#
+# Commented out since --schema is commented out above
+#sleep 1
 
 # Actually run the update
 $UPDATE --quick
