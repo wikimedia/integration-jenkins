@@ -20,7 +20,7 @@ mkdir -p $LOG_DIR
 #$UPDATE --quiet --quick --schema $LOG_FILE
 
 # delete unless it has some content
-[ -s $LOG_FILE ] || rm $LOG_FILE
+#[ -s $LOG_FILE ] || rm $LOG_FILE
 
 # Running --schema insert an entry in `updatelog` table which vary by unix
 # epoch.  When rerunning the update.php script without --schema, we end up with
