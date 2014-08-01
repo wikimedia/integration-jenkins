@@ -11,23 +11,18 @@ clonemap:
  #  ├── extensions/
  #  │   ├── BarFoo/
  #  │   └── Foobar/
+ #  ├── skins/
+ #  │   ├── SomeSkin/
+ #  │   └── OtherSkin/
  #  └── vendor/
- #      ├── swiftmailer/
- #      │   └── swiftmailer
- #      └── monolog/
 
  # MediaWiki to core/
  - name: 'mediawiki/core'
    dest: '.'
 
- # Keep layout of mediawiki/core sub repositories and clone them under core/
- # where MediaWiki is cloned by above rule.
- # Example:
- #
- #   mediawiki/core/vendor/swiftmailer.git
- #   > ./core/vendor/swiftmailer/
- - name: 'mediawiki/core/(.*)'
-   dest: './\1'
+ # Mediawiki composer dependencies go in ./vendor
+ - name: 'mediawiki/vendor'
+   dest: './vendor'
 
  # MediaWiki extensions where they belong to
  - name: 'mediawiki/extensions/(.*)'
