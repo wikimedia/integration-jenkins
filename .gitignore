@@ -3,8 +3,10 @@
 # .. except:
 !.gitignore
 !.pep8
+!phpunit.xml.dist
 !bin/
 !etc/
 !jobs/
 !mediawiki/
+!tests/
 !tools/
