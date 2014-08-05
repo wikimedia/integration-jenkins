@@ -17,5 +17,7 @@ DRUPAL_SCHEMA="drupal_${JOB_ID}"
 CIVICRM_SCHEMA="civicrm_${JOB_ID}"
 
 BUILD_HOST=`hostname`
-CIVICRM_MYSQL_USERNAME="civitest_${JOB_ID}"
+# MySQL username is limited to 16 chars, use build number as an identifier:
+CIVICRM_MYSQL_USERNAME="civitest_${BUILD_NUMBER}"
+
 CIVICRM_MYSQL_PASSWORD="pw_${JOB_ID}"
