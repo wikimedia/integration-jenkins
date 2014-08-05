@@ -1,5 +1,6 @@
 <phpunit
-	colors="true"
+  colors="true"
+  strict="true"
 >
   <testsuites>
     <testsuite>
