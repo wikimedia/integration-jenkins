@@ -1,6 +1,8 @@
 #!/bin/bash
 
+# MYSQL database name cant use spaces or dashes:
 JOBID="${JOB_NAME// /_}_${BUILD_NUMBER}"
+JOBID="${JOB_ID//-/_}"
 
 DRUPAL_SCHEMA="drupal_${JOBID}"
 CIVICRM_SCHEMA="civicrm_${JOBID}"

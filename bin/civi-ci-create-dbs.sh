@@ -9,7 +9,9 @@ if [ "x${BUILD_NUMBER}" = "x" ]; then
 	exit 1
 fi
 
+# MYSQL database name cant use spaces or dashes:
 JOBID="${JOB_NAME// /_}_${BUILD_NUMBER}"
+JOBID="${JOB_ID//-/_}"
 
 BUILD_HOST=`hostname`
 USERNAME="civitest_${JOBID}"
