@@ -10,16 +10,16 @@ if [ "x${BUILD_NUMBER}" = "x" ]; then
 fi
 
 # MYSQL database name cant use spaces or dashes:
-JOBID="${JOB_NAME// /_}_${BUILD_NUMBER}"
-JOBID="${JOBID//-/_}"
+JOB_ID="${JOB_NAME// /_}_${BUILD_NUMBER}"
+JOB_ID="${JOB_ID//-/_}"
 
 BUILD_HOST=`hostname`
-USERNAME="civitest_${JOBID}"
-PASSWORD="pw_${JOBID}"
-DRUPAL_SCHEMA="drupal_${JOBID}"
-CIVICRM_SCHEMA="civicrm_${JOBID}"
+USERNAME="civitest_${JOB_ID}"
+PASSWORD="pw_${JOB_ID}"
+DRUPAL_SCHEMA="drupal_${JOB_ID}"
+CIVICRM_SCHEMA="civicrm_${JOB_ID}"
 
-echo "Creating databases with the suffix -'_${JOBID}'"
+echo "Creating databases with the suffix -'_${JOB_ID}'"
 
 mysql -u root <<EOS
 drop database if exists ${DRUPAL_SCHEMA};
