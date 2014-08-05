@@ -53,13 +53,19 @@ class MediawikiConfdExtLoaderTest extends PHPUnit_Framework_TestCase {
 	 */
 	protected function fakeExtension( $name ) {
 		$dir = $this->tmpName . "/extensions/$name";
-		mkdir( $dir, 0777, /** recursirve: */ true );
+		mkdir( $dir, 0777, /** recursive: */ true );
 		$fileHandle = fopen( $dir . "/{$name}.php", 'w+' );
 		fwrite( $fileHandle, "<?php
 /** Fake extension $name */
 global \$fakeExtensions;
 \$fakeExtensions['$name'] = true;
 ");
+	}
+
+	protected function createLoadFile( Array $extensions ) {
+		$fileHandle = fopen( $this->tmpName . "/extensions_load.txt", 'w+' );
+		fwrite( $fileHandle, implode( "\n", $extensions ) );
+		fclose( $fileHandle );
 	}
 
 	/**
@@ -70,7 +76,19 @@ global \$fakeExtensions;
 	protected function assertLoaded( $name ) {
 		global $fakeExtensions;
 		$this->assertArrayHasKey( $name, $fakeExtensions,
-	   		"Extension $name did not get loaded"
+			"Extension $name did not get loaded"
+		);
+	}
+
+	/**
+	 * Verify whether a fake extension has NOT been loaded.
+	 *
+	 * Create the extension using fakeExtension().
+	 */
+	protected function assertNotLoaded( $name ) {
+		global $fakeExtensions;
+		$this->assertArrayNotHasKey( $name, $fakeExtensions,
+			"Extension $name has been loaded"
 		);
 	}
 
@@ -98,5 +116,45 @@ global \$fakeExtensions;
 		$this->runLoader();
 		$this->assertLoaded( 'ExtOne' );
 		$this->assertLoaded( 'ExtTwo' );
+	}
+
+	function testOnlyLoadFromFile() {
+		$this->fakeExtension( 'Must_not_be_loaded' );
+		$this->createLoadFile( array() );
+		$this->runLoader();
+		$this->assertNotLoaded( 'Must_not_be_loaded' );
+	}
+
+	function testLoadFromFile() {
+		$this->fakeExtension( 'LoadedFromFile' );
+		$this->createLoadFile( array( 'LoadedFromFile' ) );
+		$this->runLoader();
+		$this->assertNotLoaded( 'Must_not_be_loaded' );
+		$this->assertLoaded( 'LoadedFromFile' );
+	}
+
+	function testLoadFromFileWithMultipleEntries() {
+		$this->fakeExtension( 'FirstExt' );
+		$this->fakeExtension( 'SecondExt' );
+		$this->createLoadFile( array(
+			'FirstExt',
+			'SecondExt',
+		) );
+		$this->runLoader();
+		$this->assertLoaded( 'FirstExt' );
+		$this->assertLoaded( 'SecondExt' );
+	}
+
+	function testLoadFromFileWithGerritNames() {
+		$this->fakeExtension( 'Must_not_be_loaded' );
+		$this->fakeExtension( 'BaseName' );
+		$this->fakeExtension( 'GerritRepoName' );
+		$this->createLoadFile( array(
+			'mediawiki/extensions/GerritRepoName',
+			'BaseName',
+		) );
+		$this->runLoader();
+		$this->assertNotLoaded( 'Must_not_be_loaded' );
+		$this->assertLoaded( 'GerritRepoName' );
 	}
 }
