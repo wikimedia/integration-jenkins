@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ "x${JOB_NAME}" = "x" ]; then
+	echo "JOB_NAME environment variable was not set, exiting."
+	exit 1
+fi
+if [ "x${BUILD_NUMBER}" = "x" ]; then
+	echo "BUILD_NUMBER environment variable was not set, exiting."
+	exit 1
+fi
+
+# MYSQL database name cant use spaces or dashes:
+JOB_ID="${JOB_NAME// /_}_${BUILD_NUMBER}"
+JOB_ID="${JOB_ID//-/_}"
+
+DRUPAL_SCHEMA="drupal_${JOB_ID}"
+CIVICRM_SCHEMA="civicrm_${JOB_ID}"
+
+BUILD_HOST=`hostname`
+CIVICRM_MYSQL_USERNAME="civitest_${JOB_ID}"
+CIVICRM_MYSQL_PASSWORD="pw_${JOB_ID}"
