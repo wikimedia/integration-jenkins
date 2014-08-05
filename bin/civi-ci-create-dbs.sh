@@ -11,7 +11,7 @@ fi
 
 # MYSQL database name cant use spaces or dashes:
 JOBID="${JOB_NAME// /_}_${BUILD_NUMBER}"
-JOBID="${JOB_ID//-/_}"
+JOBID="${JOBID//-/_}"
 
 BUILD_HOST=`hostname`
 USERNAME="civitest_${JOBID}"
