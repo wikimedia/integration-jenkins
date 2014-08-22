@@ -5,10 +5,6 @@
 # PHPUNIT_EXCLUDE_GROUP.
 #
 # Passing 'databaseless' or 'misc' will run buildin list of tests
-#
-# This script replaces ant targets that were available in
-# integration/jenkins.git under /jobs/_shared/build.xml
-#
 
 #######################################################################
 # Configuration
