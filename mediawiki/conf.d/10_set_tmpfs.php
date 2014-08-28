@@ -8,5 +8,5 @@ $jenkinsUserHome = getenv('HOME') ?: '/var/lib/jenkins-slave';
 $jenkinsTmpFs = "{$jenkinsUserHome}/tmpfs";
 $jenkinsJobName = getenv( 'JOB_NAME' );
 if ( $jenkinsJobName && is_dir( "$jenkinsTmpFs/$jenkinsJobName" ) ) {
-	    $wgTmpDirectory = "$jenkinsTmpFs/$jenkinsJobName";
+		$wgTmpDirectory = "$jenkinsTmpFs/$jenkinsJobName";
 }
