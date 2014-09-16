@@ -75,6 +75,8 @@ def main():
     mw_api_url = options.api_url
 
     response = requests.get(mw_api_url, params=API_QUERY)
+    response.raise_for_status()
+
     siteinfo = json.loads(response.content)
     mwresponse = MwApiResponse(**siteinfo)
 
