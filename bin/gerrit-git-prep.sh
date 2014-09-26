@@ -78,7 +78,7 @@ function merge_changes {
 	IFS=':'
 	change_array=($change)
 	IFS=$OIFS2
-   
+
 	CHANGE_PROJECT=${change_array[0]}
 	CHANGE_BRANCH=${change_array[1]}
 	CHANGE_REFSPEC=${change_array[2]}
@@ -101,15 +101,15 @@ then
 fi
 git remote update || git remote update # attempt to work around bug #925790
 git reset --hard
-git clean -x -f -d -q
+git clean -xdff -q
 
 if [ -z "$GERRIT_NEWREV" ]
 then
     git checkout $GERRIT_BRANCH
     git reset --hard remotes/origin/$GERRIT_BRANCH
-    git clean -x -f -d -q
+    git clean -xdff -q
 
-    if [ ! -z "$GERRIT_REFSPEC" ]    
+    if [ ! -z "$GERRIT_REFSPEC" ]
     then
         merge_change $GERRIT_PROJECT $GERRIT_REFSPEC
     else
@@ -118,5 +118,5 @@ then
 else
     git checkout $GERRIT_NEWREV
     git reset --hard $GERRIT_NEWREV
-    git clean -x -f -d -q
+    git clean -xdff -q
 fi

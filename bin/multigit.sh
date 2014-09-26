@@ -187,7 +187,7 @@ function git_checkout {
 	set -x
 	git checkout -f $branch
 	git reset --hard $reset_branch
-	git clean -q -x -f -d
+	git clean -xdff -q
 	set +x
 }
 

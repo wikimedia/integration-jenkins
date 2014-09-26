@@ -21,13 +21,13 @@ cd "$WORKSPACE" || exit 1
 
 git remote update || git remote update # attempt to work around bug #925790
 git reset --hard
-git clean -x -f -d -q
+git clean -xdff -q
 
 if [ ! -z "$GERRIT_REFSPEC" ]
 then
 	git checkout $GERRIT_BRANCH
 	git reset --hard remotes/origin/$GERRIT_BRANCH
-	git clean -x -f -d -q
+	git clean -xdff -q
 	git fetch origin $GERRIT_REFSPEC
 	git merge FETCH_HEAD
 
@@ -37,5 +37,5 @@ then
 else
 	git checkout $GERRIT_NEWREV
 	git reset --hard $GERRIT_NEWREV
-	git clean -x -f -d -q
+	git clean -xdff -q
 fi
