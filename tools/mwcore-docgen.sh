@@ -12,7 +12,7 @@
 
 . "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
 
-TARGET_BASEDIR={TARGET_BASEDIR:-/srv/org/wikimedia/doc}
+TARGET_BASEDIR=${TARGET_BASEDIR:-/srv/org/wikimedia/doc}
 TARGET_PROJECTDIR=`echo "$ZUUL_PROJECT" | tr '/' '-'`
 TARGET_VERSIONDIR=""
 
