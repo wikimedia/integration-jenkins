@@ -4,14 +4,15 @@
 # documentation for master, release branches and release tags.
 #
 # Copyright, All rights reserved.
-# - Wikimedia Foundation, 2012-2013
-# - Antoine "hashar" Musso, 2012-2013
+# - Wikimedia Foundation, 2012-2014
+# - Antoine "hashar" Musso, 2012-2014
 # - Timo Tijhof, 2012-2013
 #
 # Licensed under GPL v2.0
 
 . "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
 
+TARGET_BASEDIR={TARGET_BASEDIR:-/srv/org/wikimedia/doc}
 TARGET_PROJECTDIR=`echo "$ZUUL_PROJECT" | tr '/' '-'`
 TARGET_VERSIONDIR=""
 
@@ -50,7 +51,7 @@ fi
 # http://doc.wikimedia.org/mediawiki-core/master/php
 # http://doc.wikimedia.org/mediawiki-core/REL1_20/php
 # http://doc.wikimedia.org/mediawiki-core/1.20.2/php
-DEST_DIR="/srv/org/wikimedia/doc/$TARGET_PROJECTDIR/$TARGET_VERSIONDIR/php"
+DEST_DIR="$TARGET_BASEDIR/$TARGET_PROJECTDIR/$TARGET_VERSIONDIR/php"
 [ ! -d "${DEST_DIR}" ] && mkdir -p "${DEST_DIR}"
 
 echo "Found target: '$DEST_DIR'"
