@@ -13,7 +13,7 @@ mkdir -p "$LOG_DIR"
 JUNIT_DEST="$LOG_DIR/junit-phpunit-allexts.xml"
 
 # See documentation in mw-run-phpunit.sh
-PHPUNIT_DIR="/srv/deployment/integration/phpunit/vendor/phpunit/phpunit"
+PHPUNIT_DIR=${PHPUNIT_DIR:-/srv/deployment/integration/phpunit/vendor/phpunit/phpunit}
 
 # Make sure to compress MediaWiki log dir after phpunit has ran
 function compress_log_dir() {

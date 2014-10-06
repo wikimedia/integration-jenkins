@@ -23,7 +23,7 @@
 #
 # WARNING: don't forget to update mw-run-phpunit-allexts.sh as well
 #
-PHPUNIT_DIR="/srv/deployment/integration/phpunit/vendor/phpunit/phpunit"
+PHPUNIT_DIR=${PHPUNIT_DIR:-/srv/deployment/integration/phpunit/vendor/phpunit/phpunit}
 
 # Setup Junit destination
 LOG_DIR="$WORKSPACE/log"
