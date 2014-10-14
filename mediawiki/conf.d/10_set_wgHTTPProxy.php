@@ -10,16 +10,19 @@
  * - https://bugzilla.wikimedia.org/59253
  * - https://wikitech.wikimedia.org/wiki/Http_proxy
  */
-$wgHTTPProxy = call_user_func( function() {
-	$proxy = 'webproxy.eqiad.wmnet:8080';
+$wgHTTPProxy = call_user_func( function () {
 	$site_file = '/etc/wikimedia-site';
-	if ( file_exists( $site_file ) ) {
-		$site = rtrim(file_get_contents('/etc/wikimedia-site'));
-		switch( $site ) {
-			case 'pmtpa':
-				$proxy = 'webproxy.pmtpa.wmnet:8080';
+	$site = file_exists( $site_file )
+		? rtrim( file_get_contents( $site_file ) )
+		: 'eqiad';
+
+	switch ( $site ) {
+		case 'pmtpa':
+			$proxy = 'webproxy.pmtpa.wmnet:8080';
 			break;
-		}
+		case 'eqiad':
+		default:
+			$proxy = 'webproxy.eqiad.wmnet:8080';
 	}
 
 	return $proxy;
