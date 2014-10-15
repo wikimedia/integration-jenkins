@@ -1,12 +1,12 @@
 {
 	"name": "wikimedia-integration-jenkins",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"dependencies": {
-		"grunt": "0.4.1",
+		"grunt": "0.4.5",
 		"grunt-cli": "0.1.13",
-		"grunt-contrib-qunit": "0.4.0",
-		"phantomjs": "~1.9.0-1",
-		"grunt-contrib-csslint": "0.2.0",
-		"jshint": "2.5.0"
+		"grunt-contrib-qunit": "0.5.2",
+		"phantomjs": "1.9.7-3",
+		"grunt-contrib-csslint": "0.3.1",
+		"jshint": "2.5.6"
 	}
 }
