@@ -44,3 +44,19 @@ else
 	curl "https://git.wikimedia.org/zip/?r=mediawiki/core.git&format=gz&h=$TREE_ISH" \
 		| (cd "$MW_INSTALL_PATH" && tar xzf -)
 fi
+
+# HACK: After https://gerrit.wikimedia.org/r/#/c/119941/ we need to bring
+# mediawiki/vendor.git into $MW_INSTALL_PATH as well for the PSR-3 interfaces.
+VENDOR_LOCAL="/srv/ssd/gerrit/mediawiki/vendor.git"
+VENDOR_INSTALL_PATH="${MW_INSTALL_PATH}/vendor"
+mkdir $VENDOR_INSTALL_PATH
+if [ -d "$VENDOR_LOCAL" ]; then
+	# Record the exact commit fetched on stderr via 'git get-tar-commit-id'
+	git archive --remote="$VENDOR_LOCAL" "$TREE_ISH" \
+		| tee >(git get-tar-commit-id 1>&2 ; cat > /dev/null ) \
+		| (cd "$VENDOR_INSTALL_PATH" && tar xf -)
+else
+	# Fallback to git.wikimedia.org
+	curl "https://git.wikimedia.org/zip/?r=mediawiki/vendor.git&format=gz&h=$TREE_ISH" \
+		| (cd "$VENDOR_INSTALL_PATH" && tar xzf -)
+fi
