@@ -16,16 +16,12 @@ module.exports = function ( grunt ) {
 		qunit: {
 			all: ( function () {
 				var url = grunt.option( 'qunit-url' ),
-					file = grunt.option( 'qunit-file' ),
 					ret = {};
 				if ( url ) {
 					ret.options = {
 						urls: [ url ],
 						timeout: 30 * 1000
 					};
-				}
-				if ( file ) {
-					ret.src = [ file ];
 				}
 				return ret;
 			}() ),
