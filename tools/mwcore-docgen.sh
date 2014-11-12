@@ -58,7 +58,11 @@ echo "Found target: '$DEST_DIR'"
 
 # Craft a dumb LocalSettings.php which is required by Maintenance script
 # albeit the mwdocgen.php script does not require it.
-touch "$MW_INSTALL_PATH/LocalSettings.php"
+#
+# Explicitly use Zend PHP cli (/usr/bin/php5)
+# HHVM has a large bytecode cache overhead which does not play nice when
+# invoking mwdoc-filter.php thousands of time (bug 73311).
+echo -e "<?php\n\$wgPhpCli = '/usr/bin/php5';" > "$MW_INSTALL_PATH/LocalSettings.php"
 
 # Run the MediaWiki documentation wrapper
 #
