@@ -13,14 +13,7 @@
 . "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
 
 TARGET_BASEDIR=${TARGET_BASEDIR:-/srv/org/wikimedia/doc}
-TARGET_PROJECTDIR=`echo "$ZUUL_PROJECT" | tr '/' '-'`
 TARGET_VERSIONDIR=""
-
-if [ -z "$TARGET_PROJECTDIR" ]; then
-	echo "Error: Project name not found."
-	echo "\$ZUUL_PROJECT: $ZUUL_PROJECT"
-	exit 1
-fi
 
 # Example values:
 # - ZUUL_REF: refs/zuul/master/Z74178670e7c5495199f8a92e92cf609c
@@ -51,7 +44,7 @@ fi
 # http://doc.wikimedia.org/mediawiki-core/master/php
 # http://doc.wikimedia.org/mediawiki-core/REL1_20/php
 # http://doc.wikimedia.org/mediawiki-core/1.20.2/php
-DEST_DIR="$TARGET_BASEDIR/$TARGET_PROJECTDIR/$TARGET_VERSIONDIR/php"
+DEST_DIR="$TARGET_BASEDIR/$TARGET_VERSIONDIR/php"
 [ ! -d "${DEST_DIR}" ] && mkdir -p "${DEST_DIR}"
 
 echo "Found target: '$DEST_DIR'"
