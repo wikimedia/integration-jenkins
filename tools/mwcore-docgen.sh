@@ -32,7 +32,7 @@ fi
 # http://doc.wikimedia.org/mediawiki-core/master/php
 # http://doc.wikimedia.org/mediawiki-core/REL1_20/php
 # http://doc.wikimedia.org/mediawiki-core/1.20.2/php
-DEST_DIR="$TARGET_BASEDIR/php"
+DEST_DIR="$TARGET_BASEDIR"
 [ ! -d "${DEST_DIR}" ] && mkdir -p "${DEST_DIR}"
 
 echo "Found target: '$DEST_DIR'"
