@@ -13,28 +13,16 @@
 . "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
 
 TARGET_BASEDIR=${TARGET_BASEDIR:-/srv/org/wikimedia/doc}
-TARGET_VERSIONDIR=""
-
-# Example values:
-# - ZUUL_REF: refs/zuul/master/Z74178670e7c5495199f8a92e92cf609c
-# - ZUUL_BRANCH: master
-if [[ "$ZUUL_REF" =~ ^refs/tags/(.*) ]]; then
-	TARGET_VERSIONDIR="${BASH_REMATCH[1]}"
-elif [[ "$ZUUL_BRANCH" =~ ^(master|REL[0-9]+_[0-9]+)$ ]]; then
-	TARGET_VERSIONDIR="${BASH_REMATCH[1]}"
-fi
-
-if [ -z "$TARGET_VERSIONDIR" ]; then
-	echo "Error: Change target reference is not a tag or a recognized branch."
-	echo "\$ZUUL_REF: $ZUUL_REF"
-	echo "\$ZUUL_BRANCH: $ZUUL_BRANCH"
-	exit 1
-fi
 
 if [ ! -e  "$MW_INSTALL_PATH/maintenance/mwdocgen.php" ]; then
 	echo "Error: Could not find maintenance/mwdocgen.php"
 	echo "Make sure \$MW_INSTALL_PATH points to a MediaWiki installation."
 	echo "\$MW_INSTALL_PATH: $MW_INSTALL_PATH"
+	exit 1
+fi
+
+if [ -z $DOC_SUBPATH ]; then
+	echo "\$DOC_SUBPATH is missing. Can not generate documentation."
 	exit 1
 fi
 
@@ -44,7 +32,7 @@ fi
 # http://doc.wikimedia.org/mediawiki-core/master/php
 # http://doc.wikimedia.org/mediawiki-core/REL1_20/php
 # http://doc.wikimedia.org/mediawiki-core/1.20.2/php
-DEST_DIR="$TARGET_BASEDIR/$TARGET_VERSIONDIR/php"
+DEST_DIR="$TARGET_BASEDIR/php"
 [ ! -d "${DEST_DIR}" ] && mkdir -p "${DEST_DIR}"
 
 echo "Found target: '$DEST_DIR'"
@@ -68,6 +56,6 @@ echo -e "<?php\n\$wgPhpCli = '/usr/bin/php5';" > "$MW_INSTALL_PATH/LocalSettings
 php "$MW_INSTALL_PATH/maintenance/mwdocgen.php" \
 	--no-extensions \
 	--output "$DEST_DIR" \
-	--version "$TARGET_VERSIONDIR" \
+	--version "$DOC_SUBPATH" \
 	1> "$DEST_DIR/console.txt" \
 	2> >(tee "$DEST_DIR/errors.txt" >&2)
