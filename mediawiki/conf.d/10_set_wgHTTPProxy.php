@@ -17,9 +17,6 @@ $wgHTTPProxy = call_user_func( function () {
 		: 'eqiad';
 
 	switch ( $site ) {
-		case 'pmtpa':
-			$proxy = 'webproxy.pmtpa.wmnet:8080';
-			break;
 		case 'eqiad':
 		default:
 			$proxy = 'webproxy.eqiad.wmnet:8080';
