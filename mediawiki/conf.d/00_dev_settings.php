@@ -11,4 +11,5 @@ ini_set( 'display_errors', 1 );
 $wgDevelopmentWarnings = true;
 $wgShowDBErrorBacktrace = true;
 $wgShowExceptionDetails = true;
+$wgShowSQLErrors = true;
 $wgDebugRawPage = true; // bug 47960

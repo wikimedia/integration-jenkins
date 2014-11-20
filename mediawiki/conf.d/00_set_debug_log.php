@@ -19,13 +19,15 @@ if ( $wgCommandLineMode ) {
 	$wmgJobWorkspace = $IP;
 }
 
+// Debugging: Logging
 $wmgMwLogDir = "$wmgJobWorkspace/log";
-
-$wgDBerrorLog = "$wmgMwLogDir/mw-dberror.log";
-$wgRateLimitLog = "$wmgMwLogDir/mw-ratelimit.log";
 
 if ( $wgCommandLineMode ) {
 	$wgDebugLogFile = "$wmgMwLogDir/mw-debug-cli.log";
 } else {
 	$wgDebugLogFile = "$wmgMwLogDir/mw-debug-www.log";
 }
+$wgDBerrorLog = "$wmgMwLogDir/mw-dberror.log";
+$wgRateLimitLog = "$wmgMwLogDir/mw-ratelimit.log";
+$wgDebugLogGroups['exception'] = "$wmgMwLogDir/mw-exception.log";
+$wgDebugLogGroups['error'] = "$wmgMwLogDir/mw-error.log";
