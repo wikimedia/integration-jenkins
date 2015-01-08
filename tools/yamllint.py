@@ -45,7 +45,7 @@ for path in args.dirs:
                 logging.debug("Invoking yaml.safe_load_all on %s", full_path)
                 try:
                     files += 1
-                    yaml.safe_load_all(file(full_path))
+                    yaml.safe_load(file(full_path, 'r'))
                     logging.info('[PASS] ' + full_path)
                 except Exception, exc:
                     logging.error("Invalid file %s raised: %s",
