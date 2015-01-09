@@ -8,7 +8,9 @@
 #   (Foobar).
 # - a scan of the directory /extensions/
 #
-# It will then load the default entry point: /Foo/Foo.php
+# It will then load the extension by either:
+# - If an extension.json file is present, wfLoadExtension()
+# - require the default entry point, Foo/Foo.php
 
 $func_get_exts = function () {
 	global $IP;
@@ -33,7 +35,10 @@ $func_get_exts = function () {
 		$currentExt = $m[1][0];
 	}
 
-	$ext_to_load = array();
+	$ext_to_load = array(
+		'require' => array(),
+		'load' => array(),
+	);
 	$ext_missing = array();
 	$ext_candidates = array();
 
@@ -67,11 +72,13 @@ $func_get_exts = function () {
 			continue;
 		}
 
-		$extfile = "{$IP}/extensions/{$extname}/{$extname}.php";
-		if( file_exists( $extfile ) ) {
-			$ext_to_load[$extname] = $extfile;
+		$ext_dir = "{$IP}/extensions/{$extname}";
+		if ( file_exists( "{$ext_dir}/extension.json" ) && function_exists( 'wfLoadExtensions' ) ) {
+			$ext_to_load['load'][] = $extname;
+		} elseif ( file_exists( "{$ext_dir}/$extname.php" ) ) {
+			$ext_to_load['require'][] = "{$ext_dir}/$extname.php";
 		} else {
-			$ext_missing[] = $extfile;
+			$ext_missing[] = $extname;
 		}
 	}
 	if ( count( $ext_missing ) ) {
@@ -85,6 +92,11 @@ $func_get_exts = function () {
 	return $ext_to_load;
 };
 
-foreach ( $func_get_exts() as $extname ) {
-	require_once $extname;
+$extensions = $func_get_exts();
+if ( $extensions['load'] ) {
+	wfLoadExtensions( $extensions['load'] );
+}
+
+foreach ( $extensions['require'] as $entrypoint ) {
+	require_once $entrypoint;
 }

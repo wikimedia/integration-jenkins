@@ -15,7 +15,16 @@ class MediawikiConfdExtLoaderTest extends PHPUnit_Framework_TestCase {
 		unlink( $tmpName );
 		mkdir( $tmpName . "/extensions", 0777, /* recursive: */ true );
 		$this->tmpName = $tmpName;
+	}
 
+	static function setUpBeforeClass() {
+		// Stub wfLoadExtensions()
+		function wfLoadExtensions( array $names ) {
+			global $fakeExtensions;
+			foreach ( $names as $name ) {
+				$fakeExtensions[$name] = true;
+			}
+		}
 	}
 
 	/**
@@ -60,6 +69,13 @@ class MediawikiConfdExtLoaderTest extends PHPUnit_Framework_TestCase {
 global \$fakeExtensions;
 \$fakeExtensions['$name'] = true;
 ");
+	}
+
+	protected function fakeRegistrationExtension( $name ) {
+		$dir = $this->tmpName . "/extensions/$name";
+		mkdir( $dir, 0777, /** recursive: */ true );
+		$fileHandle = fopen( $dir . '/extension.json', 'w+' );
+		fwrite( $fileHandle, '{}');
 	}
 
 	protected function createLoadFile( Array $extensions ) {
@@ -143,6 +159,22 @@ global \$fakeExtensions;
 		$this->runLoader();
 		$this->assertLoaded( 'FirstExt' );
 		$this->assertLoaded( 'SecondExt' );
+	}
+
+	function testLoadRegistrationExtensions() {
+		$this->fakeRegistrationExtension( 'RegExt1' );
+		$this->fakeRegistrationExtension( 'RegExt2' );
+		$this->runLoader();
+		$this->assertLoaded( 'RegExt1' );
+		$this->assertLoaded( 'RegExt2' );
+	}
+
+	function testLoadMixed() {
+		$this->fakeRegistrationExtension( 'RegExt1' );
+		$this->fakeExtension( 'OldExt2' );
+		$this->runLoader();
+		$this->assertLoaded( 'RegExt1' );
+		$this->assertLoaded( 'OldExt2' );
 	}
 
 	function testLoadFromFileWithGerritNames() {
