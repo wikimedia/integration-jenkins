@@ -157,4 +157,12 @@ global \$fakeExtensions;
 		$this->assertNotLoaded( 'Must_not_be_loaded' );
 		$this->assertLoaded( 'GerritRepoName' );
 	}
+
+	function testLoadFromFileWithEmptyLines() {
+		$this->fakeExtension( 'One' );
+		$this->createLoadFile( array( 'One', "\n" ) );
+		$this->runLoader();
+		$this->assertLoaded( 'One' );
+	}
+
 }

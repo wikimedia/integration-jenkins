@@ -39,7 +39,10 @@ $func_get_exts = function () {
 
 	$loadFile = $IP . '/extensions_load.txt';
 	if ( file_exists( $loadFile ) ) {
-		$ext_candidates = file( $loadFile, FILE_IGNORE_NEW_LINES );
+		$ext_candidates = file( $loadFile,
+			FILE_IGNORE_NEW_LINES
+			| FILE_SKIP_EMPTY_LINES
+		);
 		$ext_candidates = array_map( function ( $entry ) {
 			return str_replace( 'mediawiki/extensions/', '', $entry );
 		}, $ext_candidates );
