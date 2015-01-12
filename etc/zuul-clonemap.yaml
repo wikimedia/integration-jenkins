@@ -1,5 +1,8 @@
 # Clone map for Zuul cloner
 #
+# Canonical repository in integration/jenkins.git
+# Please add tests to /tests/test_zuul_clonemap_config.py
+#
 clonemap:
 
  # MediaWiki core

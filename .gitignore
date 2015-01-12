@@ -1,8 +1,11 @@
+*.pyc
 # Ignore anything in the root project directory:
 /*
 # .. except:
 !.gitignore
 !.pep8
+!test-requirements.txt
+!tox.ini
 !phpunit.xml.dist
 !bin/
 !etc/
