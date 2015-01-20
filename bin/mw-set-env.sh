@@ -28,3 +28,10 @@ fi
 export MW_DB_PATH
 
 export MW_DB_NAME="build${BUILD_NUMBER}"
+
+export LOG_DIR="$WORKSPACE/log"
+
+# Create logs direcotry
+# Make it writable by apache (for web requests such as from qunit tests)
+mkdir -p "$LOG_DIR"
+chmod 777 "$LOG_DIR"

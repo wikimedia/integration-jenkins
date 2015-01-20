@@ -26,16 +26,7 @@
 PHPUNIT_DIR=${PHPUNIT_DIR:-/srv/deployment/integration/phpunit/vendor/phpunit/phpunit}
 
 # Setup Junit destination
-LOG_DIR="$WORKSPACE/log"
-mkdir -p "$LOG_DIR"
 JUNIT_DEST="$LOG_DIR/junit-mw-phpunit.xml"
-
-# Make sure to compress MediaWiki log dir after phpunit has ran
-function compress_log_dir() {
-    echo "Compressing logs under $LOG_DIR"
-	gzip --verbose --force --best "$LOG_DIR"/*.log || :
-}
-trap compress_log_dir EXIT
 
 set -x
 cd "${MW_INSTALL_PATH}/tests/phpunit"

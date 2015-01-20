@@ -2,11 +2,8 @@
 
 . "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
 
-LOG_DIR="$WORKSPACE/log"
 LOG_FILE="$LOG_DIR/update_sql.log"
 UPDATE="php $MW_INSTALL_PATH/maintenance/update.php"
-
-mkdir -p $LOG_DIR
 
 # Dry run the updating script with logging
 #

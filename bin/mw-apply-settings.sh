@@ -5,15 +5,12 @@
 LOCAL_SETTINGS="${MW_INSTALL_PATH}/LocalSettings.php"
 MEDIAWIKI_D="/srv/deployment/integration/slave-scripts/mediawiki/conf.d"
 
-# Setup Junit destination
-LOG_DIR="$WORKSPACE/log"
-
 php "$MEDIAWIKI_D/_join.php" >> "$LOCAL_SETTINGS"
 
-# Empty out the logs directory
-rm -fR "$LOG_DIR"
+# Clear any previous logs directory
+rm -rf "$LOG_DIR"
+# Re-create logs directory
 mkdir -p "$LOG_DIR"
-# Make it writable by apache (for web tests such as qunit)
 chmod 777 "$LOG_DIR"
 
 # Copy LocalSettings under /log for archival purposes
