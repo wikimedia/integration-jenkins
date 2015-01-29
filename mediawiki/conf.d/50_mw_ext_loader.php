@@ -79,13 +79,6 @@ $func_get_exts = function () {
 		exit(1);
 	}
 
-	// Make sure the current extension is loaded last
-	if ( $currentExt ) {
-		$currentExtFile = $ext_to_load[$currentExt];
-		unset( $ext_to_load[$currentExt] );
-		$ext_to_load[$currentExt] = $currentExtFile;
-	}
-
 	return $ext_to_load;
 };
 
