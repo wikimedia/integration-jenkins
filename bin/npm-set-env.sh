@@ -13,6 +13,3 @@ export DISPLAY=':94'
 # Set CHROME_BIN for projects using karma-chrome-launcher as our slaves have
 # Chromium instead of Chrome.
 export CHROME_BIN=`which chromium-browser`
-
-# Purge any existing node_modules. (T88395, T76304)
-rm -rf node_modules
