@@ -7,6 +7,10 @@
 Script to retrieve MediaWiki site information over its API
 """
 
+import argparse
+import json
+import requests
+
 EPILOG = """
 NOTE: MediaWiki API fields are normalized to use underscores instead of dashes.
 
@@ -15,10 +19,6 @@ Examples:
     mw-api-siteinfo.py --list http://www.mediawiki.org/w/api.php
     mw-api-siteinfo.py http://www.mediawiki.org/w/api.php generator
 """
-
-import argparse
-import json
-import requests
 
 API_QUERY = {
     'action': 'query',
