@@ -2,5 +2,5 @@
 
 . "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
 
-# Teardown sqlite DB created via mw-install-sqlite.sh
-rm -f "${MW_DB_PATH}/${MW_DB_NAME}.sqlite"
+# Teardown tmp db dir created via mw-set-env.sh / mw-install-sqlite.sh
+rm -rf "${MW_DB_PATH}"

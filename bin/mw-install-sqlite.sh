@@ -7,9 +7,6 @@ mkdir -p $MW_DB_PATH
 # Ensure LocalSettings does not exist
 rm -f "$MW_INSTALL_PATH/LocalSettings.php"
 
-# Purge sqlite databases modified more than 20 minutes ago
-find "$MW_DB_PATH" -type f -name '*.sqlite' -mmin +20 -delete
-
 # Run MediaWiki installer
 cd "$MW_INSTALL_PATH"
 php maintenance/install.php \
@@ -23,5 +20,5 @@ php maintenance/install.php \
 
 # Installer creates sqlite db as 644 jenkins:jenkins
 # Make the parent dir and the sqlite file writable by Apache (bug 47639)
-chmod a+w "${MW_DB_PATH}"
-chmod a+w "${MW_DB_PATH}/${MW_DB_NAME}.sqlite"
+chmod 777 "${MW_DB_PATH}"
+chmod 777 "${MW_DB_PATH}/${MW_DB_NAME}.sqlite"
