@@ -19,8 +19,6 @@ php maintenance/install.php \
 	WikiAdmin
 
 # Installer creates sqlite db as 644 jenkins:jenkins
-# Make the parent dir and the db files writable by Apache (bug 47639)
+# Make the parent dir and the sqlite file writable by Apache (bug 47639)
 chmod 777 "${MW_DB_PATH}"
 chmod 777 "${MW_DB_PATH}/${MW_DB_NAME}.sqlite"
-# Match wikicache.sqlite, wikicache.sqlite-shm, wikicache.sqlite-wal (since I864272af0 in mediawiki/core)
-chmod 777 "${MW_DB_PATH}/wikicache.*"
