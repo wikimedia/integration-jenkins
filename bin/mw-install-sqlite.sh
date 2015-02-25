@@ -22,5 +22,5 @@ php maintenance/install.php \
 # Make the parent dir and files writable by Apache (bug 47639)
 # - $MW_DB_NAME.sqlite
 # - wikicache.sqlite, wikicache.sqlite-shm, wikicache.sqlite-wal (since I864272af0)
-chmod 777 "${MW_DB_PATH}"
-chmod 777 "${MW_DB_PATH}/*"
+chmod 777 $MW_DB_PATH
+chmod 777 $MW_DB_PATH/*
