@@ -21,7 +21,7 @@ if [ ! -e  "$MW_INSTALL_PATH/maintenance/mwdocgen.php" ]; then
 	exit 1
 fi
 
-if [ -z $DOC_SUBPATH ]; then
+if [ -z $DOC_SUBPATH ]; then
 	echo "\$DOC_SUBPATH is missing. Can not generate documentation."
 	exit 1
 fi
