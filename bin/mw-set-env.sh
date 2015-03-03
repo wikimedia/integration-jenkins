@@ -15,19 +15,16 @@ for mw_path in src/mediawiki/core src; do
 done;
 export MW_INSTALL_PATH
 
-# We sometime have a tmpfs to use, that speeds up sqlite
+# All slaves should have tmpfs mounted, use if available
 if [ -d "$HOME/tmpfs" ]; then
-	# We can not use JOB_NAME has a job identifier since when running in
-	# parallel we will have a race condition. Instead use the trailing part of
-	# the WORKSPACE which would be 'foo', 'foo@1', 'foo@2'
+	# Don't use JOB_NAME since that is not unique when running concurrent builds (T91070).
+	# Instead use the trailing part of $WORKSPACE which will be 'foo', 'foo@2'.
 	# Trailing slash is important there.
-	MW_DB_PATH="$HOME/tmpfs/`basename $WORKSPACE`"
+	export TMPDIR="$HOME/tmpfs/`basename $WORKSPACE`"
+	export MW_TMPDIR="$TMPDIR"
 else
-	MW_DB_PATH="$WORKSPACE/data"
+	export MW_TMPDIR="$WORKSPACE/data"
 fi
-export MW_DB_PATH
-
-export MW_DB_NAME="build${BUILD_NUMBER}"
 
 export LOG_DIR="$WORKSPACE/log"
 
