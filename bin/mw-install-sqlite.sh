@@ -1,8 +1,6 @@
 #!/bin/bash -ex
 
-. "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
-
-mkdir -p $MW_TMPDIR
+. /srv/deployment/integration/slave-scripts/bin/mw-setup.sh
 
 # Ensure LocalSettings does not exist
 rm -f "$MW_INSTALL_PATH/LocalSettings.php"
@@ -22,5 +20,4 @@ php maintenance/install.php \
 # Make the parent dir and files writable by Apache (bug 47639)
 # - my_wiki.sqlite
 # - wikicache.sqlite, wikicache.sqlite-shm, wikicache.sqlite-wal (since I864272af0)
-chmod 777 $MW_TMPDIR
 chmod 777 $MW_TMPDIR/*
