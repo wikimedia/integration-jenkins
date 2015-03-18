@@ -2,9 +2,6 @@
 
 . /srv/deployment/integration/slave-scripts/bin/mw-setup.sh
 
-# Ensure LocalSettings does not exist
-rm -f "$MW_INSTALL_PATH/LocalSettings.php"
-
 # Run MediaWiki installer
 cd "$MW_INSTALL_PATH"
 php maintenance/install.php \
