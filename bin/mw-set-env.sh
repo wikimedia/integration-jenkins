@@ -24,6 +24,16 @@ else
 	export MW_TMPDIR="$WORKSPACE/data"
 fi
 
+# Predicitable database credentials
+# MySQL dbname maxlength: 62 (no spaces or dashes)
+# Note: Use EXECUTOR_NUMBER instead BUILD_TAG as the latter risks being too long.
+# https://wiki.jenkins-ci.org/display/JENKINS/Building+a+software+project
+export MW_DB="jenkins_u${EXECUTOR_NUMBER}_mw"
+export MW_DB_HOST="localhost"
+# MySQL username maxlength: 16
+export MW_DB_USER="jenkins_u${EXECUTOR_NUMBER}"
+export MW_DB_PASS="pw_jenkins_u${EXECUTOR_NUMBER}"
+
 export LOG_DIR="$WORKSPACE/log"
 
 # Create logs direcotry

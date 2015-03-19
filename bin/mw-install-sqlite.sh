@@ -5,12 +5,12 @@
 # Run MediaWiki installer
 cd "$MW_INSTALL_PATH"
 php maintenance/install.php \
-	--confpath "${MW_INSTALL_PATH}" \
+	--confpath "$MW_INSTALL_PATH" \
 	--dbtype=sqlite \
-	--dbname="my_wiki" \
 	--dbpath="$MW_TMPDIR" \
+	--dbname="$MW_DB" \
 	--pass testpass \
-	sqlitetest \
+	TestWiki \
 	WikiAdmin
 
 # Installer creates files as 644 jenkins:jenkins
