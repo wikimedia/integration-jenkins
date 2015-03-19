@@ -10,8 +10,7 @@ if [ "x${BUILD_NUMBER}" = "x" ]; then
 fi
 
 # MYSQL database name cant use spaces or dashes:
-JOB_ID="${JOB_NAME// /_}_${BUILD_NUMBER}"
-JOB_ID="${JOB_ID//-/_}"
+JOB_ID="${BUILD_TAG//-/_}"
 
 DRUPAL_SCHEMA="drupal_${JOB_ID}"
 CIVICRM_SCHEMA="civicrm_${JOB_ID}"
