@@ -1,4 +1,5 @@
-#!/bin/bash -xe
+#!/bin/bash -e
+
 # This script used to be a Jenkins Job Builder macro 'mw-phpunit-allexts'
 #
 # References:
@@ -6,7 +7,7 @@
 # bug: 48147
 # Ib0fdffb97cdf237a49b43d7abaa81b81afe8c499
 
-. "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
+. /srv/deployment/integration/slave-scripts/bin/mw-set-env.sh
 
 JUNIT_DEST="$LOG_DIR/junit-phpunit-allexts.xml"
 
@@ -21,6 +22,7 @@ PHPUNIT_DIR=${PHPUNIT_DIR:-/srv/deployment/integration/phpunit/vendor/phpunit/ph
 
 cd "${MW_INSTALL_PATH}/tests/phpunit"
 
+set -x
 php phpunit.php \
 	--with-phpunitdir "$PHPUNIT_DIR" \
 	--log-junit "$JUNIT_DEST" \

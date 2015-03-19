@@ -1,4 +1,5 @@
-#!/bin/bash -x
+#!/bin/bash -eu
+
 #
 # Script to set custom environement variables for 'npm test' jobs.
 #

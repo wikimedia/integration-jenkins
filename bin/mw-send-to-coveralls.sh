@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash -ex
 
 # Cleanup
 rm -f .coveralls.yml

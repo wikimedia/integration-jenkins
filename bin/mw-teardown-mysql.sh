@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -eu
 
 . /srv/deployment/integration/slave-scripts/bin/mw-teardown.sh
 

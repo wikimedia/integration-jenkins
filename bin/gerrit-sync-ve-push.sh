@@ -1,4 +1,5 @@
-#!/bin/bash -xe
+#!/bin/bash -ex
+
 #
 # Script to push VisualEditor updates to mediawiki/extensions.git
 

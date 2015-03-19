@@ -1,4 +1,5 @@
-#!/bin/bash -xe
+#!/bin/bash -ex
+
 #
 # Based on OpenStack project
 # https://github.com/openstack/openstack-ci-puppet/blob/master/modules/jenkins_slave/files/slave_scripts/gerrit-git-prep.sh

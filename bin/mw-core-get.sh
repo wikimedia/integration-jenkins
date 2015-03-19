@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash -e
 
 # Enable support for "!(exclude_this_dir)" pattern
 shopt -s extglob
@@ -11,7 +11,7 @@ GIT_LOCAL="/srv/ssd/gerrit/mediawiki/core.git"
 TREE_ISH=${1:-'master'}
 
 # Set MW_INSTALL_PATH
-. "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
+. /srv/deployment/integration/slave-scripts/bin/mw-set-env.sh
 
 # Very basic validation
 if [[ ! -d "$MW_INSTALL_PATH" || ! -w "$MW_INSTALL_PATH" ]]; then

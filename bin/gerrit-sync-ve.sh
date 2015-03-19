@@ -1,4 +1,5 @@
-#!/bin/bash -xe
+#!/bin/bash -ex
+
 #
 # Script to update VisualEditor extension in mediawiki/extensions.git
 #

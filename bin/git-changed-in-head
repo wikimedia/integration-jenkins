@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #
 # git-changed-in-head : list changed files in HEAD matching a file extension
 #

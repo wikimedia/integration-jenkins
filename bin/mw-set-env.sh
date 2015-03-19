@@ -1,5 +1,5 @@
-#!/bin/bash -x
-#
+#!/bin/bash -ux
+
 # Script to set up various environement variables suitable to test out
 # MediaWiki core and extensions on Wikimedia continuous integration platform.
 

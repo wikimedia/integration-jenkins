@@ -1,6 +1,6 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
-. "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
+. /srv/deployment/integration/slave-scripts/bin/mw-set-env.sh
 
 LOCAL_SETTINGS="${MW_INSTALL_PATH}/LocalSettings.php"
 MEDIAWIKI_D="/srv/deployment/integration/slave-scripts/mediawiki/conf.d"

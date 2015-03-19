@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #
 # Wrapper to run PHP CodeSniffer with MediaWiki coding style
 #
@@ -92,7 +93,7 @@ if [[ $WARNINGS == false ]]; then
 fi
 
 echo "Starting PHPCS..."
-set -xe
+set -ex
 $PHPCS -v -s $PHPCS_FILES \
 	--encoding=utf-8 \
 	--standard=$PHPCS_STANDARD \

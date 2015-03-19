@@ -1,4 +1,5 @@
 #!/bin/bash -e
+
 # Runs a MediaWiki PHPUnit group
 #
 # By default it will run all tests besides the one listed in
@@ -10,7 +11,7 @@
 # Configuration
 #######################################################################
 
-. "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
+. /srv/deployment/integration/slave-scripts/bin/mw-set-env.sh
 
 # Path to PHPUnit as deployed by Wikimedia deployment system.
 #
