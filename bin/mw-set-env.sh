@@ -18,9 +18,7 @@ export MW_INSTALL_PATH
 # All slaves should have tmpfs mounted, use if available
 if [ -d "$HOME/tmpfs" ]; then
 	# Don't use JOB_NAME since that is not unique when running concurrent builds (T91070).
-	# Instead use the trailing part of $WORKSPACE which will be 'foo', 'foo@2'.
-	# Trailing slash is important there.
-	export TMPDIR="$HOME/tmpfs/`basename $WORKSPACE`"
+	export TMPDIR="$HOME/tmpfs/$BUILD_TAG"
 	export MW_TMPDIR="$TMPDIR"
 else
 	export MW_TMPDIR="$WORKSPACE/data"
