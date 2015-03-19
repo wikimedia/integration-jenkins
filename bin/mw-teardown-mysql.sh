@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 
-. /srv/deployment/integration/slave-scripts/bin/mw-setup.sh
+. /srv/deployment/integration/slave-scripts/bin/mw-teardown.sh
 
 mysql -u root <<EOS
 DROP DATABASE IF EXISTS ${MW_DB};
