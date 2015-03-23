@@ -1,5 +1,7 @@
 #!/bin/bash -eu
 
+. /srv/deployment/integration/slave-scripts/bin/global-set-env.sh
+
 # Script to set up various environement variables suitable to test out
 # MediaWiki core and extensions on Wikimedia continuous integration platform.
 
@@ -15,16 +17,7 @@ for mw_path in src/mediawiki/core src; do
 done;
 export MW_INSTALL_PATH
 
-# All slaves should have tmpfs mounted, use if available
-if [ -d "$HOME/tmpfs" ]; then
-	# Don't use JOB_NAME since that is not unique when running concurrent builds (T91070).
-	# Don't use a path longer than 55 characters in total. Chromium needs 45 characters
-	# for its user-data directory and socket. 103 is the Unix maxlength for socket paths (T93330).
-	export TMPDIR="$HOME/tmpfs/jenkins-${EXECUTOR_NUMBER}"
-	export MW_TMPDIR="$TMPDIR"
-else
-	export MW_TMPDIR="$WORKSPACE/data"
-fi
+export MW_TMPDIR="$TMPDIR"
 
 # Predicitable database credentials
 # MySQL dbname maxlength: 62 (no spaces or dashes)
