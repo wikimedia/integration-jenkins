@@ -13,3 +13,8 @@ fi
 # Integration slaves have an Xvfb window with server number 94 reserved for
 # local applications (e.g. Chrome/Firefox).
 export DISPLAY=':94'
+
+# Set CHROME_BIN for projects using karma-chrome-launcher as our slaves
+# have Chromium instead of Chrome.
+# https://github.com/karma-runner/karma-chrome-launcher/pull/41
+export CHROME_BIN=`which chromium-browser`
