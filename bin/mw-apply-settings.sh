@@ -7,12 +7,6 @@ MEDIAWIKI_D="/srv/deployment/integration/slave-scripts/mediawiki/conf.d"
 
 php "$MEDIAWIKI_D/_join.php" >> "$LOCAL_SETTINGS"
 
-# Clear any previous logs directory
-rm -rf "$LOG_DIR"
-# Re-create logs directory
-mkdir -p "$LOG_DIR"
-chmod 777 "$LOG_DIR"
-
 # Copy LocalSettings under /log for archival purposes
 cp "$LOCAL_SETTINGS" "$LOG_DIR"
 

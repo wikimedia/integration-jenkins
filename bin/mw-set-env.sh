@@ -30,8 +30,3 @@ export MW_DB_USER="jenkins_u${EXECUTOR_NUMBER}"
 export MW_DB_PASS="pw_jenkins_u${EXECUTOR_NUMBER}"
 
 export LOG_DIR="$WORKSPACE/log"
-
-# Create logs direcotry
-# Make it writable by apache (for web requests such as from qunit tests)
-mkdir -p "$LOG_DIR"
-chmod 777 "$LOG_DIR"
