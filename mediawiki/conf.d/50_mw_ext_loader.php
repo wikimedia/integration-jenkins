@@ -21,20 +21,6 @@ $func_get_exts = function () {
 		exit(1);
 	}
 
-	// Get the current project
-	$ZUUL_PROJECT = getenv( 'ZUUL_PROJECT' );
-
-	// Attempt to extract the extension name
-	$currentExt = null;
-	$m = array();
-	if ( preg_match_all(
-		'%^mediawiki/extensions/(.*)$%',
-		$ZUUL_PROJECT,
-		$m
-	) ) {
-		$currentExt = $m[1][0];
-	}
-
 	$ext_to_load = array(
 		'require' => array(),
 		'load' => array(),
