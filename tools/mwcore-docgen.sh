@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -eu
 #
 # A wrapper around MediaWiki core documentation generator used to creates
 # documentation for master, release branches and release tags.
@@ -6,13 +6,11 @@
 # Copyright, All rights reserved.
 # - Wikimedia Foundation, 2012-2014
 # - Antoine "hashar" Musso, 2012-2014
-# - Timo Tijhof, 2012-2013
+# - Timo Tijhof, 2012-2015
 #
 # Licensed under GPL v2.0
 
 . "/srv/deployment/integration/slave-scripts/bin/mw-set-env.sh"
-
-TARGET_BASEDIR=${TARGET_BASEDIR:-/srv/org/wikimedia/doc}
 
 if [ ! -e  "$MW_INSTALL_PATH/maintenance/mwdocgen.php" ]; then
 	echo "Error: Could not find maintenance/mwdocgen.php"
@@ -23,6 +21,11 @@ fi
 
 if [ -z $DOC_SUBPATH ]; then
 	echo "\$DOC_SUBPATH is missing. Can not generate documentation."
+	exit 1
+fi
+
+if [ -z $TARGET_BASEDIR ]; then
+	echo "\$TARGET_BASEDIR is missing. Can not publish documentation."
 	exit 1
 fi
 
