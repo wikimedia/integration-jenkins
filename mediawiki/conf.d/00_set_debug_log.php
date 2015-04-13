@@ -27,6 +27,7 @@ if ( $wgCommandLineMode ) {
 } else {
 	$wgDebugLogFile = "$wmgMwLogDir/mw-debug-www.log";
 }
+$wgDebugTimestamps = true;
 $wgDBerrorLog = "$wmgMwLogDir/mw-dberror.log";
 $wgRateLimitLog = "$wmgMwLogDir/mw-ratelimit.log";
 $wgDebugLogGroups['exception'] = "$wmgMwLogDir/mw-exception.log";
