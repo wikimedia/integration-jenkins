@@ -13,7 +13,7 @@ cd "$MW_INSTALL_PATH"
 php maintenance/install.php \
 	--confpath "$MW_INSTALL_PATH" \
 	--dbtype=mysql \
-	--dbserver="$MW_DB_HOST" \
+	--dbserver="$MW_DB_HOST:$MW_DB_PORT" \
 	--dbuser="$MW_DB_USER" \
 	--dbpass="$MW_DB_PASS" \
 	--dbname="$MW_DB" \
