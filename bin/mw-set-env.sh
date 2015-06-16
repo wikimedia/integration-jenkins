@@ -21,7 +21,7 @@ export MW_TMPDIR="$TMPDIR"
 # Note: Use EXECUTOR_NUMBER instead BUILD_TAG as the latter risks being too long.
 # https://wiki.jenkins-ci.org/display/JENKINS/Building+a+software+project
 export MW_DB="jenkins_u${EXECUTOR_NUMBER}_mw"
-export MW_DB_HOST="localhost"
+export MW_DB_HOST="127.0.0.1"
 export MW_DB_PORT="3306"
 
 # MySQL username maxlength: 16
