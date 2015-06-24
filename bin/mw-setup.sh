@@ -12,5 +12,5 @@ rm -rf "$LOG_DIR"
 
 # Re-create log directory
 mkdir -p "$LOG_DIR"
-# Make it writable by Apache (for web requests such as from qunit tests)
+# Make it writable by Apache (for http requests)
 chmod 777 "$LOG_DIR"
