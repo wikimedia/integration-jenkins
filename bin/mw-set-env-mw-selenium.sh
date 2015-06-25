@@ -1,10 +1,6 @@
 #!/bin/bash -eu
 
-. /srv/deployment/integration/slave-scripts/bin/mw-set-env.sh
-
-# Apache vhost is configured by operations/puppet
-export MW_SERVER="http://localhost:9413"
-export MW_SCRIPT_PATH="/$BUILD_TAG"
+. /srv/deployment/integration/slave-scripts/bin/mw-set-env-localhost.sh
 
 export HEADLESS=true
 export HEADLESS_DISPLAY="${DISPLAY##*:}"
