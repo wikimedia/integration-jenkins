@@ -2,7 +2,7 @@
 
 . /srv/deployment/integration/slave-scripts/bin/global-set-env.sh
 
-# Script to set up various environement variables suitable to test out
+# Script to set up various environment variables suitable to test out
 # MediaWiki core and extensions on Wikimedia continuous integration platform.
 
 MW_INSTALL_PATH=$WORKSPACE
