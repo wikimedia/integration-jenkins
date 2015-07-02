@@ -10,7 +10,6 @@ module.exports = function ( grunt ) {
 
 	grunt.task.loadTasks( __dirname + '/grunt-tasks' );
 	grunt.task.loadTasks( __dirname + '/node_modules/grunt-contrib-qunit/tasks' );
-	grunt.task.loadTasks( __dirname + '/node_modules/grunt-contrib-csslint/tasks' );
 
 	grunt.initConfig({
 		qunit: {
@@ -25,29 +24,9 @@ module.exports = function ( grunt ) {
 				}
 				return ret;
 			}() ),
-		},
-		csslint: {
-			options: {
-				csslintrc: '.csslintrc'
-			},
-			all: ( function () {
-				var patterns = [ '**/*.css' ];
-				if ( grunt.file.exists( '.csslintignore' ) ) {
-					grunt.file.read( '.csslintignore' ).split( '\n' ).forEach( function ( pattern ) {
-						// Filter out empty lines
-						pattern = pattern.trim();
-						if ( pattern ) {
-							patterns.push( '!' + pattern.trim() );
-						}
-					} );
-				}
-				return patterns;
-			}() )
 		}
 	});
 
-	// Alias for sequence of lint tasks, later this will include phplint, csslint etc.
 	grunt.registerTask( 'lint', 'jshint' );
-
 	grunt.registerTask( 'default', 'lint' );
 };
