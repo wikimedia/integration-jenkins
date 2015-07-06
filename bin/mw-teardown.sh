@@ -4,4 +4,6 @@
 . /srv/deployment/integration/slave-scripts/bin/mw-set-env.sh
 
 # Copy LocalSettings to /log so that archive-log-dir collects it
-cp "${MW_INSTALL_PATH}/LocalSettings.php" "$LOG_DIR"
+if [ -e "${MW_INSTALL_PATH}/LocalSettings.php" ]; then
+	cp "${MW_INSTALL_PATH}/LocalSettings.php" "$LOG_DIR"
+fi
