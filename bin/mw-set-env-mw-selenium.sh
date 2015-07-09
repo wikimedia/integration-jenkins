@@ -2,6 +2,13 @@
 
 . /srv/deployment/integration/slave-scripts/bin/mw-set-env-localhost.sh
 
+# Selenium requires the chromedriver binary to be found in our PATH
+for path in /usr/lib/chromium-browser /usr/lib/chromium; do
+	if test -d "$path"; then
+		export PATH="$PATH:$path"
+	fi
+done
+
 # Let MW-Selenium setup/teardown an isolated Xvfb on a display between 70-90
 # for this build
 export HEADLESS=true
