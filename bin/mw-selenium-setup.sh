@@ -2,4 +2,4 @@
 
 . /srv/deployment/integration/slave-scripts/bin/mw-set-env-mw-selenium.sh
 
-rm -rf "$TMPDIR"
+mkdir -p "$TMPDIR"

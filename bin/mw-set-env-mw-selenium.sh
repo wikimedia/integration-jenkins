@@ -1,5 +1,10 @@
 #!/bin/bash -eu
 
+# Xvfb barfs when trying to move xkb files across filesystems, so we must use
+# /tmp for now
+# https://bugs.launchpad.net/ubuntu/+source/xorg-server/+bug/972324
+export SKIP_TMPFS=1
+
 . /srv/deployment/integration/slave-scripts/bin/mw-set-env-localhost.sh
 
 # Selenium requires the chromedriver binary to be found in our PATH
@@ -14,11 +19,6 @@ done
 export HEADLESS=true
 export HEADLESS_DISPLAY=$((70 + EXECUTOR_NUMBER % 20))
 export HEADLESS_DESTROY_AT_EXIT=true
-
-# Xvfb barfs when trying to move xkb files across filesystems, so we must use
-# /tmp for this job
-# https://bugs.launchpad.net/ubuntu/+source/xorg-server/+bug/972324
-export TMPDIR="/tmp/jenkins-${EXECUTOR_NUMBER}"
 
 export MEDIAWIKI_ENVIRONMENT=integration
 export MEDIAWIKI_URL="${MW_SERVER}${MW_SCRIPT_PATH}/index.php/"

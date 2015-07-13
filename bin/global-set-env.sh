@@ -3,7 +3,11 @@
 # Don't use JOB_NAME since that is not unique when running concurrent builds (T91070).
 # Don't use a path longer than 55 characters in total. Chromium needs 45 characters
 # for its user-data directory and socket. 103 is the Unix maxlength for socket paths (T93330).
-if [ -d "$HOME/tmpfs" ]; then
+#
+# Dependent scripts/builders that have issues related to tmpfs, or a non-root
+# temporary filesystem, can set `SKIP_TMPFS` to keep keep the temporary
+# directory under /tmp.
+if [ -d "$HOME/tmpfs" ] && [ -z "$SKIP_TMPFS" ]; then
 	# All slaves should have tmpfs mounted, use if available
 	export TMPDIR="$HOME/tmpfs/jenkins-${EXECUTOR_NUMBER}"
 else
