@@ -7,7 +7,7 @@
 # Dependent scripts/builders that have issues related to tmpfs, or a non-root
 # temporary filesystem, can set `SKIP_TMPFS` to keep keep the temporary
 # directory under /tmp.
-if [ -d "$HOME/tmpfs" ] && [ -z "$SKIP_TMPFS" ]; then
+if [ -d "$HOME/tmpfs" ] && [ "${SKIP_TMPFS:-0}" != "0" ]; then
 	# All slaves should have tmpfs mounted, use if available
 	export TMPDIR="$HOME/tmpfs/jenkins-${EXECUTOR_NUMBER}"
 else
