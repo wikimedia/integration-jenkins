@@ -5,6 +5,7 @@
 !.gitignore
 !.pep8
 !test-requirements.txt
+!setup.cfg
 !tox.ini
 !phpunit.xml.dist
 !bin/
