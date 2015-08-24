@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/bash -xeu
 
 . /srv/deployment/integration/slave-scripts/bin/mw-setup.sh
 
