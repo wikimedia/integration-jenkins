@@ -141,7 +141,7 @@ def check_message(lines):
 
     if errors:
         for e in errors:
-            print e
+            print(e)
         return 1
     return 0
 

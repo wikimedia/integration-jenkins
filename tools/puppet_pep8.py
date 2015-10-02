@@ -36,7 +36,7 @@ for dir_tuple in dir_tuples:
         # Craft a relative path to get shorter lines output
         rel_path = os.path.relpath(file_path, args.path)
 
-        print "Checking file %s" % file_path
+        print("Checking file %s" % file_path)
         cmd = ('pep8', rel_path)
 
         # Invoke pep8 from the directory passed as an argument
@@ -44,8 +44,8 @@ for dir_tuple in dir_tuples:
             success = False
 
 if success:
-    print "\n\nAll tests passed."
+    print("\n\nAll tests passed.")
     exit(0)
 else:
-    print "\n\nSome tests failed. Review pep8 output above."
+    print("\n\nSome tests failed. Review pep8 output above.")
     exit(1)

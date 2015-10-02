@@ -16,7 +16,7 @@ import subprocess
 
 deps = dict()
 
-print '[*] NPM devDependencies Installation [*]'
+print('[*] NPM devDependencies Installation [*]')
 
 with open('./package.json') as fd:
     pkg_info = json.load(fd)
@@ -24,7 +24,7 @@ with open('./package.json') as fd:
         deps = pkg_info['devDependencies']
 
 for pkg in iter(deps):
-    print 'Installing', pkg, '...'
+    print('Installing', pkg, '...')
     subprocess.check_output(['npm', 'install', pkg + '@' + deps[pkg]])
 
-print '[*] NPM devDependencies Done [*]'
+print('[*] NPM devDependencies Done [*]')

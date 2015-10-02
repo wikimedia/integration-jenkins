@@ -22,4 +22,4 @@ for l in fileinput.input():
 
 
 VERSIONS.sort(key=distutils.version.LooseVersion)
-print "\n".join(VERSIONS)
+print("\n".join(VERSIONS))

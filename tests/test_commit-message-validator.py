@@ -2,9 +2,13 @@
 
 import imp
 import os
-import StringIO
 import sys
 import unittest
+
+if sys.version_info[0] > 2:
+    from io import StringIO
+else:
+    from StringIO import StringIO
 
 cmv = imp.load_source(
     'cmv',
@@ -28,7 +32,7 @@ class MetaValidator(type):
             def test(self):
                 saved_stdout = sys.stdout
                 try:
-                    out = StringIO.StringIO()
+                    out = StringIO()
                     sys.stdout = out
                     self.assertEqual(
                         1 if expected else 0,

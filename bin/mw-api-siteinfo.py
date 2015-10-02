@@ -83,10 +83,10 @@ def main():
     if options.list:
         normalized_keys = [normalize(k) for k in
                            mwresponse.query.general.__dict__.keys()]
-        print '\n'.join(sorted(normalized_keys))
+        print('\n'.join(sorted(normalized_keys)))
     else:
         for field in options.fields:
-            print getattr(mwresponse.query.general, field)
+            print(getattr(mwresponse.query.general, field))
 
 if __name__ == '__main__':
     main()
