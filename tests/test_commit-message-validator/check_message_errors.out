@@ -10,4 +10,5 @@ Line 8: Expected blank line before Bug:
 Line 9: Unexpected blank line after Bug:
 Line 12: Unexpected blank line after Bug:
 Line 12: Unexpected line between Bug: and Change-Id:
-Line 14: Unexpected line after Change-Id
+Line 13: Extra Change-Id found, next at 14
+Line 15: Unexpected line after Change-Id

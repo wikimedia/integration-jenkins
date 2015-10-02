@@ -79,10 +79,8 @@ def check_message(lines):
     changeid_line = False
     last_bug = False
     for lineno, line in enumerate(lines):
-        # Strip leading spaces to remove `git log` indenting
-        stripped = line.lstrip()
         rline = lineno + 1
-        e = line_has_errors(lineno, stripped)
+        e = line_has_errors(lineno, line)
         if e:
             errors.append(e)
 
@@ -122,7 +120,7 @@ def check_message(lines):
             changeid_line = rline
 
         last_lineno = rline
-        last_line = stripped
+        last_line = line
 
     if last_lineno < 2:
         errors.append("Line %d: Expected at least 3 lines" % last_lineno)
@@ -148,13 +146,10 @@ def check_message(lines):
 
 def main():
     """Validate the current HEAD commit message."""
-    commit = subprocess.check_output('git log --pretty=raw -1', shell=True)
-    lines = commit.splitlines()
-
-    # Discard until the first blank line
-    line = lines.pop(0)
-    while line:
-        line = lines.pop(0)
+    commit = subprocess.check_output(
+        ['git', 'log', '--format=%B', '--no-color', '-n1'])
+    # last line is always an empty line
+    lines = commit.splitlines()[:-1]
 
     return check_message(lines)
 
