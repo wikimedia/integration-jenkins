@@ -34,10 +34,9 @@ class MetaValidator(type):
                 try:
                     out = StringIO()
                     sys.stdout = out
-                    self.assertEqual(
-                        1 if expected else 0,
-                        cmv.check_message(msg.splitlines()))
+                    exit_code = cmv.check_message(msg.splitlines())
                     self.assertEqual(expected, out.getvalue())
+                    self.assertEqual(exit_code, 1 if expected else 0)
                 finally:
                     sys.stdout = saved_stdout
             return test
