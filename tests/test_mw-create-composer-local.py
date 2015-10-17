@@ -4,7 +4,7 @@ import imp
 import os
 import tempfile
 import unittest
-path = os.path.dirname(os.path.dirname(__file__)) \
+path = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) \
     + '/bin/mw-create-composer-local.py'
 mw_create_composer_local = imp.load_source('mw-create-composer-local', path)
 

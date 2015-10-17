@@ -12,7 +12,7 @@ else:
 
 cmv = imp.load_source(
     'cmv',
-    os.path.dirname(os.path.dirname(__file__)) +
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))) +
     '/tools/commit-message-validator.py')
 
 
