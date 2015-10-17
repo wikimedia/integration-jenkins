@@ -2,10 +2,12 @@ Line 1: First line should be <=80 characters
 Line 2: Second line should be empty
 Line 3: Line should be <=100 characters
 Line 4: Use 'Bug: ' not 'Fixes:'
+Line 4: Expected one space after 'Bug:'
 Line 5: Use 'Bug: ' not 'Closes:'
+Line 5: Expected one space after 'Bug:'
 Line 6: Use 'Bug: ' not 'Task:'
 Line 7: Expected 'Bug:' not 'BUG:'
-Line 8: Each Bug: should list exactly one task
+Line 7: Expected one space after 'Bug:'
 Line 8: Expected blank line before Bug:
 Line 9: Unexpected blank line after Bug:
 Line 12: Unexpected blank line after Bug:

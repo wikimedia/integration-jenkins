@@ -13,7 +13,7 @@ import re
 import subprocess
 
 
-def line_has_errors(lineno, line):
+def line_errors(lineno, line):
     """Check a commit message line to see if it has errors.
 
     Checks:
@@ -25,46 +25,41 @@ def line_has_errors(lineno, line):
     - Exactly one task id on each Bug: line
     - No "Task: ", "Fixes: ", "Closes: " lines
     """
-    rline = lineno + 1
-
     # First line <=80
-    if lineno == 0 and len(line) > 80:
-        return "Line %d: First line should be <=80 characters" % rline
+    if lineno == 0:
+        if len(line) > 80:
+            yield "First line should be <=80 characters"
 
     # Second line blank
-    if lineno == 1 and line:
-        return "Line %d: Second line should be empty" % rline
+    elif lineno == 1:
+        if line:
+            yield "Second line should be empty"
 
     # No line >100
-    if len(line) > 100:
-        return "Line %d: Line should be <=100 characters" % rline
+    elif len(line) > 100:
+        yield "Line should be <=100 characters"
 
-    m = re.match(r'^(bug:)(.)', line, re.IGNORECASE)
+    m = re.match(r'^(bug|closes|fixes|task):(\W)*(.*)', line, re.IGNORECASE)
     if m:
-        if m.group(1) != 'Bug:':
-            return "Line %d: Expected 'Bug:' not '%s'" % (rline, m.group(1))
+        if lineno == 0:
+            yield "Do not define bug in the header"
+
+        if m.group(1).lower() == 'bug':
+            if m.group(1) != 'Bug':
+                yield "Expected 'Bug:' not '%s:'" % m.group(1)
+        else:
+            # No "Task: ", "Fixes: ", "Closes: " lines
+            yield "Use 'Bug: ' not '%s:'" % m.group(1)
 
         if m.group(2) != ' ':
-            return "Line %d: Expected space after 'Bug:'" % rline
-
-        # Exactly one task id on each Bug: line
-        m = re.match(r'^Bug: \w+$', line)
-        if not m:
-            return "Line %d: Each Bug: should list exactly one task" % rline
-
-    # No "Task: ", "Fixes: ", "Closes: " lines
-    m = re.match(r'^(closes|fixes|task):', line, re.IGNORECASE)
-    if m:
-        return "Line %d: Use 'Bug: ' not '%s'" % (rline, m.group(0))
-
-    return False
+            yield "Expected one space after 'Bug:'"
 
 
 def check_message(lines):
     """Check a commit message to see if it has errors.
 
     Checks:
-    - All lines ok as checked by line_has_errors()
+    - All lines ok as checked by line_errors()
     - For any "^Bug: " line, next line is not blank
     - For any "^Bug: " line, prior line is another Bug: line or empty
     - Exactly one "Change-Id: " line per commit
@@ -80,9 +75,8 @@ def check_message(lines):
     last_bug = False
     for lineno, line in enumerate(lines):
         rline = lineno + 1
-        e = line_has_errors(lineno, line)
-        if e:
-            errors.append(e)
+        errors.extend('Line {0}: {1}'.format(rline, e)
+                      for e in line_errors(lineno, line))
 
         # For any "Bug: " line, next line is not blank
         if last_bug == last_lineno:
