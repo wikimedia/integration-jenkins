@@ -29,6 +29,9 @@ def line_errors(lineno, line):
     if lineno == 0:
         if len(line) > 80:
             yield "First line should be <=80 characters"
+        m = re.match(r'^T?\d+', line, re.IGNORECASE)
+        if m:
+            yield "Do not define bug in the header"
 
     # Second line blank
     elif lineno == 1:
@@ -53,6 +56,16 @@ def line_errors(lineno, line):
 
         if m.group(2) != ' ':
             yield "Expected one space after 'Bug:'"
+
+        bug_id = m.group(3).strip()
+        if bug_id.isdigit():
+            yield "The bug ID must be a phabricator task ID"
+        elif bug_id.upper().startswith('T') and bug_id[1:].isdigit():
+            if bug_id[0] != 'T':
+                assert bug_id[0] == 't'
+                yield "The phabricator task ID must use uppercase T"
+        else:
+            yield "The bug ID is not a phabricator task ID"
 
 
 def check_message(lines):
