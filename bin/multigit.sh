@@ -36,7 +36,10 @@
 # limitations under the License.
 
 # URL to fetch ZUUL references from.
-ZUUL_URL="git://zuul.eqiad.wmnet"
+if [ -z "$ZUUL_URL" ]; then
+	echo "\$ZUUL_URL is not set. Aborting."
+	exit 1
+fi
 
 # URL to fetch from Gerrit (reference repository)
 GERRIT_URL="https://gerrit.wikimedia.org/r/p"
@@ -53,6 +56,7 @@ BASE_DIR=${BASE_DIR:-$WORKSPACE}
 echo "Change triggered by $GERRIT_CHANGE"
 echo
 echo "Triggering informations:"
+echo "Zuul URL : $ZUUL_URL"
 echo "Pipeline : $ZUUL_PIPELINE"
 echo "Project  : $ZUUL_PROJECT"
 echo "Branch   : $ZUUL_BRANCH"
