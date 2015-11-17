@@ -29,6 +29,8 @@ if ( $wgCommandLineMode ) {
 }
 $wgDebugTimestamps = true;
 $wgDBerrorLog = "$wmgMwLogDir/mw-dberror.log";
-$wgRateLimitLog = "$wmgMwLogDir/mw-ratelimit.log";
+$wgDebugLogGroups['ratelimit'] = "$wmgMwLogDir/mw-ratelimit.log";
 $wgDebugLogGroups['exception'] = "$wmgMwLogDir/mw-exception.log";
 $wgDebugLogGroups['error'] = "$wmgMwLogDir/mw-error.log";
+// Back-compat
+$wgRateLimitLog = $wgDebugLogGroups['ratelimit'];
