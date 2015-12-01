@@ -32,4 +32,4 @@ php phpunit.php \
 	--with-phpunitdir "$PHPUNIT_DIR" \
 	--conf "$MW_INSTALL_PATH/LocalSettings.php" \
 	--log-junit $JUNIT_DEST \
-	"${phpunit_args[@]:0}"
+	"${phpunit_args[@]:-}"
