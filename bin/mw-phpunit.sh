@@ -21,7 +21,14 @@ PHPUNIT_TESTSUITE=${PHPUNIT_TESTSUITE:-}
 
 phpunit_args=()
 [[ "$PHPUNIT_GROUP" ]] && phpunit_args+=('--group' "${PHPUNIT_GROUP}")
-[[ "$PHPUNIT_EXCLUDE_GROUP" ]] && phpunit_args+=('--exclude-group' "$PHPUNIT_EXCLUDE_GROUP")
+
+# Always exclude some groups:
+# - Broken : tests explicitly marked as non working
+# - ParserFuzz : keep running, mostly for dev/ spotting bugs
+# - Stub : not implemented tests
+# --exclude-group would override ignored groups from suite.xml
+[[ "$PHPUNIT_EXCLUDE_GROUP" ]] && phpunit_args+=('--exclude-group' "Broken,ParserFuzz,Stub,$PHPUNIT_EXCLUDE_GROUP")
+
 [[ "$PHPUNIT_TESTSUITE" ]] && phpunit_args+=('--testsuite' "${PHPUNIT_TESTSUITE}")
 
 
