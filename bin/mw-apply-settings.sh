@@ -11,7 +11,8 @@ MEDIAWIKI_D="/srv/deployment/integration/slave-scripts/mediawiki/conf.d"
 # Inject the variable set via mw-set-env / global-set-env T120356
 #
 echo "Setting \$wgTmpDirectory = '${MW_TMPDIR}';"
-echo -en "<?php\n\$wgTmpDirectory = '${MW_TMPDIR}';\n?>" >> "$LOCAL_SETTINGS"
+# No '?>' since _join.php injects it
+echo -en "<?php\n\$wgTmpDirectory = '${MW_TMPDIR}';\n" >> "$LOCAL_SETTINGS"
 
 php "$MEDIAWIKI_D/_join.php" >> "$LOCAL_SETTINGS"
 
