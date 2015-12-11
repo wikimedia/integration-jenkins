@@ -7,11 +7,13 @@
 # Dependent scripts/builders that have issues related to tmpfs, or a non-root
 # temporary filesystem, can set `SKIP_TMPFS` to keep keep the temporary
 # directory under /tmp.
+export TMPDIR_FS="$HOME/tmpfs/jenkins-${EXECUTOR_NUMBER}"
+export TMPDIR_REGULAR="/tmp/jenkins-${EXECUTOR_NUMBER}"
 if [ -d "$HOME/tmpfs" ] && [ -z "${SKIP_TMPFS:-}" ]; then
 	# All slaves should have tmpfs mounted, use if available
-	export TMPDIR="$HOME/tmpfs/jenkins-${EXECUTOR_NUMBER}"
+	export TMPDIR="${TMPDIR_FS}"
 else
-	export TMPDIR="/tmp/jenkins-${EXECUTOR_NUMBER}"
+	export TMPDIR="${TMPDIR_REGULAR}"
 fi
 
 # Integration slaves have an Xvfb window with server number 94 reserved for

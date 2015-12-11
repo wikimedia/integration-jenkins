@@ -2,7 +2,8 @@
 
 . /srv/deployment/integration/slave-scripts/bin/mw-set-env-mw-selenium.sh
 
-mkdir -p "$TMPDIR"
+mkdir -p "$TMPDIR_FS"
+mkdir -p "$TMPDIR_REGULAR"
 
 # Append the MW installation's LocalSettings.php with the contents of
 # tests/browser/LocalSettings.php. Note that this setup script requires that
