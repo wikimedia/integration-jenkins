@@ -11,20 +11,41 @@
 
 
 import json
+import os
+import sys
 import subprocess
 
 
 deps = dict()
+cwd = os.getcwd()
+src_dir = os.environ.get('NPM_SET_PATH', 'src').replace('./', '')
+full_src = cwd + '/' + src_dir
+config = full_src + '/config.yaml'
+mod_path = full_src + '/app.js'
+
 
 print('[*] NPM devDependencies Installation [*]')
 
-with open('./package.json') as fd:
+with open(cwd + '/package.json') as fd:
     pkg_info = json.load(fd)
     if 'devDependencies' in pkg_info:
         deps = pkg_info['devDependencies']
 
 for pkg in iter(deps):
-    print('Installing', pkg, '...')
-    subprocess.check_output(['npm', 'install', pkg + '@' + deps[pkg]])
+    print('[*] - Installing ' + pkg + ' ...')
+    subprocess.check_call(
+        ['npm', 'install', pkg + '@' + deps[pkg]],
+        stdout=sys.stdout, stderr=sys.stdout
+    )
+
+if os.path.exists(config):
+    print('[*] Fixing up the server config to run in CI ...')
+    subprocess.check_call([
+        'sed',
+        '-i',
+        '-e',
+        's/module: .\\/app.js/module: ' + mod_path.replace('/', '\\/') + '/g',
+        config
+    ])
 
 print('[*] NPM devDependencies Done [*]')
