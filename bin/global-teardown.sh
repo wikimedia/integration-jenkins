@@ -13,5 +13,5 @@ stat "${TMPDIR_REGULAR}" || :
 
 # Have bash '*' to expand dot files as well
 shopt -s dotglob
-rm -v -rf "${TMPDIR_FS}/*"
-rm -v -rf "${TMPDIR_REGULAR}/*"
+rm -v -rf "$TMPDIR_FS"/*
+rm -v -rf "$TMPDIR_REGULAR"/*
