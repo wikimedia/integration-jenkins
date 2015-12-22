@@ -5,4 +5,4 @@
 # Have bash '*' to expand dot files as well.
 # We keep the directory see bin/global-teardown.sh and T120824
 shopt -s dotglob
-rm -v -rf "$TMPDIR"/*
+rm -rf "$TMPDIR"/*

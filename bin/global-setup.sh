@@ -2,9 +2,6 @@
 
 . /srv/deployment/integration/slave-scripts/bin/global-set-env.sh
 
-stat "$TMPDIR_FS" || :
-stat "$TMPDIR_REGULAR" || :
-
 mkdir -p "$TMPDIR_FS"
 mkdir -p "$TMPDIR_REGULAR"
 
