@@ -82,7 +82,7 @@ fi
 
 set -x
 cd "${MW_INSTALL_PATH}/tests/phpunit"
-php phpunit.php \
+$PHP_BIN phpunit.php \
 	--with-phpunitdir "$PHPUNIT_DIR" \
 	$PHPUNIT_GROUP_OPT \
 	--exclude-group "$PHPUNIT_EXCLUDE_GROUP" \

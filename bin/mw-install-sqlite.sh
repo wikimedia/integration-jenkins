@@ -4,7 +4,7 @@
 
 # Run MediaWiki installer
 cd "$MW_INSTALL_PATH"
-php maintenance/install.php \
+$PHP_BIN maintenance/install.php \
 	--confpath "$MW_INSTALL_PATH" \
 	--dbtype=sqlite \
 	--dbpath="$MW_TMPDIR" \

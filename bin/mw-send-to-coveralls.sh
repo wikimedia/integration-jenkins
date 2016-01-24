@@ -18,4 +18,4 @@ echo "coverage_clover: log/clover.xml" >> .coveralls.yml
 echo "json_path: log/coveralls-upload.json" >> .coveralls.yml
 
 # Actually run coveralls!
-php vendor/bin/coveralls --verbose
+$PHP_BIN vendor/bin/coveralls --verbose

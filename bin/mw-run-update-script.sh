@@ -7,5 +7,5 @@ if [ "$ZUUL_PROJECT" = "mediawiki/vendor" ]
 then
 	ARGS="$ARGS --skip-external-dependencies"
 fi
-php "$MW_INSTALL_PATH/maintenance/update.php" $ARGS
+$PHP_BIN "$MW_INSTALL_PATH/maintenance/update.php" $ARGS
 

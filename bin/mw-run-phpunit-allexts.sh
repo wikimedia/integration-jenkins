@@ -23,7 +23,7 @@ PHPUNIT_DIR=${PHPUNIT_DIR:-/srv/deployment/integration/phpunit/vendor/phpunit/ph
 cd "${MW_INSTALL_PATH}/tests/phpunit"
 
 set -x
-php phpunit.php \
+$PHP_BIN phpunit.php \
 	--with-phpunitdir "$PHPUNIT_DIR" \
 	--log-junit "$JUNIT_DEST" \
 	--testsuite extensions
