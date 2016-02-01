@@ -29,6 +29,3 @@ export MW_DB_USER="jenkins_u${EXECUTOR_NUMBER}"
 export MW_DB_PASS="pw_jenkins_u${EXECUTOR_NUMBER}"
 
 export LOG_DIR="$WORKSPACE/log"
-
-# Set PHP_BIN to a default if it's not already set by Zuul
-export PHP_BIN="${PHP_BIN:=php}"
