@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+set -u
+
+PHP_BIN=${PHP_BIN:-/usr/bin/env php}
+
+$PHP_BIN "$@"
