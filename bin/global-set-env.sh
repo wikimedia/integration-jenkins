@@ -26,4 +26,4 @@ export DISPLAY=':94'
 export CHROME_BIN=`which chromium-browser`
 
 # Set PHP_BIN to a default if it's not already set by Zuul
-export PHP_BIN="${PHP_BIN:=php}"
+export PHP_BIN="${PHP_BIN:=php5}"
