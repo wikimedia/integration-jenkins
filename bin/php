@@ -5,4 +5,9 @@ set -u
 
 PHP_BIN=${PHP_BIN:-/usr/bin/php5}
 
+if [ $PHP_BIN == 'php' ]; then
+    echo "\$PHP_BIN is set to 'php', causing infinite recursion!"
+    exit 1;
+fi
+
 $PHP_BIN "$@"
