@@ -10,4 +10,4 @@ if [ "$PHP_BIN" = 'php' ]; then
     exit 1;
 fi
 
-$PHP_BIN "$@"
+exec "$PHP_BIN" "$@"
