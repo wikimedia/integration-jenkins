@@ -11,7 +11,16 @@
 
 JUNIT_DEST="$LOG_DIR/junit-phpunit-allexts.xml"
 
-# See documentation in mw-run-phpunit.sh
+# Path to PHPUnit as deployed by Wikimedia deployment system.
+#
+# The path is passed to MediaWiki php wrapper using --with-phpunitdir. It
+# should match a local checkout of integration/phpunit.git repository which
+# contains PHPUnit as it is installed by Composer. The local copy should be
+# deployed on all slaves via the role::ci::slave puppet class includes:
+# deployment::target { # 'contint-production-slaves': }
+#
+#
+# WARNING: don't forget to update mw-run-phpunit-allexts.sh as well
 PHPUNIT_DIR=${PHPUNIT_DIR:-/srv/deployment/integration/phpunit/vendor/phpunit/phpunit}
 
 # We have to move to the tests/phpunit directory where suite.xml is located or
