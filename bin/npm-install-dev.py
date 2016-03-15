@@ -20,7 +20,7 @@ deps = dict()
 cwd = os.getcwd()
 src_dir = os.environ.get('NPM_SET_PATH', 'src').replace('./', '')
 full_src = cwd + '/' + src_dir
-config = full_src + '/config.yaml'
+config = full_src + '/config.dev.yaml'
 mod_path = full_src + '/app.js'
 
 
