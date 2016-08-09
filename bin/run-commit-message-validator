@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Clear any venv from old runs?
+rm -rf venv
+# Requires Python2 for now
+virtualenv -p python2 venv
+source venv/bin/activate
+# Install, hopefully it'll use a wheel
+pip install commit-message-validator
+# And....go!
+commit-message-validator
