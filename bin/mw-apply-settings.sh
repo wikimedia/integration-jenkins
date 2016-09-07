@@ -14,7 +14,7 @@ echo "Setting \$wgTmpDirectory = '${MW_TMPDIR}';"
 # No PHP tags since _join.php inject them
 echo -en "\$wgTmpDirectory = '${MW_TMPDIR}';\n" >> "$LOCAL_SETTINGS"
 
-$PHP_BIN "$MEDIAWIKI_D/_join.php" >> "$LOCAL_SETTINGS"
+php "$MEDIAWIKI_D/_join.php" >> "$LOCAL_SETTINGS"
 
 echo "Making sure $LOCAL_SETTINGS is still valid"
-$PHP_BIN -l "$LOCAL_SETTINGS"
+php -l "$LOCAL_SETTINGS"

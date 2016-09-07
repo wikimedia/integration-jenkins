@@ -36,6 +36,6 @@ phpunit_args=()
 set -x
 cd "${MW_INSTALL_PATH}/tests/phpunit"
 
-$PHP_BIN phpunit.php \
+php phpunit.php \
 	--log-junit $JUNIT_DEST \
 	"${phpunit_args[@]:-}"

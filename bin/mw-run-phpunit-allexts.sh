@@ -17,7 +17,7 @@ JUNIT_DEST="$LOG_DIR/junit-phpunit-allexts.xml"
 set -x
 cd "${MW_INSTALL_PATH}/tests/phpunit"
 
-$PHP_BIN -dzend.enable_gc=0 \
+php -dzend.enable_gc=0 \
 	phpunit.php \
 	--log-junit "$JUNIT_DEST" \
 	--testsuite extensions

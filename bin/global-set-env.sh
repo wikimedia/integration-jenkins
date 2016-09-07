@@ -25,9 +25,6 @@ export DISPLAY=':94'
 # https://github.com/karma-runner/karma-chrome-launcher/pull/41
 export CHROME_BIN=`which chromium-browser`
 
-# Set PHP_BIN to a default if it's not already set by Zuul
-export PHP_BIN="${PHP_BIN:=php5}"
-
 # Shut up composer xdebug warnings: <https://getcomposer.org/xdebug>
 # They're not useful to us and are distractions in logs
 export COMPOSER_DISABLE_XDEBUG_WARN=1
