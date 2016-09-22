@@ -7,9 +7,18 @@
 # Dependent scripts/builders that have issues related to tmpfs, or a non-root
 # temporary filesystem, can set `SKIP_TMPFS` to keep keep the temporary
 # directory under /tmp.
-export TMPDIR_FS="$HOME/tmpfs/jenkins-${EXECUTOR_NUMBER}"
+
+# About $HOME
+# -----------
+#
+# jenkins-slave (on prod) uses /var/lib/jenkins-slave
+#
+# jenkins-deploy has its home set to /mnt/home/jenkins-deploy in LDAP but we
+# are moving to /srv T146381 hence we need to translate /mnt to /srv which is
+# done with some bash magic.
+export TMPDIR_FS="${HOME/#\/mnt//srv}/tmpfs/jenkins-${EXECUTOR_NUMBER}"
 export TMPDIR_REGULAR="/tmp/jenkins-${EXECUTOR_NUMBER}"
-if [ -d "$HOME/tmpfs" ] && [ -z "${SKIP_TMPFS:-}" ]; then
+if [ -d "${HOME/#\/mnt//srv}/tmpfs" ] && [ -z "${SKIP_TMPFS:-}" ]; then
 	# All slaves should have tmpfs mounted, use if available
 	export TMPDIR="${TMPDIR_FS}"
 else
