@@ -3,7 +3,7 @@
 . /srv/deployment/integration/slave-scripts/bin/mw-set-env.sh
 
 ARGS="--quick"
-if [ "$ZUUL_PROJECT" = "mediawiki/vendor" ]
+if [ "${ZUUL_PROJECT:-}" = "mediawiki/vendor" ]
 then
 	ARGS="$ARGS --skip-external-dependencies"
 fi
