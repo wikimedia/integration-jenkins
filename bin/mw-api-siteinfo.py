@@ -88,5 +88,6 @@ def main():
         for field in options.fields:
             print(getattr(mwresponse.query.general, field))
 
+
 if __name__ == '__main__':
     main()

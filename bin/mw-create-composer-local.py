@@ -32,6 +32,7 @@ def main(extlist_path, composerlocal_path):
 
     print('Created composer.local.json.')
 
+
 if __name__ == '__main__':
     if len(sys.argv) != 3:
         print('Invalid number of arguments provided')
