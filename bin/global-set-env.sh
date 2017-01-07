@@ -29,10 +29,22 @@ fi
 # local applications (e.g. Chrome/Firefox).
 export DISPLAY=':94'
 
-# Set CHROME_BIN for projects using karma-chrome-launcher as our slaves
-# have Chromium instead of Chrome.
-# https://github.com/karma-runner/karma-chrome-launcher/pull/41
-export CHROME_BIN=`which chromium-browser`
+# - For karma-chrome-launcher v0.1.7 and earlier:
+#   Set CHROME_BIN override to chromium-browser because older versions of
+#   karma-chrome-launcher only support Chrome, not Chromium.
+#   Fixed in v0.1.8 per https://github.com/karma-runner/karma-chrome-launcher/pull/41
+# - For karma-chrome-launcher v0.1.8-v1.0.1:
+#   No override needed. It detects all known binary names of Google Chrome
+#   and Chromium for at least the Ubuntu and Debian distros.
+# - For karma-chrome-launcher v2.0.0 and later:
+#   Chrome and Chromium are now considered separate browsers, with their own
+#   CHROMIUM_BIN and CHROME_BIN overrides (although we don't need any since
+#   our distros are supported).
+#   Most projects will configure their test pipeline to use Chrome
+#   for local development. Set CHROME_BIN 'chromium-browser' (Ubuntu slaves)
+#   or 'chromium' (Nodepool jessie slaves) because we install Chromium
+#   instead of Chrome, but they are cli-compatible.
+export CHROME_BIN=`which chromium-browser || which chromium`
 
 # Shut up composer xdebug warnings: <https://getcomposer.org/xdebug>
 # They're not useful to us and are distractions in logs
