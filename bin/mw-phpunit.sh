@@ -38,5 +38,5 @@ cd "${MW_INSTALL_PATH}/tests/phpunit"
 
 php -d zend.enable_gc=0 \
 	phpunit.php \
-	--log-junit $JUNIT_DEST \
+	--log-junit "$JUNIT_DEST" \
 	"${phpunit_args[@]:-}"
