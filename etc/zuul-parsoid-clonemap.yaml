@@ -12,10 +12,15 @@ clonemap:
  #  └── src/
  #      └── mediawiki/
  #          └── core/
+ #              └── extensions/
 
  # MediaWiki to src/mediawiki/core/
  - name: 'mediawiki/core'
    dest: './src/mediawiki/core'
+
+ # MediaWiki extensions
+ - name: 'mediawiki/extensions/(.*)'
+   dest: './src/mediawiki/core/extensions/\1'
 
  # Parsoid to parsoidsvc
  - name: 'mediawiki/services/parsoid'
