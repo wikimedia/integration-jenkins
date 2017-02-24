@@ -22,6 +22,6 @@ fi
 composer dump-autoload --optimize
 
 mkdir -p "$LOG_DIR"
-[ -f "$MW_INSTALL_PATH/composer.json" ] && cp -vf "$MW_INSTALL_PATH/composer.json" "$LOG_DIR/composer.core.json.txt"
-[ -f "$MW_INSTALL_PATH/vendor/composer.json" ] && cp -vf "$MW_INSTALL_PATH/vendor/composer.json" "$LOG_DIR/composer.vendor.json.txt"
-[ -f "$MW_INSTALL_PATH/vendor/composer/autoload_file.php" ] && cp -vf "$MW_INSTALL_PATH/vendor/composer/autoload_file.php" "$LOG_DIR/composer.autoload_file.php.txt"
+[ -f "$MW_INSTALL_PATH/composer.json" ] && cp -vf "$MW_INSTALL_PATH/composer.json" "$LOG_DIR/composer.core.json.txt" || :
+[ -f "$MW_INSTALL_PATH/vendor/composer.json" ] && cp -vf "$MW_INSTALL_PATH/vendor/composer.json" "$LOG_DIR/composer.vendor.json.txt" || :
+[ -f "$MW_INSTALL_PATH/vendor/composer/autoload_files.php" ] && cp -vf "$MW_INSTALL_PATH/vendor/composer/autoload_files.php" "$LOG_DIR/composer.autoload_files.php.txt" || :
