@@ -67,4 +67,7 @@ for line in out.splitlines():
     # If matching on file extensions, filter that out
     if PATH_ARGS and not line.endswith(tuple(PATH_ARGS)):
         continue
+    elif line.endswith('autoload_static.php'):
+        # T136021: Don't lint composer/autoload_static.php.
+        continue
     print(line)
