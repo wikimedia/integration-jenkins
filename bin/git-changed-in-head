@@ -41,33 +41,45 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 import subprocess
 import sys
 
-PATH_ARGS = []
-for arg in sys.argv[1:]:
-    # Put a dot in front for file extensions
-    PATH_ARGS.append('.{}'.format(arg))
 
-# Some explanations for the git command below:
-# HEAD^ will not exist for an initial commit, we thus need `git show`
-# --name-only : strip the patch payload, only report the file being altered
-# --diff-filter=ACM : only care about files Added, Copied or Modified
-# -m : show differences for merge commits ...
-# --first-parent : ... but only follow the first parent commit
-# --format=format: : strip out the commit summary
-cmd = [
-    'git', 'show', 'HEAD',
-    '--name-only',
-    '--diff-filter=ACM',
-    '-m',
-    '--first-parent',
-    '--format=format:',
-]
-# print(' '.join(cmd))
-out = subprocess.check_output(cmd).decode()
-for line in out.splitlines():
-    # If matching on file extensions, filter that out
-    if PATH_ARGS and not line.endswith(tuple(PATH_ARGS)):
-        continue
-    elif line.endswith('autoload_static.php'):
-        # T136021: Don't lint composer/autoload_static.php.
-        continue
-    print(line)
+class GitChangedInHead:
+    def __init__(self, args):
+        self.path_args = []
+        for arg in args:
+            # Put a dot in front for file extensions
+            self.path_args.append('.{}'.format(arg))
+
+    def get_changed_files(self):
+        # Some explanations for the git command below:
+        # HEAD^ will not exist for an initial commit, we thus need `git show`
+        # --name-only: strip patch payload, only report the file being altered
+        # --diff-filter=ACM: only care about files Added, Copied or Modified
+        # -m: show differences for merge commits ...
+        # --first-parent: ... but only follow the first parent commit
+        # --format=format: : strip out the commit summary
+        cmd = [
+            'git', 'show', 'HEAD',
+            '--name-only',
+            '--diff-filter=ACM',
+            '-m',
+            '--first-parent',
+            '--format=format:',
+        ]
+        out = subprocess.check_output(cmd).decode()
+        for line in out.splitlines():
+            # If matching on file extensions, filter that out
+            if self.path_args and not line.endswith(tuple(self.path_args)):
+                continue
+            elif line.endswith('autoload_static.php'):
+                # T136021: Don't lint composer/autoload_static.php.
+                continue
+            yield line
+
+    def run(self):
+        for line in self.get_changed_files():
+            print(line)
+
+
+if __name__ == '__main__':
+    g = GitChangedInHead(sys.argv[1:])
+    g.run()
