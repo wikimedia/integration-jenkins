@@ -8,7 +8,7 @@ cd "$MW_INSTALL_PATH/vendor"
 # Once jq 1.4 is available, the following may be used instead:
 # > jq -r '.["require-dev"]|to_entries|map([.key,.value])[]|join("=")' ../composer.json
 set -o pipefail
-node $(dirname $0)/../tools/composer-dev-args.js "$MW_INSTALL_PATH/composer.json" | xargs composer require --dev --ansi --no-progress --prefer-dist -v
+node $(dirname $0)/../tools/composer-dev-args.js "$MW_INSTALL_PATH/composer.json" | xargs --verbose composer require --dev --ansi --no-progress --prefer-dist -v
 
 # Point composer-merge-plugin to mediawiki/core to have it to merge
 # autoload-dev. T158674
