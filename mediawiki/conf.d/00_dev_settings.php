@@ -32,6 +32,7 @@ $wgShowSQLErrors = true;
 $wgDebugRawPage = true; // bug 47960
 
 // Debugging: Logging
+// Files must follow the pattern mw-*.log we then assert they are empty
 if ( $wgCommandLineMode ) {
 	$wgDebugLogFile = "$wmgMwLogDir/mw-debug-cli.log";
 } else {
