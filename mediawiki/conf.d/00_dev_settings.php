@@ -44,3 +44,6 @@ $wgDebugLogGroups['exception'] = "$wmgMwLogDir/mw-exception.log";
 $wgDebugLogGroups['error'] = "$wmgMwLogDir/mw-error.log";
 // Back-compat
 $wgRateLimitLog = $wgDebugLogGroups['ratelimit'];
+
+// Be strict about class name letter-case.
+$wgAutoloadAttemptLowercase = false;
