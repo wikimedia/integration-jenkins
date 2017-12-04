@@ -14,11 +14,6 @@ if [ "${MW_COMPOSER_MERGE_MW_IN_VENDOR:-}" ] && [ -f "$MW_INSTALL_PATH/composer.
 	composer config extra.merge-plugin.include "$MW_INSTALL_PATH/composer.json"
 fi
 
-# FIXME: integration/composer is outdated and breaks autoloader
-# Once we're on composer 1.0.0-alpha11 or higher this might not
-# be needed anymore
-composer dump-autoload --optimize
-
 mkdir -p "$LOG_DIR"
 [ -f "$MW_INSTALL_PATH/composer.json" ] && cp -vf "$MW_INSTALL_PATH/composer.json" "$LOG_DIR/composer.core.json.txt" || :
 [ -f "$MW_INSTALL_PATH/vendor/composer.json" ] && cp -vf "$MW_INSTALL_PATH/vendor/composer.json" "$LOG_DIR/composer.vendor.json.txt" || :
