@@ -27,7 +27,7 @@ $wmgMwLogDir = "$wmgJobWorkspace/log";
  * Development settings
  */
 if ( is_file( "$IP/includes/DevelopmentSettings.php" ) ) {
-	putenv( 'MW_LOG_DIR', $wmgMwLogDir );
+	putenv( "MW_LOG_DIR=$wmgMwLogDir" );
 	require_once "$IP/includes/DevelopmentSettings.php";
 } else {
 	// Compatibility with older MediaWiki branches
