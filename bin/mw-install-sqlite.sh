@@ -9,9 +9,9 @@ php maintenance/install.php \
 	--dbtype=sqlite \
 	--dbpath="$MW_TMPDIR" \
 	--dbname="$MW_DB" \
-	--pass testpass \
+	--pass "$MEDIAWIKI_PASSWORD" \
 	TestWiki \
-	WikiAdmin
+	"$MEDIAWIKI_USER"
 
 # Installer creates files as 644 jenkins:jenkins
 # Make the parent dir and files writable by Apache (bug 47639)

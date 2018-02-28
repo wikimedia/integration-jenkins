@@ -17,6 +17,6 @@ php maintenance/install.php \
 	--dbuser="$MW_DB_USER" \
 	--dbpass="$MW_DB_PASS" \
 	--dbname="$MW_DB" \
-	--pass testpass \
+	--pass "$MEDIAWIKI_PASSWORD" \
 	TestWiki \
-	WikiAdmin
+	"$MEDIAWIKI_USER"

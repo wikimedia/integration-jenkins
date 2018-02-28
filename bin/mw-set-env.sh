@@ -29,6 +29,12 @@ export MW_DB="jenkins_u${EXECUTOR_NUMBER}_mw"
 export MW_DB_HOST="127.0.0.1"
 export MW_DB_PORT="3306"
 
+# MediaWiki admin user
+# Used by mw-install* scripts for creating the account,
+# but also by used by selenium tests for logging-in
+export MEDIAWIKI_USER="WikiAdmin"
+export MEDIAWIKI_PASSWORD="testwikijenkinspass"
+
 # MySQL username maxlength: 16
 export MW_DB_USER="jenkins_u${EXECUTOR_NUMBER}"
 export MW_DB_PASS="pw_jenkins_u${EXECUTOR_NUMBER}"
