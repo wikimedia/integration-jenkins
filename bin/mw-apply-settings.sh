@@ -18,3 +18,4 @@ php "$MEDIAWIKI_D/_join.php" >> "$LOCAL_SETTINGS"
 
 echo "Making sure $LOCAL_SETTINGS is still valid"
 php -l "$LOCAL_SETTINGS"
+cp "$LOCAL_SETTINGS" "$LOG_DIR/"
