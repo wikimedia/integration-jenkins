@@ -54,6 +54,8 @@ class GitChangedInHead:
         # HEAD^ will not exist for an initial commit, we thus need `git show`
         # --name-only: strip patch payload, only report the file being altered
         # --diff-filter=ACM: only care about files Added, Copied or Modified
+        # --find-renames=100%: renamed files that had a slight change would be
+        #                      considered modified and thus included.
         # -m: show differences for merge commits ...
         # --first-parent: ... but only follow the first parent commit
         # --format=format: : strip out the commit summary
@@ -61,6 +63,7 @@ class GitChangedInHead:
             'git', 'show', 'HEAD',
             '--name-only',
             '--diff-filter=ACM',
+            '--find-renames=100%',
             '-m',
             '--first-parent',
             '--format=format:',
