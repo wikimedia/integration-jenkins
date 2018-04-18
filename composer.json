@@ -5,7 +5,7 @@
     },
     "scripts": {
         "test": [
-            "parallel-lint . --exclude vendor --exclude bin/lint.php",
+            "parallel-lint . --exclude vendor",
             "phpunit $PHPUNIT_ARGS"
         ]
     }
