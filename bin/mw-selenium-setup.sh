@@ -6,8 +6,8 @@ mkdir -p "$TMPDIR_FS"
 mkdir -p "$TMPDIR_REGULAR"
 
 # Append the MW installation's LocalSettings.php with the contents of
-# tests/browser/LocalSettings.php. Note that this setup script requires that
-# the current working directory already be the appropriate `tests/browser`
+# tests/selenium/LocalSettings.php. Note that this setup script requires that
+# the current working directory already be the appropriate `tests/selenium/`
 # directory.
 if [ -f LocalSettings.php ]; then
 	cat LocalSettings.php >> "$MW_INSTALL_PATH/LocalSettings.php"
