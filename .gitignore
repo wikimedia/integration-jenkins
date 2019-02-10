@@ -1,17 +1,21 @@
 *.pyc
-# Ignore anything in the root project directory:
+
+# Ignore anything in the root project directory,
+# because this repository is checked out on
+# the Jenkins master as overlaying /var/lib/jenkins,
+# and we don't want 'git status' to be dirty with
+# the the main files from Jenkins.
 /*
 # .. except:
-!.gitignore
-!.pep8
-!test-requirements.txt
-!setup.cfg
-!tox.ini
-!phpunit.xml.dist
-!bin/
-!etc/
-!jobs/
-!mediawiki/
-!tests/
-!tools/
-!composer.json
+!/bin/
+!/etc/
+!/mediawiki/
+!/tests/
+!/tools/
+!/.gitignore
+!/.pep8
+!/composer.json
+!/phpunit.xml.dist
+!/setup.cfg
+!/test-requirements.txt
+!/tox.ini
