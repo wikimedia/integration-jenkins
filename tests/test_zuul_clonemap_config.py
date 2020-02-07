@@ -24,12 +24,12 @@ class TestZuulClonemap(unittest.TestCase):
             self.yaml_conf = content.read()
 
     def getProjectMap(self, project):
-        cm = CloneMapper(yaml.load(self.yaml_conf).get('clonemap'),
+        cm = CloneMapper(yaml.safe_load(self.yaml_conf).get('clonemap'),
                          [project])
         return cm.expand(self.TEST_ROOT)
 
     def test_conf_is_valid_yaml(self):
-        conf = yaml.load(self.yaml_conf)
+        conf = yaml.safe_load(self.yaml_conf)
         self.assertIn('clonemap', conf)
 
     def test_expand_mediawiki_core_to_root(self):
