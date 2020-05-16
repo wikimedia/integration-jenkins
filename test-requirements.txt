@@ -1,3 +1,0 @@
-pytest
-PyYAML
-git+https://gerrit.wikimedia.org/r/integration/zuul.git@debian/precise-wikimedia#egg=zuul

@@ -1,2 +1,0 @@
-[pep8]
-exclude=./tools/node_modules/*,./tools/gruntjs/*,./tools/mwcodeutils/read_wfMsgCalls.py
